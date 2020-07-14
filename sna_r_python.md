@@ -1,5 +1,5 @@
 
-# Connecting R and Python for CWTS Scientometrics Summer School"
+# Connecting R and Python for the CWTS Scientometrics Summer School
 
 [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
 
