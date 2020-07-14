@@ -1,5 +1,5 @@
 ---
-title: "Connecting R and Python for CWTS Scientometrics Summer School"
+title: "Connecting R and Python for the CWTS Scientometrics Summer School"
 author: "Alejandro Espinosa"
 date: "`r Sys.Date()`"
 output: html_document
