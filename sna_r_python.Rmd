@@ -7,7 +7,9 @@ output: html_document
 
 ## Summer School
 
+<div class="alert alert-success">
 The following script is my notes from the CWTS Scientometrics Summer School. These codes are available in the official GitHub of [CWTS](https://github.com/CWTSLeiden/CSSS). Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the "Anaconda prompt". 
+</div>
 
 In the following, I will only present Mac OS/Linux operation system.
 
@@ -46,17 +48,20 @@ Is often common for `Python` users to use the [`Jupyter Notebook`](https://jupyt
 
 ## Connecting R and Python
 
-We can run `Python` codes directly from `R`. The reason to use `R` environment rather than `Python` is that most of the modules used in the summer school are programmed in `Python`. Nonetheless, due that in my personal workflow, I tend to use statistical models for social networks analysis, I prefer connecting the **best of both worlds**. Some of these other statistical models that use social networks such as:  
+<div class="alert alert-success">
+We can run `Python` codes directly from `R`. The reason to use `R` environment rather than `Python` is that most of the modules used in the summer school are programmed in `Python`. Nonetheless, due that in my personal workflow, I tend to use statistical models for social networks analysis, I prefer connecting the <span style="color:blue">**best of both worlds**</span>. Some of these other statistical models that use social networks such as:  
 
-1 Different models available in [Statnet](http://statnet.org) (e.g. exponential random graph models, epidemiological models, relational event models, or the latent position and cluster models for statistical networks)
+1. Different models available in [Statnet](http://statnet.org) (e.g. exponential random graph models, epidemiological models, relational event models, or the latent position and cluster models for statistical networks)
 
 2. [Stochastic actor-oriented model](https://www.stats.ox.ac.uk/~snijders/siena/) coded in R.
 
 3. [Dynamic Network Actor-Oriented Model](https://github.com/snlab-ch/goldfish)
+</div>
 
 Now that I have an environment called `cwts`, I could now start using R and Python together. We would need to install the `reticulate` package.
 ```{r, message=FALSE}
-rm(list=ls())
+# install.package("here")
+# install.package("reticulate")
 library(here)
 library(reticulate)
 
@@ -65,19 +70,20 @@ main <- import_main()
 
 ```
 
-We can also install a package from R using anaconda of Python, and run any Python code in R using `py_run_string`
+We can also install a module from `Python` using `R`, and run any `Python` code in `R` using `py_run_string`
 ```{r}
-#reticulate::conda_install(c("leidenalg", "igraph"), 
-#                            envname = "cwts", pip = TRUE)
+# install a module from Python using R codes:
+# conda_install(c("leidenalg", "igraph"), envname = "cwts", pip = TRUE)
 
+# run a Python code from R:
 py_run_string("import numpy as np")
 py_run_string("my_python_array = np.array([2,4,6,8])")
 py_run_string("print(my_python_array)")
 
 ```
 
-Also, we can use python directly from R adding the chunk `{python}` instead of `{r}` in the Rmarkdown. For example, we can replicate the classic model of Holland, Laskey & Leinhardt (1983) on Stochastic Block Model using [`stochastic_block_model`](https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html)
-```{python}
+Also, we can use `Python` directly from `R` adding the chunk `{python}` instead of `{r}` in the [`Rmarkdown`](https://rmarkdown.rstudio.com). For example, we can replicate the classic model of [Holland, Laskey & Leinhardt (1983)](https://www.sciencedirect.com/science/article/pii/0378873383900217) on Stochastic Block Model using [`stochastic_block_model`](https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html)
+```{python results="hide"}
 import networkx as nx
 sizes = [75, 75, 300]
 probs = [[0.25, 0.05, 0.02],
