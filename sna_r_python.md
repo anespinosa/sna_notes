@@ -1,9 +1,7 @@
----
-title: "Connecting R and Python for CWTS Scientometrics Summer School"
-author: "Alejandro Espinosa"
-date: "`r Sys.Date()`"
-output: html_document
----
+
+# Connecting R and Python for the CWTS Scientometrics Summer School
+
+[Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
 
 ## Summer School
 
@@ -11,11 +9,6 @@ The following script is my notes from the CWTS Scientometrics Summer School. The
 
 In the following, I will only present Mac OS/Linux operation system.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-#knitr::knit_engines$set(python = reticulate::eng_python)
-
-```
 
 ## Conda environment
 
