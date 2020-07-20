@@ -1,14 +1,6 @@
----
-title: "Connecting R and Python for CWTS Scientometrics Summer School"
-author: |
- | [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
- | *The Mitchell Centre for Social Network Analysis, The University of Manchester*
-date: "`r Sys.Date()`"
-output: 
-  html_document:
-    toc: true
-    toc_depth: 3
----
+# "Connecting R and Python for CWTS Scientometrics Summer School"
+
+ [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
 
 ## Summer School
 
@@ -112,7 +104,7 @@ There are neat packages out there in `Python`, some of my favourites are:
 
 2. [`NetworkX`](https://networkx.github.io):  general purpose network analysis
 
-3. [`snap`](general purpose network analysis and graph mining library): general purpose network analysis
+3. [`snap`](http://snap.stanford.edu): general purpose network analysis
 
 4. [`metaknowledge`](https://metaknowledge.readthedocs.io/en/latest/): computational research in bibliometrics, scientometrics, and network analysis
 
