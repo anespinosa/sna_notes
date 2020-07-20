@@ -11,11 +11,6 @@ The following script is my notes from the CWTS Scientometrics Summer School. The
 
 In the following, I will only present Mac OS/Linux operation system.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-#knitr::knit_engines$set(python = reticulate::eng_python)
-
-```
 
 ## Conda environment
 
