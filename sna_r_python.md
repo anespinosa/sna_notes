@@ -1,7 +1,14 @@
-
-# Connecting R and Python for the CWTS Scientometrics Summer School
-
-[Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
+---
+title: "Connecting R and Python for CWTS Scientometrics Summer School"
+author: |
+ | [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
+ | *The Mitchell Centre for Social Network Analysis, The University of Manchester*
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+---
 
 ## Summer School
 
@@ -11,6 +18,9 @@ The following script is my notes from the CWTS Scientometrics Summer School. The
 
 In the following, I will only present Mac OS/Linux operation system.
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## Conda environment
 
@@ -46,7 +56,7 @@ We can run `Python` codes directly from `R`. The reason to use `R` environment r
 
 1. Different models available in [Statnet](http://statnet.org) (e.g. exponential random graph models, epidemiological models, relational event models, or the latent position and cluster models for statistical networks)
 
-2. [Stochastic actor-oriented model](https://www.stats.ox.ac.uk/~snijders/siena/) coded in R.
+2. [Stochastic actor-oriented model](https://www.stats.ox.ac.uk/~snijders/siena/)
 
 3. [Dynamic Network Actor-Oriented Model](https://github.com/snlab-ch/goldfish)
 </div>
@@ -98,11 +108,16 @@ for v in H.edges(data=True):
 
 There are neat packages out there in `Python`, some of my favourites are:
 
-1. [`igraph`](https://igraph.org/python/):  for general network-oriented implementations
+1. [`python`](https://igraph.org/python/):  general purpose network analysis
 
-2. [`networkx`](https://networkx.github.io):  for general network-oriented implementations
+2. [`NetworkX`](https://networkx.github.io):  general purpose network analysis
 
-3. [`leiden_lag`](https://leidenalg.readthedocs.io/en/stable/): for community detection, with a special focus in the `leiden algorithm`
+3. [`snap`](general purpose network analysis and graph mining library): general purpose network analysis
 
-4. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general network-oriented implementations
+4. [`metaknowledge`](https://metaknowledge.readthedocs.io/en/latest/): computational research in bibliometrics, scientometrics, and network analysis
 
+5. [`leiden_lag`](https://leidenalg.readthedocs.io/en/stable/): for community detection, with a special focus in the `leiden algorithm`
+
+6. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general purpose network analysis
+
+7. [`EstimNetDirected`](https://github.com/stivalaa/EstimNetDirected): Exponential random graph models for big networks
