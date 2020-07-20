@@ -120,3 +120,4 @@ There are neat packages out there in `Python`, some of my favourites are:
 
 6. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general purpose network analysis
 
+7. [`EstimNetDirected`](https://github.com/stivalaa/EstimNetDirected): Exponential random graph models for big networks
