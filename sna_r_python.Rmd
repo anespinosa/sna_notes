@@ -112,7 +112,7 @@ There are neat packages out there in `Python`, some of my favourites are:
 
 2. [`NetworkX`](https://networkx.github.io):  general purpose network analysis
 
-3. [`snap`](general purpose network analysis and graph mining library): general purpose network analysis
+3. [`snap`](http://snap.stanford.edu): general purpose network analysis
 
 4. [`metaknowledge`](https://metaknowledge.readthedocs.io/en/latest/): computational research in bibliometrics, scientometrics, and network analysis
 
