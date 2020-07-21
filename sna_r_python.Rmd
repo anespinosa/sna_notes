@@ -116,6 +116,8 @@ There are neat packages out there in `Python`, some of my favourites are:
 
 4. [`metaknowledge`](https://metaknowledge.readthedocs.io/en/latest/): computational research in bibliometrics, scientometrics, and network analysis
 
+[`pySciSci`](https://github.com/SciSciCollective/pyscisci): computational research in bibliometrics, scientometrics, and network analysis
+
 5. [`leiden_lag`](https://leidenalg.readthedocs.io/en/stable/): for community detection, with a special focus in the `leiden algorithm`
 
 6. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general purpose network analysis
