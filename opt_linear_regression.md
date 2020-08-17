@@ -1,19 +1,3 @@
----
-title: "Notes of Linear Regression"
-author: |
- | [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
- | *The Mitchell Centre for Social Network Analysis, The University of Manchester*
-date: "`r Sys.Date()`"
-output: 
-  html_document:
-    toc: true
-    toc_depth: 3
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 
 The following notes are from this [BOOK](https://bookdown.org/rdpeng/advstatcomp/textbooks-vs-computers.html). Most of the original references become from there.
 
