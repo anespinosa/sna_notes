@@ -17,6 +17,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The following notes are from this [BOOK](https://bookdown.org/rdpeng/advstatcomp/textbooks-vs-computers.html). Most of the original references become from there.
 
+
+Pending,
+
+- Expand the **Guassian elimination** notes with an analytical example and an `R` code
+- Expand the **Gram-Schmidt process** notes with an analytical example and an `R` code.
+
 ## Logarithms
 
 Univariate normal distribution with mean $\mu$ and variance $\sigma^2$ is 
@@ -336,9 +342,6 @@ microbenchmark(
   ) %>% summary(unit = "ms") %>% knitr::kable(format = "markdown")
 
 ```
-
-
-**PENDING!!!: "However, this approach breaks down when there is any colinearity in..."**
 
 On the other hand, the Gaussian elimination would breaks down when there is collinearity in the $X$ matrix. Meaning that the column $X$ would be very similar, but not identical, to the first column of $X$. For example,
 ```{r error=TRUE}
