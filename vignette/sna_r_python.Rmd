@@ -14,6 +14,12 @@ output:
 
 My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html) and I am currentley a PhD student in Sociology and member of the [Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) at the University of Manchester
 
+Pending,
+
+- Check `graph-tool` installation
+- Create a new script with a small tutorial of some of the module for social network analysis (maybe: `EstimNetDirected`)
+
+
 The following script is my notes for Social Network Science Projects to combine `R` and `Python`. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the "Anaconda prompt". 
 
 In the following, I will only present Mac OS/Linux operation system.
@@ -24,11 +30,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Conda environment
 
-To begin, I will first create an environment that would contain all the python modules of the entire Social Network Science Project using [conda](https://docs.conda.io/). After installing conda in my computer, I open my terminal and add the following line of codes: `conda create --name snc python=3.8 anaconda` that would create a new environment called `snc` (*Social Network Science*) and would also install python version 3.8. 
+To begin, I will first create an environment that would contain all the python modules of the entire Social Network Science Project using [conda](https://docs.conda.io/). After installing conda in my computer, I open my terminal and add the following line of codes: `conda create --name sns python=3.8 anaconda` that would create a new environment called `sns` (*Social Network Science*) and would also install python version 3.8. 
 
 ## Installing Social Network Science modules from Python
 
-If you are willing to activate the environment from the terminal, then you would have to use `conda activate snc`. Notice that I give the name `snc` that could be modified for whatever you prefer. We can install some modules from python activating the environment from the terminal (i.e. `conda activate snc`), and then running the following codes
+If you are willing to activate the environment from the terminal, then you would have to use `conda activate sns`. Notice that I give the name `sns` that could be modified for whatever you prefer. We can install some modules from python activating the environment from the terminal (i.e. `conda activate sns`), and then running the following codes
 
 - `python -m pip install numpy`
 - `python -m pip install panda`
@@ -52,7 +58,7 @@ Also, I install `cairo` using the following code suggested in the webpage of [py
 
 - `brew install cairo pkg-config`
 
-After installing some modules, you should now deactivate the session, and you would have to put the following line of code: `conda deactivate` in your terminal. If you are willing to check your environments, just press: `conda info --envs` in your terminal. If for some reason you prefer to remove your entire environment, you would have to use the following code: `conda remove --name snc --all`
+After installing some modules, you should now deactivate the session, and you would have to put the following line of code: `conda deactivate` in your terminal. If you are willing to check your environments, just press: `conda info --envs` in your terminal. If for some reason you prefer to remove your entire environment, you would have to use the following code: `conda remove --name sns --all`
 
 Is often common for `python` users to use the `Jupyter Notebook`, that might be a better option if you are just going to use `python`. In which case, after activating your conda environment, you could set your working directory through `cd [DIRECTORY]` in the terminal. Then launch the Jupyter notebook by `jupyter notebook`. 
 
@@ -60,7 +66,7 @@ Is often common for `python` users to use the `Jupyter Notebook`, that might be 
 ## Connecting R and Python
 
 <div class="alert alert-success">
-We can run `Python` codes directly from `R` using [`RMarkdown`](https://rmarkdown.rstudio.com). I prefer connecting the <span style="color:blue">**best of both worlds**</span>. Mostley, because in my personal workflow I tend to use statistical models for social networks analysis. Some of these other statistical models that use social networks such as:  
+We can run `Python` codes directly from `R` using [`RMarkdown`](https://rmarkdown.rstudio.com). I prefer connecting the <span style="color:blue">**best of both worlds**</span>. Mostly, because in my personal workflow I tend to use statistical models for social networks analysis. Some of these other statistical models that use social networks are:  
 
 1. Different models available in [Statnet](http://statnet.org) (e.g. exponential random graph models, epidemiological models, relational event models, or the latent position and cluster models for statistical networks)
 
@@ -69,12 +75,12 @@ We can run `Python` codes directly from `R` using [`RMarkdown`](https://rmarkdow
 3. [Dynamic Network Actor-Oriented Model](https://github.com/snlab-ch/goldfish)
 </div>
 
-Now that I have an environment called `snc`, I could now start using R and Python together. We would need to install the `reticulate` package.
+Now that I have an environment called `sns`, I could now start using R and Python together. We would need to install the `reticulate` package.
 ```{r, message=FALSE}
 #install.packages("reticulate")
 library(reticulate)
 
-use_condaenv(condaenv = "snc", conda = "auto", required = TRUE)
+use_condaenv(condaenv = "sns", conda = "auto", required = TRUE)
 main <- import_main()
 
 ```
@@ -82,7 +88,7 @@ main <- import_main()
 We can also install a package from R using anaconda of Python, and run any Python code in R using `py_run_string`
 ```{r}
 #reticulate::conda_install(c("leidenalg", "igraph"), 
-#                            envname = "snc", pip = TRUE)
+#                            envname = "sns", pip = TRUE)
 
 py_run_string("import numpy as np")
 py_run_string("my_python_array = np.array([2,4,6,8])")
