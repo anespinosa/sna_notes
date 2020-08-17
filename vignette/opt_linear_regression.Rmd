@@ -1,5 +1,5 @@
 ---
-title: "Notes of Linear Regression"
+title: "Notes of Linear Regression (optimization)"
 author: |
  | [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
  | *The Mitchell Centre for Social Network Analysis, The University of Manchester*
