@@ -4,8 +4,9 @@ My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/porta
 
 My own implementations would be collected in a **"comming soon"** package.    
 
+
 ```r
-erdos.renyi.game(sample(1:100, 1), p.or.m = runif(1))
+g <- erdos.renyi.game(sample(1:100, 1), p.or.m = runif(1))
 ```
 
 ```python
@@ -16,3 +17,9 @@ G = zen.erdos_renyi(10,0.1)
 sudo apt-get install g++
 ```
 
+\[
+A = 
+  \begin{matrix}\begin{pmatrix}x & y\end{pmatrix}\\\mbox{}\end{matrix}
+  \begin{pmatrix} a & b \\ c & d \end{pmatrix} 
+  \begin{pmatrix} x \\ y \end{pmatrix}
+\]
