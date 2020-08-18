@@ -16,11 +16,3 @@ G = zen.erdos_renyi(10,0.1)
 ```bash
 sudo apt-get install g++
 ```
-$$
-\[
-A = 
-  \begin{matrix}\begin{pmatrix}x & y\end{pmatrix}\\\mbox{}\end{matrix}
-  \begin{pmatrix} a & b \\ c & d \end{pmatrix} 
-  \begin{pmatrix} x \\ y \end{pmatrix}
-\]
-$$
