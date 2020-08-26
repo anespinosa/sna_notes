@@ -1,18 +1,23 @@
-# Notes of useful R codes for Social Network Science projects
 
-My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html), and I am currently a PhD student in Sociology and a member of the Mitchell Centre for Social Network Analysis from the University of Manchester. This repository is some of my notes of some of the random stuff that I am interested that involve R, social networks, or statistics.
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-My own implementations would be collected in a **"comming soon"** package.    
+Notes of useful R codes for Social Network Science projects
+===========================================================
 
+My name is [Alejandro
+Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html),
+and I am currently a PhD student in Sociology and a member of the
+Mitchell Centre for Social Network Analysis from the University of
+Manchester. This repository is some of my notes of some of the random
+stuff that I am interested that involve R, social networks, or
+statistics.
 
-```r
-g <- erdos.renyi.game(sample(1:100, 1), p.or.m = runif(1))
-```
+My own implementations would be collected in the
+**[`netmem: Network Measures using Matrices`](https://github.com/anespinosa/netmem)**
+package.
 
-```python
-G = zen.erdos_renyi(10,0.1)
-```
+    g <- erdos.renyi.game(sample(1:100, 1), p.or.m = runif(1))
 
-```bash
-sudo apt-get install g++
-```
+    G = zen.erdos_renyi(10,0.1)
+
+    sudo apt-get install g++
