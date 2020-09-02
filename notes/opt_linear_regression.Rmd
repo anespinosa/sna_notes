@@ -28,9 +28,7 @@ Pending,
 
 Univariate normal distribution with mean $\mu$ and variance $\sigma^2$ is 
 
-\begin{equation}
-f(x|\mu, \sigma^2)=\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}
-\end{equation}
+$f(x|\mu, \sigma^2)=\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}$
 
 and in `R` we can compute this value as
 ```{r results='hold'}
@@ -59,17 +57,15 @@ In practice, the exact number is not used, and the $log$ is used instead. Howeve
 
 We express the linear regression in matrix form as,
 
-\begin{equation*}
-y = X \beta + \varepsilon
-\end{equation*}
+$y = X \beta + \varepsilon$
 
 Were $y$ is a vector of size $n \times 1$ of observed response, $X$ is the $n \times p$ predictor matrix, $\beta$ is the $p \times 1$ coefficient vector, and $\varepsilon$ is the $n \times 1$ error vector.
 
 To estimate $\beta$ (via maximum likelihood or least square), is often written in matrix form as
 
-\begin{equation*}
+\[
 \hat{\beta}=(X'X)^{-1}X'y
-\end{equation*}
+\]
 
 
 Which could be estimated in `R` using `solve` to extract the inverse of the cross product matrix.  
@@ -85,9 +81,7 @@ Computationally, this is very expensive!
 
 <div class="alert alert-info">
 Quick look of *inverse matrixes* to understand the following equation: 
-\begin{equation*}
-\hat{\beta}=(X'X)^{-1}X'y
-\end{equation*}
+$\hat{\beta}=(X'X)^{-1}X'y$
 
 First, recall that not all square matrixes are inversible, and that there are some properties of the inverse matrix such as:
 
@@ -97,37 +91,37 @@ First, recall that not all square matrixes are inversible, and that there are so
 
 Let use an example to disentangle some of the properties! First,
 
-\begin{equation*}
+\[
 A = 
 \begin{pmatrix}
 a & b \\
 c & d
 \end{pmatrix}
-\end{equation*}
+\]
 
 and
 
-\begin{equation*}
+\[
 A^{-1} = 
 \begin{pmatrix}
 x_{1} & x_{2} \\
 y_{1} & y_{2}
 \end{pmatrix}
-\end{equation*}
+\]
 
 we also know that
 
-\begin{equation*}
+\[
 I = 
 \begin{pmatrix}
 1 & 0 \\
 0 & 1
 \end{pmatrix}
-\end{equation*}
+\]
 
 All together and considering $(1)$ we have
 
-\begin{equation*}
+\[
 AA^{-1}=I=A^{-1}A=
 \begin{pmatrix}
 a & b \\
@@ -149,7 +143,7 @@ y_{1} & y_{2}
 a & b \\
 c & d
 \end{pmatrix}
-\end{equation*}
+\]
 
 Now, solving the **linear system of equation** we have
 
@@ -164,17 +158,17 @@ Also, re-arranging some of the terms and doing some **elementary row operations*
 
 That,
 
-\begin{equation*}
+\[
 y_{2}=\frac{-a}{b}x_{2}
-\end{equation*}
+\]
 
 and
 
 3. $cx_{1}+dy_{1}=0$
 
-\begin{equation*}
+\[
 y_{1}=\frac{-c}{d}x_{1}
-\end{equation*}
+\]
 
 Now, 
 
@@ -182,60 +176,60 @@ Now,
 
 we could replace some terms in such a way that,
 
-\begin{equation*}
+\[
 ax_{1}-\frac{bc}{d}x_{1}=1
-\end{equation*}
+\]
 
 and
 
-\begin{equation*}
+\[
 x_{1}=\frac{d}{ad-bc}
-\end{equation*}
+\]
 
 then
 
-\begin{equation*}
+\[
 y_{1}=\frac{-c}{ad-bc}
-\end{equation*}
+\]
 
 Also,
 
-\begin{equation*}
+\[
 \frac{c}{b}x_{2}-\frac{ad}{b}x_{2}=1
-\end{equation*}
+\]
 
 is expressed as
 
-\begin{equation*}
+\[
 x_{2}=\frac{b}{bc-ad}
-\end{equation*}
+\]
 
 and
 
-\begin{equation*}
+\[
 y_{2}=\frac{a}{ad-bc}
-\end{equation*}
+\]
 
 Puting all together we have the inverse of the matrix
 
-\begin{equation*}
+\[
 A^{-1}= \frac{1}{ad-bc}
 \begin{pmatrix}
 d & -b \\
 -c & a
 \end{pmatrix}
-\end{equation*}
+\]
 
 And, considering that the determinant is,
 
-\begin{equation*}
+\[
 |A| = 
 \begin{vmatrix}
 a & b \\
 c & d
 \end{vmatrix} = 
 ad-bc
-\end{equation*}
+\]
 
 If the resulting value of $ad-bc=0$, then the matrix is not invertible (is singular or degenerate)
 
@@ -251,9 +245,9 @@ inv_X <- solve(X)
 
 A better option that is less computationally demanding is re-arranging the terms in the following way:
 
-\begin{equation*}
+\[
 X'X\beta = X'y
-\end{equation*}
+\]
 
 Which, gives the same result
 ```{r}
@@ -415,17 +409,17 @@ Quick look of the [**Gram-Schmidt process**](https://en.wikipedia.org/wiki/QR_de
 
 Knowing that $X$ can be decomposed as $X=QR$, the linear regression
 
-\begin{equation*}
+\[
 X'X\beta = X'y
-\end{equation*}
+\]
 
 can be writted as
 
-\begin{equation*}
+\[
 R'Q'QR'\beta = R'Q'y \\
 R'R\beta = R'Q'y \\
 R\beta = Q'y
-\end{equation*}
+\]
 
 Considering that $Q'Q=I$, now we have a simpler equation that does not longer require to compute the cross product. Also, due the QR decomposition $R$ is upper triangular and, therefore, we can solve $\beta$ via Gaussian elimination. Some of the benefits are that the cross product $X'X$ was numerically unstable if it is not properly centered or scaled. 
 
@@ -456,11 +450,11 @@ autoplot(m)
 ## Multivariate Normal Distribution
 
 The *p*-dimensional multivariate Normal density is written as
-$$
+\[
 \begin{aligned}
 \varphi(x|\mu, \Sigma)=-\frac{p}{2}log|\Sigma|-\frac{1}{2}(x-\mu)'\Sigma ^{ -1}(x-\mu)
 \end{aligned}
-$$
+\]
 
 <div class="alert alert-info">
 Quick look of the **multivariate Normal density**.
@@ -468,47 +462,47 @@ Quick look of the **multivariate Normal density**.
 Considering that the Gaussian or normal distribution for the univariate case is $f(x|\mu, \sigma^2)=\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}$
 
 With parameters: mean $\mu$ and variance $\sigma^{2}$ (standard deviation $\sigma$). We know that the maximum likelihood estimates are
-$$
+\[
 \begin{aligned}
 \hat{\mu}=\frac{1}{N}\sum_{i}x^{(i)} \\
 \hat{\sigma}^{2}=\frac{1}{N}\sum_{i}(x^{(i)}-\hat{\mu})^{2}
 \end{aligned}
-$$
+\]
 
 Then, we have the multivariate Normal density which is the extension of this model to vector value random variables in a multidimensional space. In which $x$ would be a vector with $d$ values, with $\mu$ as the length-d row vector, and $\Sigma$ a $d \times d$ matrix.Remember that $|\Sigma|$ is the determinant matrix of the covariants, 
 
 The maximum likelihood are similar to the univariate case
-$$
+\[
 \begin{aligned}
 \hat{\mu}=\frac{1}{m}\sum_{j}x^{(j)} \\
 \hat{\Sigma}^{2}=\frac{1}{m}\sum_{j}(x^{(j)}-\hat{\mu})^{T}(x^{(j)}-\hat{\mu})
 \end{aligned}
-$$
+\]
 Where $\Sigma$ is the average of the $d \times d$ matrix (outer product). 
 
 For [example](https://www.youtube.com/watch?v=eho8xH3E6mE),
 
 If we have two independent Gaussian variables $x_{1}$ and $x_{2}$, normalized with a $Z$ constant
-$$
+\[
 \begin{aligned}
 p(x_{1})=\frac{1}{Z_{1}}exp\{-\frac{1}{2\sigma^{2}_{1}}(x_{1}-\mu_{1})^{2}\} \\
 p(x_{2})=\frac{1}{Z_{2}}exp\{-\frac{1}{2\sigma^{2}_{2}}(x_{2}-\mu_{2})^{2}\}
 \end{aligned}
-$$
+\]
 We can a new vector concatenating the two vectors, $x=[x_{1}x_{2}]$ we can ask for the distribution of $x$ assuming that $x_{1}$ and $x_{2}$ are independents. Then, the joint distribution is the product of the individual distributions. Then, we have
-$$
+\[
 p(x_{1})p(x_{2})=\frac{1}{Z_{1}Z_{2}}exp\{-\frac{1}{2}\}(x-\mu)^{T}\Sigma^{-1}(x-\mu) \\
 \mu=[\mu_{1}\mu_{2}] \\
 \Sigma = diag(\sigma^{2}_{1}, \sigma^{2}_{2}) \\
 \Sigma=\begin{pmatrix} \sigma^{2}_{11} & 0 \\ 0 & \sigma^{2}_{22} \end{pmatrix}
-$$
+\]
 </div>
 
 From the multivariate Normal density equation, the most time-consuming part is the quadratic form
-$$
+\[
 (x-\mu)'\Sigma^{-1}(x-\mu) = z'\Sigma^{-1}z \\
 z=x-\mu
-$$
+\]
 
 Similarly to the regression example above is the inversion of the of the *p*-dimensional covariance matrix $\Sigma$. Taking $z$ as a $p \times 1$ column vector, then in `R` this could be expressed as
 ```{r eval=FALSE}
@@ -541,20 +535,20 @@ Quick look of the **eigenvalues**.
 </div>
 
 Using the Choleskey decomposition for a positive definite matrix on $\Sigma$, we have 
-$$
+\[
 \Sigma = R'R 
-$$
+\]
 were $R$ is an upper triangular matrix (also called the *square root* of $\Sigma$). Using Choleskey decomposition on $\Sigma$ and the rules of matrix algebra, the multivariate Normal density equation can be written as
-$$
+\[
 z'\Sigma^{-1}z = z'(R'R)^{-1}z \\
 = z'R^{-1}R'^{-1}z \\
 = (R'^{-1}z)'R'^{-1}z \\
 = v'v
-$$
+\]
 Where $v=R'^{-1}z$ and is a $p \times 1$ vector. Also, to avoid inverting $R'^{-1}$ by computing $v$ as solution of the linear system
-$$
+\[
 R'v=z
-$$
+\]
 Then, computing $v$, we can compute $v'v$, which is simply the cross-product of two *p*-dimensional vectors.
 
 One of the benefits of using Choleskey decomposition is that gives a way of computing the log-determinant of $\Sigma$. Where the log-determinant of $\Sigma$ is simply $2$ times the sum of the log of the diagional elements of $R$. Implementing this in a function

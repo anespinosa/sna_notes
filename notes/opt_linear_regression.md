@@ -21,6 +21,8 @@ Logarithms
 Univariate normal distribution with mean *μ* and variance
 *σ*<sup>2</sup> is
 
+$f(x\|\\mu, \\sigma^2)=\\frac{1}{\\sqrt{2\\pi\\sigma}}e^{-\\frac{1}{2\\sigma^2}(x-\\mu)^2}$
+
 and in `R` we can compute this value as
 
     dnorm(0, mean=0, sd=1); dnorm(0)
@@ -59,12 +61,16 @@ Linear Regression
 
 We express the linear regression in matrix form as,
 
+*y* = *X**β* + *ε*
+
 Were *y* is a vector of size *n* × 1 of observed response, *X* is the
 *n* × *p* predictor matrix, *β* is the *p* × 1 coefficient vector, and
 *ε* is the *n* × 1 error vector.
 
 To estimate *β* (via maximum likelihood or least square), is often
 written in matrix form as
+
+*β̂* = (*X*′*X*)<sup> − 1</sup>*X*′*y*
 
 Which could be estimated in `R` using `solve` to extract the inverse of
 the cross product matrix.
@@ -87,6 +93,7 @@ Computationally, this is very expensive!
 <div class="alert alert-info">
 
 Quick look of *inverse matrixes* to understand the following equation:
+*β̂* = (*X*′*X*)<sup> − 1</sup>*X*′*y*
 
 First, recall that not all square matrixes are inversible, and that
 there are some properties of the inverse matrix such as:
@@ -97,11 +104,59 @@ there are some properties of the inverse matrix such as:
 
 Let use an example to disentangle some of the properties! First,
 
+$$
+A = 
+\\begin{pmatrix}
+a & b \\\\
+c & d
+\\end{pmatrix}
+$$
+
 and
+
+$$
+A^{-1} = 
+\\begin{pmatrix}
+x\_{1} & x\_{2} \\\\
+y\_{1} & y\_{2}
+\\end{pmatrix}
+$$
 
 we also know that
 
+$$
+I = 
+\\begin{pmatrix}
+1 & 0 \\\\
+0 & 1
+\\end{pmatrix}
+$$
+
 All together and considering (1) we have
+
+$$
+AA^{-1}=I=A^{-1}A=
+\\begin{pmatrix}
+a & b \\\\
+c & d
+\\end{pmatrix}
+\\begin{pmatrix}
+x\_{1} & x\_{2} \\\\
+y\_{1} & y\_{2}
+\\end{pmatrix} =
+\\begin{pmatrix}
+1 & 0 \\\\
+0 & 1
+\\end{pmatrix} =
+\\begin{pmatrix}
+x\_{1} & x\_{2} \\\\
+y\_{1} & y\_{2}
+\\end{pmatrix}
+\\begin{pmatrix}
+a & b \\\\
+c & d
+\\end{pmatrix}
+$$
 
 Now, solving the **linear system of equation** we have
 
@@ -117,9 +172,17 @@ operations** we have for:
 
 That,
 
+$$
+y\_{2}=\\frac{-a}{b}x\_{2}
+$$
+
 and
 
 1.  *c**x*<sub>1</sub> + *d**y*<sub>1</sub> = 0
+
+$$
+y\_{1}=\\frac{-c}{d}x\_{1}
+$$
 
 Now,
 
@@ -127,19 +190,60 @@ Now,
 
 we could replace some terms in such a way that,
 
+$$
+ax\_{1}-\\frac{bc}{d}x\_{1}=1
+$$
+
 and
+
+$$
+x\_{1}=\\frac{d}{ad-bc}
+$$
 
 then
 
+$$
+y\_{1}=\\frac{-c}{ad-bc}
+$$
+
 Also,
+
+$$
+\\frac{c}{b}x\_{2}-\\frac{ad}{b}x\_{2}=1
+$$
 
 is expressed as
 
+$$
+x\_{2}=\\frac{b}{bc-ad}
+$$
+
 and
+
+$$
+y\_{2}=\\frac{a}{ad-bc}
+$$
 
 Puting all together we have the inverse of the matrix
 
+$$
+A^{-1}= \\frac{1}{ad-bc}
+\\begin{pmatrix}
+d & -b \\\\
+-c & a
+\\end{pmatrix}
+$$
+
 And, considering that the determinant is,
+
+$$
+\|A\| = 
+\\begin{vmatrix}
+a & b \\\\
+c & d
+\\end{vmatrix} = 
+ad-bc
+$$
 
 If the resulting value of *a**d* − *b**c* = 0, then the matrix is not
 invertible (is singular or degenerate)
@@ -154,6 +258,8 @@ In `R` all this calculation is just a simple function. For example,
 
 A better option that is less computationally demanding is re-arranging
 the terms in the following way:
+
+*X*′*X**β* = *X*′*y*
 
 Which, gives the same result
 
@@ -273,10 +379,10 @@ consuming
       gaussian = solve(crossprod(X), crossprod(X, y))
       ) %>% summary(unit = "ms") %>% knitr::kable(format = "markdown")
 
-| expr     |      min |        lq |      mean |    median |        uq |       max | neval | cld |
-|:---------|---------:|----------:|----------:|----------:|----------:|----------:|------:|:----|
-| inverse  | 85.90056 | 102.02329 | 111.65989 | 106.27773 | 115.10046 | 280.71602 |   100 | b   |
-| gaussian | 27.34068 |  27.84081 |  34.13807 |  33.34719 |  40.46863 |  50.96023 |   100 | a   |
+| expr     |       min |        lq |     mean |    median |       uq |      max | neval | cld |
+|:---------|----------:|----------:|---------:|----------:|---------:|---------:|------:|:----|
+| inverse  | 243.77115 | 311.09968 | 336.8660 | 333.38371 | 354.6478 | 484.8824 |   100 | b   |
+| gaussian |  55.26799 |  85.01062 |  99.1561 |  95.98802 | 112.3274 | 166.0683 |   100 | a   |
 
 On the other hand, the Gaussian elimination would breaks down when there
 is collinearity in the *X* matrix. Meaning that the column *X* would be
@@ -370,7 +476,15 @@ the **QR decomposition**.
 Knowing that *X* can be decomposed as *X* = *Q**R*, the linear
 regression
 
+*X*′*X**β* = *X*′*y*
+
 can be writted as
+
+$$
+R'Q'QR'\\beta = R'Q'y \\\\
+R'R\\beta = R'Q'y \\\\
+R\\beta = Q'y
+$$
 
 Considering that *Q*′*Q* = *I*, now we have a simpler equation that does
 not longer require to compute the cross product. Also, due the QR
@@ -577,9 +691,9 @@ Comparing both approaches
     library(microbenchmark)
     microbenchmark(quad.naive(z, S), quad.chol(z, S))
     #> Unit: milliseconds
-    #>              expr      min       lq     mean   median       uq       max neval
-    #>  quad.naive(z, S) 2.773436 3.050431 4.206812 3.438075 5.143532  8.469218   100
-    #>   quad.chol(z, S) 1.153141 1.415717 2.234433 1.471803 2.476978 26.782875   100
+    #>              expr      min       lq      mean   median       uq      max neval
+    #>  quad.naive(z, S) 4.689875 5.817352 10.766912 7.626964 10.95390 55.60976   100
+    #>   quad.chol(z, S) 2.061270 2.492571  6.277961 3.370729  7.05392 47.46013   100
     #>  cld
     #>    b
     #>   a
