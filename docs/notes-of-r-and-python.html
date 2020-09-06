@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Notes of R and Python | Notes of R and C++</title>
+  <meta name="description" content="Chapter 3 Notes of R and Python | Notes of R and C++" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Notes of R and Python | Notes of R and C++" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Notes of R and Python | Notes of R and C++" />
+  
+  
+  
+
+
+
+<meta name="date" content="2020-09-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="notes-of-optimization.html"/>
+<link rel="next" href="notes-of-r-and-c.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Notes for Social Network Science Projects using R</a></li>
+<li class="chapter" data-level="2" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html"><i class="fa fa-check"></i><b>2</b> Notes of Optimization</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#notes-of-linear-regression"><i class="fa fa-check"></i><b>2.1</b> Notes of Linear Regression</a></li>
+<li class="chapter" data-level="2.2" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#logarithms"><i class="fa fa-check"></i><b>2.2</b> Logarithms</a></li>
+<li class="chapter" data-level="2.3" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#linear-regression"><i class="fa fa-check"></i><b>2.3</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#gaussian-elimination"><i class="fa fa-check"></i><b>2.3.1</b> Gaussian elimination</a></li>
+<li class="chapter" data-level="2.3.2" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#qr-decomposition"><i class="fa fa-check"></i><b>2.3.2</b> QR decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>2.4</b> Multivariate Normal Distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#choleskey-decomposition"><i class="fa fa-check"></i><b>2.4.1</b> Choleskey decomposition</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html"><i class="fa fa-check"></i><b>3</b> Notes of R and Python</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#connecting-r-and-python-for-social-network-science-projects"><i class="fa fa-check"></i><b>3.1</b> Connecting R and Python for Social Network Science Projects</a></li>
+<li class="chapter" data-level="3.2" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#conda-environment"><i class="fa fa-check"></i><b>3.2</b> Conda environment</a></li>
+<li class="chapter" data-level="3.3" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#installing-social-network-science-modules-from-python"><i class="fa fa-check"></i><b>3.3</b> Installing Social Network Science modules from Python</a></li>
+<li class="chapter" data-level="3.4" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#connecting-r-and-python"><i class="fa fa-check"></i><b>3.4</b> Connecting R and Python</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html"><i class="fa fa-check"></i><b>4</b> Notes of R and C++</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparmadillo"><i class="fa fa-check"></i><b>4.1</b> RcppArmadillo</a></li>
+<li class="chapter" data-level="4.2" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparrayfire"><i class="fa fa-check"></i><b>4.2</b> RcppArrayFire</a></li>
+<li class="chapter" data-level="4.3" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#other-notes"><i class="fa fa-check"></i><b>4.3</b> OTHER NOTES</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes of R and C++</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="notes-of-r-and-python" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Notes of R and Python</h1>
+<div id="connecting-r-and-python-for-social-network-science-projects" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Connecting R and Python for Social Network Science Projects</h2>
+<p>My name is <a href="https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html">Alejandro Espinosa-Rada</a> and I am currentley a PhD student in Sociology and member of the <a href="https://www.socialsciences.manchester.ac.uk/mitchell-centre/">Mitchell Centre for Social Network Analysis</a> at the University of Manchester</p>
+<p>Pending,</p>
+<ul>
+<li>Check <code>graph-tool</code> installation</li>
+<li>Create a new script with a small tutorial of some of the module for social network analysis (maybe: <code>EstimNetDirected</code>)</li>
+</ul>
+<p>The following script is my notes for Social Network Science Projects to combine <code>R</code> and <code>Python</code>. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the “Anaconda prompt”.</p>
+<p>In the following, I will only present Mac OS/Linux operation system.</p>
+</div>
+<div id="conda-environment" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Conda environment</h2>
+<p>To begin, I will first create an environment that would contain all the python modules of the entire Social Network Science Project using <a href="https://docs.conda.io/">conda</a>. After installing conda in my computer, I open my terminal and add the following line of codes: <code>conda create --name sns python=3.8 anaconda</code> that would create a new environment called <code>sns</code> (<em>Social Network Science</em>) and would also install python version 3.8.</p>
+</div>
+<div id="installing-social-network-science-modules-from-python" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Installing Social Network Science modules from Python</h2>
+<p>If you are willing to activate the environment from the terminal, then you would have to use <code>conda activate sns</code>. Notice that I give the name <code>sns</code> that could be modified for whatever you prefer. We can install some modules from python activating the environment from the terminal (i.e. <code>conda activate sns</code>), and then running the following codes</p>
+<ul>
+<li><code>python -m pip install numpy</code></li>
+<li><code>python -m pip install panda</code></li>
+<li><code>python -m pip install igraph</code></li>
+<li><code>python -m pip install matplotlib</code></li>
+<li><code>python -m pip install leidenalg</code></li>
+<li><code>python -m pip install networkx</code></li>
+<li><code>python -m pip install pyintergraph</code></li>
+</ul>
+<p>Or, all at once
+- <code>python -m pip install numpy panda igraph matplotlib leidenalg networkx pyintergraph</code></p>
+<p>Check the modules installed in your environment with <code>pip list</code>.</p>
+<p>In my personal computer, I had some issues with the visualizations of <code>igraph</code>. Hence, I install some extra modules:</p>
+<ul>
+<li><code>python -m pip install cairocffi</code></li>
+<li><code>python -m pip install pycairo</code></li>
+</ul>
+<p>Also, I install <code>cairo</code> using the following code suggested in the webpage of <a href="https://pycairo.readthedocs.io/en/latest/getting_started.html">pycairo</a>, that use <a href="https://brew.sh">Homebrew</a>:</p>
+<ul>
+<li><code>brew install cairo pkg-config</code></li>
+</ul>
+<p>After installing some modules, you should now deactivate the session, and you would have to put the following line of code: <code>conda deactivate</code> in your terminal. If you are willing to check your environments, just press: <code>conda info --envs</code> in your terminal. If for some reason you prefer to remove your entire environment, you would have to use the following code: <code>conda remove --name sns --all</code></p>
+<p>Is often common for <code>python</code> users to use the <code>Jupyter Notebook</code>, that might be a better option if you are just going to use <code>python</code>. In which case, after activating your conda environment, you could set your working directory through <code>cd [DIRECTORY]</code> in the terminal. Then launch the Jupyter notebook by <code>jupyter notebook</code>.</p>
+</div>
+<div id="connecting-r-and-python" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Connecting R and Python</h2>
+<div class="alert alert-success">
+<p>We can run <code>Python</code> codes directly from <code>R</code> using <a href="https://rmarkdown.rstudio.com"><code>RMarkdown</code></a>. I prefer connecting the <span style="color:blue"><strong>best of both worlds</strong></span>. Mostly, because in my personal workflow I tend to use statistical models for social networks analysis. Some of these other statistical models that use social networks are:</p>
+<ol style="list-style-type: decimal">
+<li><p>Different models available in <a href="http://statnet.org">Statnet</a> (e.g. exponential random graph models, epidemiological models, relational event models, or the latent position and cluster models for statistical networks)</p></li>
+<li><p><a href="https://www.stats.ox.ac.uk/~snijders/siena/">Stochastic actor-oriented model</a></p></li>
+<li><p><a href="https://github.com/snlab-ch/goldfish">Dynamic Network Actor-Oriented Model</a></p></li>
+</ol>
+</div>
+<p>Now that I have an environment called <code>sns</code>, I could now start using R and Python together. We would need to install the <code>reticulate</code> package.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="notes-of-r-and-python.html#cb19-1" aria-hidden="true"></a><span class="co">#install.packages(&quot;reticulate&quot;)</span></span>
+<span id="cb19-2"><a href="notes-of-r-and-python.html#cb19-2" aria-hidden="true"></a><span class="kw">library</span>(reticulate)</span>
+<span id="cb19-3"><a href="notes-of-r-and-python.html#cb19-3" aria-hidden="true"></a></span>
+<span id="cb19-4"><a href="notes-of-r-and-python.html#cb19-4" aria-hidden="true"></a><span class="kw">use_condaenv</span>(<span class="dt">condaenv =</span> <span class="st">&quot;sns&quot;</span>, <span class="dt">conda =</span> <span class="st">&quot;auto&quot;</span>, <span class="dt">required =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb19-5"><a href="notes-of-r-and-python.html#cb19-5" aria-hidden="true"></a>main &lt;-<span class="st"> </span><span class="kw">import_main</span>()</span></code></pre></div>
+<p>We can also install a package from R using anaconda of Python, and run any Python code in R using <code>py_run_string</code></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="notes-of-r-and-python.html#cb20-1" aria-hidden="true"></a><span class="co">#reticulate::conda_install(c(&quot;leidenalg&quot;, &quot;igraph&quot;), </span></span>
+<span id="cb20-2"><a href="notes-of-r-and-python.html#cb20-2" aria-hidden="true"></a><span class="co">#                            envname = &quot;sns&quot;, pip = TRUE)</span></span>
+<span id="cb20-3"><a href="notes-of-r-and-python.html#cb20-3" aria-hidden="true"></a></span>
+<span id="cb20-4"><a href="notes-of-r-and-python.html#cb20-4" aria-hidden="true"></a><span class="kw">py_run_string</span>(<span class="st">&quot;import numpy as np&quot;</span>)</span>
+<span id="cb20-5"><a href="notes-of-r-and-python.html#cb20-5" aria-hidden="true"></a><span class="kw">py_run_string</span>(<span class="st">&quot;my_python_array = np.array([2,4,6,8])&quot;</span>)</span>
+<span id="cb20-6"><a href="notes-of-r-and-python.html#cb20-6" aria-hidden="true"></a><span class="kw">py_run_string</span>(<span class="st">&quot;print(my_python_array)&quot;</span>)</span></code></pre></div>
+<p>Also, we can use python directly from <code>Rmarkdown</code> adding the chunk <code>{python}</code> instead of <code>{r}</code> in the Rmarkdown. For example, we can replicate the classic model of Holland, Laskey &amp; Leinhardt (1983) on Stochastic Block Model using <a href="https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html">stochastic_block_model</a></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="notes-of-r-and-python.html#cb21-1" aria-hidden="true"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb21-2"><a href="notes-of-r-and-python.html#cb21-2" aria-hidden="true"></a>sizes <span class="op">=</span> [<span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">300</span>]</span>
+<span id="cb21-3"><a href="notes-of-r-and-python.html#cb21-3" aria-hidden="true"></a>probs <span class="op">=</span> [[<span class="fl">0.25</span>, <span class="fl">0.05</span>, <span class="fl">0.02</span>],</span>
+<span id="cb21-4"><a href="notes-of-r-and-python.html#cb21-4" aria-hidden="true"></a>        [<span class="fl">0.05</span>, <span class="fl">0.35</span>, <span class="fl">0.07</span>],</span>
+<span id="cb21-5"><a href="notes-of-r-and-python.html#cb21-5" aria-hidden="true"></a>        [<span class="fl">0.02</span>, <span class="fl">0.07</span>, <span class="fl">0.40</span>]]</span>
+<span id="cb21-6"><a href="notes-of-r-and-python.html#cb21-6" aria-hidden="true"></a>        </span>
+<span id="cb21-7"><a href="notes-of-r-and-python.html#cb21-7" aria-hidden="true"></a>g <span class="op">=</span> nx.stochastic_block_model(sizes, probs, seed<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-8"><a href="notes-of-r-and-python.html#cb21-8" aria-hidden="true"></a><span class="bu">len</span>(g)</span>
+<span id="cb21-9"><a href="notes-of-r-and-python.html#cb21-9" aria-hidden="true"></a></span>
+<span id="cb21-10"><a href="notes-of-r-and-python.html#cb21-10" aria-hidden="true"></a>H <span class="op">=</span> nx.quotient_graph(g, g.graph[<span class="st">&#39;partition&#39;</span>], relabel<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-11"><a href="notes-of-r-and-python.html#cb21-11" aria-hidden="true"></a></span>
+<span id="cb21-12"><a href="notes-of-r-and-python.html#cb21-12" aria-hidden="true"></a><span class="cf">for</span> v <span class="kw">in</span> H.nodes(data<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb21-13"><a href="notes-of-r-and-python.html#cb21-13" aria-hidden="true"></a>      <span class="bu">print</span>(<span class="bu">round</span>(v[<span class="dv">1</span>][<span class="st">&#39;density&#39;</span>], <span class="dv">3</span>))</span>
+<span id="cb21-14"><a href="notes-of-r-and-python.html#cb21-14" aria-hidden="true"></a>      </span>
+<span id="cb21-15"><a href="notes-of-r-and-python.html#cb21-15" aria-hidden="true"></a><span class="cf">for</span> v <span class="kw">in</span> H.edges(data<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb21-16"><a href="notes-of-r-and-python.html#cb21-16" aria-hidden="true"></a>      <span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">1.0</span> <span class="op">*</span> v[<span class="dv">2</span>][<span class="st">&#39;weight&#39;</span>] <span class="op">/</span> (sizes[v[<span class="dv">0</span>]] <span class="op">*</span> sizes[v[<span class="dv">1</span>]]), <span class="dv">3</span>))</span></code></pre></div>
+<p>There are neat packages out there in <code>Python</code>, some of my favourites are:</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://igraph.org/python/"><code>python</code></a>: general purpose network analysis</p></li>
+<li><p><a href="https://networkx.github.io"><code>NetworkX</code></a>: general purpose network analysis</p></li>
+<li><p><a href="https://pypi.org/project/pyintergraph/"><code>pyintergraph</code></a>: convert Python-Graph-Objects between networkx, python-igraph and graph-tools</p></li>
+<li><p><a href="general%20purpose%20network%20analysis%20and%20graph%20mining%20library"><code>snap</code></a>: general purpose network analysis</p></li>
+<li><p><a href="https://metaknowledge.readthedocs.io/en/latest/"><code>metaknowledge</code></a>: computational research in bibliometrics, scientometrics, and network analysis</p></li>
+<li><p><a href="https://github.com/SciSciCollective/pyscisci"><code>pySciSci</code></a>: computational research in bibliometrics, scientometrics, and network analysis</p></li>
+<li><p><a href="https://leidenalg.readthedocs.io/en/stable/"><code>leiden_lag</code></a>: for community detection, with a special focus in the <code>leiden algorithm</code>. Some nice codes are available in the official GitHub of <a href="https://github.com/CWTSLeiden/CSSS">CWTS</a></p></li>
+<li><p><a href="https://graph-tool.skewed.de"><code>graph-tool</code></a>: for stochastic block models and other general purpose network analysis</p></li>
+<li><p><a href="https://github.com/stivalaa/EstimNetDirected"><code>EstimNetDirected</code></a>: Exponential random graph models for big networks</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="notes-of-optimization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="notes-of-r-and-c.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

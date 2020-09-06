@@ -85,7 +85,7 @@ library(RcppArmadillo)
 
 ```
 
-```{Rcpp firstChunk, eval=FALSE}
+```{Rcpp eval=FALSE}
 #include <Rcpp.h>
 
 // [[ Rcpp :: export ()]]

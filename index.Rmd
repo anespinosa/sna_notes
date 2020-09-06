@@ -8,10 +8,22 @@ output:
   #bookdown::pdf_book: default
 ---
 
-# Hello World
+# Notes for Social Network Science Projects using R
 
-Hi.
+My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html), and I am currently a PhD student in Sociology and a member of [the Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) from the University of Manchester. This document are my notes of some of the random stuff that I am interested that involve R, social networks, or statistics.
 
-Bye.
+My own implementations would be collected in the **[`netmem: Network Measures using Matrices`](https://github.com/anespinosa/netmem)** package.    
+
+```r
+g <- erdos.renyi.game(sample(1:100, 1), p.or.m = runif(1))
+```
+
+```python
+G = zen.erdos_renyi(10,0.1)
+```
+
+```bash
+sudo apt-get install g++
+```
 
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->

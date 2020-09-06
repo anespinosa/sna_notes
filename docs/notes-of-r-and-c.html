@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Notes of R and C++ | Notes of R and C++</title>
+  <meta name="description" content="Chapter 4 Notes of R and C++ | Notes of R and C++" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Notes of R and C++ | Notes of R and C++" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Notes of R and C++ | Notes of R and C++" />
+  
+  
+  
+
+
+
+<meta name="date" content="2020-09-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="notes-of-r-and-python.html"/>
+
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Notes for Social Network Science Projects using R</a></li>
+<li class="chapter" data-level="2" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html"><i class="fa fa-check"></i><b>2</b> Notes of Optimization</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#notes-of-linear-regression"><i class="fa fa-check"></i><b>2.1</b> Notes of Linear Regression</a></li>
+<li class="chapter" data-level="2.2" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#logarithms"><i class="fa fa-check"></i><b>2.2</b> Logarithms</a></li>
+<li class="chapter" data-level="2.3" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#linear-regression"><i class="fa fa-check"></i><b>2.3</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#gaussian-elimination"><i class="fa fa-check"></i><b>2.3.1</b> Gaussian elimination</a></li>
+<li class="chapter" data-level="2.3.2" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#qr-decomposition"><i class="fa fa-check"></i><b>2.3.2</b> QR decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#multivariate-normal-distribution"><i class="fa fa-check"></i><b>2.4</b> Multivariate Normal Distribution</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="notes-of-optimization.html"><a href="notes-of-optimization.html#choleskey-decomposition"><i class="fa fa-check"></i><b>2.4.1</b> Choleskey decomposition</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html"><i class="fa fa-check"></i><b>3</b> Notes of R and Python</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#connecting-r-and-python-for-social-network-science-projects"><i class="fa fa-check"></i><b>3.1</b> Connecting R and Python for Social Network Science Projects</a></li>
+<li class="chapter" data-level="3.2" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#conda-environment"><i class="fa fa-check"></i><b>3.2</b> Conda environment</a></li>
+<li class="chapter" data-level="3.3" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#installing-social-network-science-modules-from-python"><i class="fa fa-check"></i><b>3.3</b> Installing Social Network Science modules from Python</a></li>
+<li class="chapter" data-level="3.4" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#connecting-r-and-python"><i class="fa fa-check"></i><b>3.4</b> Connecting R and Python</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html"><i class="fa fa-check"></i><b>4</b> Notes of R and C++</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparmadillo"><i class="fa fa-check"></i><b>4.1</b> RcppArmadillo</a></li>
+<li class="chapter" data-level="4.2" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparrayfire"><i class="fa fa-check"></i><b>4.2</b> RcppArrayFire</a></li>
+<li class="chapter" data-level="4.3" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#other-notes"><i class="fa fa-check"></i><b>4.3</b> OTHER NOTES</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes of R and C++</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="notes-of-r-and-c" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Notes of R and C++</h1>
+<div id="rcpparmadillo" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> RcppArmadillo</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="notes-of-r-and-c.html#cb22-1" aria-hidden="true"></a><span class="kw">library</span>(Rcpp)</span>
+<span id="cb22-2"><a href="notes-of-r-and-c.html#cb22-2" aria-hidden="true"></a><span class="co">#&gt; Warning: package &#39;Rcpp&#39; was built under R version 3.6.2</span></span>
+<span id="cb22-3"><a href="notes-of-r-and-c.html#cb22-3" aria-hidden="true"></a></span>
+<span id="cb22-4"><a href="notes-of-r-and-c.html#cb22-4" aria-hidden="true"></a><span class="kw">cppFunction</span>(<span class="st">&quot;arma::mat v(arma::colvec a) {</span></span>
+<span id="cb22-5"><a href="notes-of-r-and-c.html#cb22-5" aria-hidden="true"></a><span class="st"> return a*a.t();}&quot;</span>,</span>
+<span id="cb22-6"><a href="notes-of-r-and-c.html#cb22-6" aria-hidden="true"></a><span class="dt">depends=</span><span class="st">&quot;RcppArmadillo&quot;</span>)</span>
+<span id="cb22-7"><a href="notes-of-r-and-c.html#cb22-7" aria-hidden="true"></a></span>
+<span id="cb22-8"><a href="notes-of-r-and-c.html#cb22-8" aria-hidden="true"></a><span class="kw">v</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span>
+<span id="cb22-9"><a href="notes-of-r-and-c.html#cb22-9" aria-hidden="true"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb22-10"><a href="notes-of-r-and-c.html#cb22-10" aria-hidden="true"></a><span class="co">#&gt; [1,]    1    2    3</span></span>
+<span id="cb22-11"><a href="notes-of-r-and-c.html#cb22-11" aria-hidden="true"></a><span class="co">#&gt; [2,]    2    4    6</span></span>
+<span id="cb22-12"><a href="notes-of-r-and-c.html#cb22-12" aria-hidden="true"></a><span class="co">#&gt; [3,]    3    6    9</span></span></code></pre></div>
+<p>I had a problem compiling codes from <code>RcppArmadillo</code>. A nice discussion of my problem was solved in the <a href="https://stackoverflow.com/questions/35999874/mac-os-x-r-error-ld-warning-directory-not-found-for-option">here</a>.</p>
+<p>What I did was to solve my issue:</p>
+<ul>
+<li>First I install <code>brew install gcc</code></li>
+<li>Then, I also install <code>brew cask install gfortran</code></li>
+<li>I have some issues with <code>brew cleanup</code>, I will try <code>brew install yarn</code> then <code>sudo yarn cache clean</code></li>
+<li>Trying this <a href="https://discourse.brew.sh/t/brew-gcc-does-not-install-properly/7762/8">here</a>… <code>sudo chown -R $(whoami) /usr/local/*</code></li>
+<li>Okay, I give up… problem for <a href="https://github.com/Homebrew/homebrew-core/issues/45009">another day</a></li>
+<li>Seems that there is an issue installing <code>Fortran</code>. Alternative solution in <a href="https://cran.r-project.org/bin/macosx/tools/">here</a></li>
+<li><code>brew upgrade gcc</code></li>
+</ul>
+<p>I seems that there is a mayor issue that should be solved connecting <code>R</code> with <code>gcc</code>. To do that, I had to find the following file from my local computer: <code>~/.R/Makevars/</code></p>
+<p>Inside that file, it was the following code:
+<code>CC=clang</code>
+<code>CXX=clang++</code></p>
+<p>Then, I modify everything for:
+<code>VER=-10</code>
+<code>CC=gcc$(VER)</code>
+<code>CXX=g++$(VER)</code>
+<code>CFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion</code>
+<code>CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion</code>
+<code>FLIBS=-L/usr/local/Cellar/gcc/10.0.1/lib/gcc/10</code></p>
+<p>In my case, i have <code>gcc</code> version <code>10.0.1</code> that is why the code have too many <code>10</code> in the modified file! (i.e. <code>VER=-10</code> and <code>FLIBS=-L/usr/local/Cellar/gcc/10.0.1/lib/gcc/10</code>)</p>
+<p>If you are not sure what is your <code>gcc</code> version, you can check this on your terminal:</p>
+<ul>
+<li>Check version <code>gcc --version</code></li>
+</ul>
+<p>But,</p>
+<ul>
+<li>Checking the version of fortran: <code>gfortran --version</code>, should it be this?</li>
+</ul>
+<p><code>VER=-8.2.0</code>
+<code>CC=gcc$(VER)</code>
+<code>CXX=g++$(VER)</code>
+<code>CFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion</code>
+<code>CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion</code>
+<code>FLIBS=-L/usr/local/Cellar/gcc/8.2.0/lib/gcc/8</code></p>
+<p>Sources of <code>RcppArmadillo</code>:</p>
+<ul>
+<li>Course of <a href="https://scholar.princeton.edu/sites/default/files/q-aps/files/slides_day4_am.pdf">Armadillo</a></li>
+</ul>
+<p>Another example using <a href="http://arma.sourceforge.net"><code>RcppArmadillo</code></a></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="notes-of-r-and-c.html#cb23-1" aria-hidden="true"></a><span class="kw">library</span>(RcppArmadillo)</span>
+<span id="cb23-2"><a href="notes-of-r-and-c.html#cb23-2" aria-hidden="true"></a><span class="co">#&gt; Warning: package &#39;RcppArmadillo&#39; was built under R version 3.6.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="notes-of-r-and-c.html#cb24-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb24-2"><a href="notes-of-r-and-c.html#cb24-2" aria-hidden="true"></a></span>
+<span id="cb24-3"><a href="notes-of-r-and-c.html#cb24-3" aria-hidden="true"></a><span class="co">// [[ Rcpp :: export ()]]</span></span>
+<span id="cb24-4"><a href="notes-of-r-and-c.html#cb24-4" aria-hidden="true"></a><span class="dt">double</span> inner1 (Rcpp::NumericVector x,</span>
+<span id="cb24-5"><a href="notes-of-r-and-c.html#cb24-5" aria-hidden="true"></a>               Rcpp::NumericVector y</span>
+<span id="cb24-6"><a href="notes-of-r-and-c.html#cb24-6" aria-hidden="true"></a>                 ){</span>
+<span id="cb24-7"><a href="notes-of-r-and-c.html#cb24-7" aria-hidden="true"></a>  <span class="dt">int</span> K = x.length() ;</span>
+<span id="cb24-8"><a href="notes-of-r-and-c.html#cb24-8" aria-hidden="true"></a>  <span class="dt">double</span> ip = <span class="dv">0</span> ;</span>
+<span id="cb24-9"><a href="notes-of-r-and-c.html#cb24-9" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> k = <span class="dv">0</span> ; k &lt; K ; k++) {</span>
+<span id="cb24-10"><a href="notes-of-r-and-c.html#cb24-10" aria-hidden="true"></a>  ip += x(k) * y(k) ;</span>
+<span id="cb24-11"><a href="notes-of-r-and-c.html#cb24-11" aria-hidden="true"></a>    }</span>
+<span id="cb24-12"><a href="notes-of-r-and-c.html#cb24-12" aria-hidden="true"></a>  <span class="cf">return</span>(ip) ;</span>
+<span id="cb24-13"><a href="notes-of-r-and-c.html#cb24-13" aria-hidden="true"></a>}</span></code></pre></div>
+<p><code>using namespace Rcpp;</code> can call any Rcpp constructs by their given name without the Rcpp:: prefix:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="notes-of-r-and-c.html#cb25-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;RcppArmadillo.h&gt;</span></span>
+<span id="cb25-2"><a href="notes-of-r-and-c.html#cb25-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp; </span>
+<span id="cb25-3"><a href="notes-of-r-and-c.html#cb25-3" aria-hidden="true"></a></span>
+<span id="cb25-4"><a href="notes-of-r-and-c.html#cb25-4" aria-hidden="true"></a><span class="co">//[[Rcpp::depends(RcppArmadillo)]]</span></span>
+<span id="cb25-5"><a href="notes-of-r-and-c.html#cb25-5" aria-hidden="true"></a><span class="dt">double</span> inner2 (arma::vec x,</span>
+<span id="cb25-6"><a href="notes-of-r-and-c.html#cb25-6" aria-hidden="true"></a>               arma::vec y</span>
+<span id="cb25-7"><a href="notes-of-r-and-c.html#cb25-7" aria-hidden="true"></a>                 ){</span>
+<span id="cb25-8"><a href="notes-of-r-and-c.html#cb25-8" aria-hidden="true"></a>  arma::mat ip = x.t() * y ;</span>
+<span id="cb25-9"><a href="notes-of-r-and-c.html#cb25-9" aria-hidden="true"></a>  <span class="cf">return</span>(ip(<span class="dv">0</span>)) ;</span>
+<span id="cb25-10"><a href="notes-of-r-and-c.html#cb25-10" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="notes-of-r-and-c.html#cb26-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;RcppArmadillo.h&gt;</span></span>
+<span id="cb26-2"><a href="notes-of-r-and-c.html#cb26-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cmath.h&gt;</span></span>
+<span id="cb26-3"><a href="notes-of-r-and-c.html#cb26-3" aria-hidden="true"></a><span class="co">//[[Rcpp::depends(RcppArmadillo)]]</span></span>
+<span id="cb26-4"><a href="notes-of-r-and-c.html#cb26-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</span>
+<span id="cb26-5"><a href="notes-of-r-and-c.html#cb26-5" aria-hidden="true"></a></span>
+<span id="cb26-6"><a href="notes-of-r-and-c.html#cb26-6" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb26-7"><a href="notes-of-r-and-c.html#cb26-7" aria-hidden="true"></a><span class="dt">double</span> Mutual_Information(</span>
+<span id="cb26-8"><a href="notes-of-r-and-c.html#cb26-8" aria-hidden="true"></a>    arma::mat joint_dist</span>
+<span id="cb26-9"><a href="notes-of-r-and-c.html#cb26-9" aria-hidden="true"></a>    ){</span>
+<span id="cb26-10"><a href="notes-of-r-and-c.html#cb26-10" aria-hidden="true"></a>        joint_dist = joint_dist/sum(sum(joint_dist));</span>
+<span id="cb26-11"><a href="notes-of-r-and-c.html#cb26-11" aria-hidden="true"></a>        <span class="dt">double</span> mutual_information = <span class="dv">0</span>;</span>
+<span id="cb26-12"><a href="notes-of-r-and-c.html#cb26-12" aria-hidden="true"></a>        <span class="dt">int</span> num_rows = joint_dist.n_rows;</span>
+<span id="cb26-13"><a href="notes-of-r-and-c.html#cb26-13" aria-hidden="true"></a>        <span class="dt">int</span> num_cols = joint_dist.n_cols;</span>
+<span id="cb26-14"><a href="notes-of-r-and-c.html#cb26-14" aria-hidden="true"></a>        arma::mat colsums = sum(joint_dist,<span class="dv">0</span>);</span>
+<span id="cb26-15"><a href="notes-of-r-and-c.html#cb26-15" aria-hidden="true"></a>        arma::mat rowsums = sum(joint_dist,<span class="dv">1</span>);</span>
+<span id="cb26-16"><a href="notes-of-r-and-c.html#cb26-16" aria-hidden="true"></a>        <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; num_rows; ++i){</span>
+<span id="cb26-17"><a href="notes-of-r-and-c.html#cb26-17" aria-hidden="true"></a>           <span class="cf">for</span>(<span class="dt">int</span> j = <span class="dv">0</span>; j &lt;  num_cols; ++j){</span>
+<span id="cb26-18"><a href="notes-of-r-and-c.html#cb26-18" aria-hidden="true"></a>                <span class="dt">double</span> temp = log((joint_dist(i,j)/(colsums[j]*rowsums[i])));</span>
+<span id="cb26-19"><a href="notes-of-r-and-c.html#cb26-19" aria-hidden="true"></a>                <span class="cf">if</span>(!<span class="bu">std::</span>isfinite(temp)){</span>
+<span id="cb26-20"><a href="notes-of-r-and-c.html#cb26-20" aria-hidden="true"></a>                    temp = <span class="dv">0</span>;</span>
+<span id="cb26-21"><a href="notes-of-r-and-c.html#cb26-21" aria-hidden="true"></a>                }</span>
+<span id="cb26-22"><a href="notes-of-r-and-c.html#cb26-22" aria-hidden="true"></a>                mutual_information += joint_dist(i,j) * temp; </span>
+<span id="cb26-23"><a href="notes-of-r-and-c.html#cb26-23" aria-hidden="true"></a>            }</span>
+<span id="cb26-24"><a href="notes-of-r-and-c.html#cb26-24" aria-hidden="true"></a>        } </span>
+<span id="cb26-25"><a href="notes-of-r-and-c.html#cb26-25" aria-hidden="true"></a>        <span class="cf">return</span> mutual_information;    </span>
+<span id="cb26-26"><a href="notes-of-r-and-c.html#cb26-26" aria-hidden="true"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb27-1"><a href="notes-of-r-and-c.html#cb27-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;RcppArmadillo.h&gt;</span></span>
+<span id="cb27-2"><a href="notes-of-r-and-c.html#cb27-2" aria-hidden="true"></a></span>
+<span id="cb27-3"><a href="notes-of-r-and-c.html#cb27-3" aria-hidden="true"></a><span class="co">//[[Rcpp::depends(RcppArmadillo)]]</span></span>
+<span id="cb27-4"><a href="notes-of-r-and-c.html#cb27-4" aria-hidden="true"></a></span>
+<span id="cb27-5"><a href="notes-of-r-and-c.html#cb27-5" aria-hidden="true"></a><span class="co">// another simple example: outer product of a vector,</span></span>
+<span id="cb27-6"><a href="notes-of-r-and-c.html#cb27-6" aria-hidden="true"></a><span class="co">// returning a matrix</span></span>
+<span id="cb27-7"><a href="notes-of-r-and-c.html#cb27-7" aria-hidden="true"></a></span>
+<span id="cb27-8"><a href="notes-of-r-and-c.html#cb27-8" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb27-9"><a href="notes-of-r-and-c.html#cb27-9" aria-hidden="true"></a>arma::mat rcpparma_outerproduct(<span class="at">const</span> arma::colvec &amp; x){</span>
+<span id="cb27-10"><a href="notes-of-r-and-c.html#cb27-10" aria-hidden="true"></a>  arma::mat m = x * x.t();</span>
+<span id="cb27-11"><a href="notes-of-r-and-c.html#cb27-11" aria-hidden="true"></a>  <span class="cf">return</span> m;</span>
+<span id="cb27-12"><a href="notes-of-r-and-c.html#cb27-12" aria-hidden="true"></a>}</span>
+<span id="cb27-13"><a href="notes-of-r-and-c.html#cb27-13" aria-hidden="true"></a></span>
+<span id="cb27-14"><a href="notes-of-r-and-c.html#cb27-14" aria-hidden="true"></a><span class="co">// and the inner product retunrs a scalar</span></span>
+<span id="cb27-15"><a href="notes-of-r-and-c.html#cb27-15" aria-hidden="true"></a><span class="co">//</span></span>
+<span id="cb27-16"><a href="notes-of-r-and-c.html#cb27-16" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb27-17"><a href="notes-of-r-and-c.html#cb27-17" aria-hidden="true"></a><span class="dt">double</span> rcpparma_innerproduct(<span class="at">const</span> arma::colvec &amp; x){</span>
+<span id="cb27-18"><a href="notes-of-r-and-c.html#cb27-18" aria-hidden="true"></a>  <span class="dt">double</span> v = arma::as_scalar(x.t() * x);</span>
+<span id="cb27-19"><a href="notes-of-r-and-c.html#cb27-19" aria-hidden="true"></a>  <span class="cf">return</span> v;</span>
+<span id="cb27-20"><a href="notes-of-r-and-c.html#cb27-20" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="notes-of-r-and-c.html#cb28-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;RcppArmadillo.h&gt;</span></span>
+<span id="cb28-2"><a href="notes-of-r-and-c.html#cb28-2" aria-hidden="true"></a></span>
+<span id="cb28-3"><a href="notes-of-r-and-c.html#cb28-3" aria-hidden="true"></a><span class="co">// [[Rcpp::depends(RcppArmadillo)]]</span></span>
+<span id="cb28-4"><a href="notes-of-r-and-c.html#cb28-4" aria-hidden="true"></a></span>
+<span id="cb28-5"><a href="notes-of-r-and-c.html#cb28-5" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb28-6"><a href="notes-of-r-and-c.html#cb28-6" aria-hidden="true"></a>arma::rowvec colSums(arma::mat mat){</span>
+<span id="cb28-7"><a href="notes-of-r-and-c.html#cb28-7" aria-hidden="true"></a>  <span class="dt">size_t</span> cols = mat.n_cols;</span>
+<span id="cb28-8"><a href="notes-of-r-and-c.html#cb28-8" aria-hidden="true"></a>  arma::rowvec res(cols);</span>
+<span id="cb28-9"><a href="notes-of-r-and-c.html#cb28-9" aria-hidden="true"></a>  </span>
+<span id="cb28-10"><a href="notes-of-r-and-c.html#cb28-10" aria-hidden="true"></a>  <span class="cf">for</span>(<span class="dt">size_t</span> i=<span class="dv">0</span>; i&lt;cols; i++){</span>
+<span id="cb28-11"><a href="notes-of-r-and-c.html#cb28-11" aria-hidden="true"></a>    res[i] = sum(mat.col(i));</span>
+<span id="cb28-12"><a href="notes-of-r-and-c.html#cb28-12" aria-hidden="true"></a>  }</span>
+<span id="cb28-13"><a href="notes-of-r-and-c.html#cb28-13" aria-hidden="true"></a>}</span></code></pre></div>
+</div>
+<div id="rcpparrayfire" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> RcppArrayFire</h2>
+<p><a href="https://www.r-bloggers.com/introducing-rcpparrayfire/">Check this</a></p>
+</div>
+<div id="other-notes" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> OTHER NOTES</h2>
+<p>We can also write some <code>C++</code> codes directley in RMarkdown adding to the chunck the following line of codes</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="notes-of-r-and-c.html#cb29-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb29-2"><a href="notes-of-r-and-c.html#cb29-2" aria-hidden="true"></a></span>
+<span id="cb29-3"><a href="notes-of-r-and-c.html#cb29-3" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb29-4"><a href="notes-of-r-and-c.html#cb29-4" aria-hidden="true"></a><span class="dt">int</span> fibonacci(<span class="at">const</span> <span class="dt">int</span> x) {</span>
+<span id="cb29-5"><a href="notes-of-r-and-c.html#cb29-5" aria-hidden="true"></a>    <span class="cf">if</span> (x == <span class="dv">0</span> || x == <span class="dv">1</span>) <span class="cf">return</span>(x);</span>
+<span id="cb29-6"><a href="notes-of-r-and-c.html#cb29-6" aria-hidden="true"></a>    <span class="cf">return</span> (fibonacci(x - <span class="dv">1</span>)) + fibonacci(x - <span class="dv">2</span>);</span>
+<span id="cb29-7"><a href="notes-of-r-and-c.html#cb29-7" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Now we can use the function created in <code>C++</code> directley in <code>R</code></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="notes-of-r-and-c.html#cb30-1" aria-hidden="true"></a><span class="kw">fibonacci</span>(10L)</span>
+<span id="cb30-2"><a href="notes-of-r-and-c.html#cb30-2" aria-hidden="true"></a><span class="co">#&gt; [1] 55</span></span>
+<span id="cb30-3"><a href="notes-of-r-and-c.html#cb30-3" aria-hidden="true"></a><span class="kw">fibonacci</span>(20L)</span>
+<span id="cb30-4"><a href="notes-of-r-and-c.html#cb30-4" aria-hidden="true"></a><span class="co">#&gt; [1] 6765</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="notes-of-r-and-c.html#cb31-1" aria-hidden="true"></a>slowmax &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb31-2"><a href="notes-of-r-and-c.html#cb31-2" aria-hidden="true"></a>  res &lt;-<span class="st"> </span>x[<span class="dv">1</span>]</span>
+<span id="cb31-3"><a href="notes-of-r-and-c.html#cb31-3" aria-hidden="true"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(x)){</span>
+<span id="cb31-4"><a href="notes-of-r-and-c.html#cb31-4" aria-hidden="true"></a>    <span class="cf">if</span>(x[i] <span class="op">&gt;</span><span class="st"> </span>res) res &lt;-<span class="st"> </span>x[i]</span>
+<span id="cb31-5"><a href="notes-of-r-and-c.html#cb31-5" aria-hidden="true"></a>  }</span>
+<span id="cb31-6"><a href="notes-of-r-and-c.html#cb31-6" aria-hidden="true"></a>  res</span>
+<span id="cb31-7"><a href="notes-of-r-and-c.html#cb31-7" aria-hidden="true"></a>}</span>
+<span id="cb31-8"><a href="notes-of-r-and-c.html#cb31-8" aria-hidden="true"></a></span>
+<span id="cb31-9"><a href="notes-of-r-and-c.html#cb31-9" aria-hidden="true"></a><span class="kw">library</span>(microbenchmark)</span>
+<span id="cb31-10"><a href="notes-of-r-and-c.html#cb31-10" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e6</span>)</span>
+<span id="cb31-11"><a href="notes-of-r-and-c.html#cb31-11" aria-hidden="true"></a><span class="kw">microbenchmark</span>(<span class="kw">slowmax</span>(x), <span class="kw">max</span>(x))</span>
+<span id="cb31-12"><a href="notes-of-r-and-c.html#cb31-12" aria-hidden="true"></a><span class="co">#&gt; Unit: milliseconds</span></span>
+<span id="cb31-13"><a href="notes-of-r-and-c.html#cb31-13" aria-hidden="true"></a><span class="co">#&gt;        expr       min        lq      mean    median        uq       max neval</span></span>
+<span id="cb31-14"><a href="notes-of-r-and-c.html#cb31-14" aria-hidden="true"></a><span class="co">#&gt;  slowmax(x) 39.954642 40.128184 41.942736 40.376404 41.008077 73.276484   100</span></span>
+<span id="cb31-15"><a href="notes-of-r-and-c.html#cb31-15" aria-hidden="true"></a><span class="co">#&gt;      max(x)  2.086677  2.107009  2.231972  2.120356  2.216961  6.007992   100</span></span>
+<span id="cb31-16"><a href="notes-of-r-and-c.html#cb31-16" aria-hidden="true"></a><span class="co">#&gt;  cld</span></span>
+<span id="cb31-17"><a href="notes-of-r-and-c.html#cb31-17" aria-hidden="true"></a><span class="co">#&gt;    b</span></span>
+<span id="cb31-18"><a href="notes-of-r-and-c.html#cb31-18" aria-hidden="true"></a><span class="co">#&gt;   a</span></span>
+<span id="cb31-19"><a href="notes-of-r-and-c.html#cb31-19" aria-hidden="true"></a></span>
+<span id="cb31-20"><a href="notes-of-r-and-c.html#cb31-20" aria-hidden="true"></a><span class="kw">library</span>(Rcpp)</span>
+<span id="cb31-21"><a href="notes-of-r-and-c.html#cb31-21" aria-hidden="true"></a><span class="kw">evalCpp</span>(<span class="st">&quot;40 + 2&quot;</span>)</span>
+<span id="cb31-22"><a href="notes-of-r-and-c.html#cb31-22" aria-hidden="true"></a><span class="co">#&gt; [1] 42</span></span>
+<span id="cb31-23"><a href="notes-of-r-and-c.html#cb31-23" aria-hidden="true"></a></span>
+<span id="cb31-24"><a href="notes-of-r-and-c.html#cb31-24" aria-hidden="true"></a><span class="kw">evalCpp</span>(<span class="st">&quot;exp(1.0)&quot;</span>)</span>
+<span id="cb31-25"><a href="notes-of-r-and-c.html#cb31-25" aria-hidden="true"></a><span class="co">#&gt; [1] 2.718282</span></span>
+<span id="cb31-26"><a href="notes-of-r-and-c.html#cb31-26" aria-hidden="true"></a></span>
+<span id="cb31-27"><a href="notes-of-r-and-c.html#cb31-27" aria-hidden="true"></a><span class="kw">evalCpp</span>(<span class="st">&quot;sqrt(4.0)&quot;</span>)</span>
+<span id="cb31-28"><a href="notes-of-r-and-c.html#cb31-28" aria-hidden="true"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb31-29"><a href="notes-of-r-and-c.html#cb31-29" aria-hidden="true"></a></span>
+<span id="cb31-30"><a href="notes-of-r-and-c.html#cb31-30" aria-hidden="true"></a><span class="kw">evalCpp</span>(<span class="st">&quot; std::numeric_limits&lt;int&gt;::max()&quot;</span>)</span>
+<span id="cb31-31"><a href="notes-of-r-and-c.html#cb31-31" aria-hidden="true"></a><span class="co">#&gt; [1] 2147483647</span></span></code></pre></div>
+<p><a href="https://www.youtube.com/watch?v=57H34Njrns4">Check this!</a></p>
+<p>Some other stuff: <a href="https://gallery.rcpp.org//articles/handling-R6-objects-in-rcpp/">here</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="notes-of-r-and-python.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

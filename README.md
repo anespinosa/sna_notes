@@ -1,7 +1,17 @@
-This is a minimal bookdown example. Although you see a few files here, only `index.Rmd` is required. All other files are optional, but `bookdown-minimal.Rproj` can make it much easier to build the book.
+# Notes for Social Network Science Projects using R
 
-The key is the `site` setting in `index.Rmd`. If you want to build the book in RStudio, just click the `Build Book` button in the `Build` pane, otherwise call the function in R:
+My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html), and I am currently a PhD student in Sociology and a member of [the Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) from the University of Manchester. This document are my notes of some of the random stuff that I am interested that involve R, social networks, or statistics.
+
+My own implementations would be collected in the **[`netmem: Network Measures using Matrices`](https://github.com/anespinosa/netmem)** package.    
 
 ```r
-bookdown::render_book('index.Rmd', 'all')
+g <- erdos.renyi.game(sample(1:100, 1), p.or.m = runif(1))
+```
+
+```python
+G = zen.erdos_renyi(10,0.1)
+```
+
+```bash
+sudo apt-get install g++
 ```

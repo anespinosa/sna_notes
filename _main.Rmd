@@ -1,0 +1,1003 @@
+---
+title: "SNA Notes"
+author: "Alejandro Espinosa-Rada"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+  #bookdown::pdf_book: default
+---
+
+# Hello World
+
+Hi.
+
+Bye.
+
+<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
+
+<!--chapter:end:index.Rmd-->
+
+---
+output: github_document
+---
+
+<!-- opt_linear_regression.md is generated from opt_linear_regression.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Notes of Optimization
+
+## Notes of Linear Regression
+
+The following notes are from this [BOOK](https://bookdown.org/rdpeng/advstatcomp/textbooks-vs-computers.html). Most of the original references become from there.
+
+
+Pending,
+
+- Expand the **Guassian elimination** notes with an analytical example and an `R` code
+- Expand the **Gram-Schmidt process** notes with an analytical example and an `R` code.
+
+## Logarithms
+
+Univariate normal distribution with mean $\mu$ and variance $\sigma^2$ is 
+
+$f(x|\mu, \sigma^2)=\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}$
+
+and in `R` we can compute this value as
+```{r results='hold'}
+dnorm(0, mean=0, sd=1); dnorm(0)
+```
+
+Calculating the equation, we have
+```{r results='hold'}
+# Example 1
+UniNorm <- function(x, mean=0, sigma=1){
+  #pi = 3.14159
+ output <- (1/sqrt(2*pi*sigma))*exp(-(1/2*(sigma)^2)*((x-mean)^2)) 
+ print(output)
+}
+UniNorm(0)
+dnorm(0)
+
+# Example 2
+UniNorm(1)
+dnorm(1)
+```
+
+In practice, the exact number is not used, and the $log$ is used instead. However, in some cases we do need the value in the original scale. Calculating *densities* with $log$ is much more stable because when the exponential function is used the number become very small for the machine to represent (*underflow*), and if the ratio is used we could have also big numbers (*overflow*). The $log$ (and then the $exp$) resolve some of these issues. 
+
+## Linear Regression
+
+We express the linear regression in matrix form as,
+
+$y = X \beta + \varepsilon$
+
+Were $y$ is a vector of size $n \times 1$ of observed response, $X$ is the $n \times p$ predictor matrix, $\beta$ is the $p \times 1$ coefficient vector, and $\varepsilon$ is the $n \times 1$ error vector.
+
+To estimate $\beta$ (via maximum likelihood or least square), is often written in matrix form as
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y
+\]
+
+
+Which could be estimated in `R` using `solve` to extract the inverse of the cross product matrix.  
+```{r}
+set.seed(1234)
+X <- matrix(rnorm(5000 * 100), 5000, 100)
+y <- rnorm(5000)
+betahat <- solve(t(X) %*% X) %*% t(X) %*% y
+head(betahat)
+```
+
+Computationally, this is very expensive! 
+
+<div class="alert alert-info">
+Quick look of *inverse matrixes* to understand the following equation: 
+$\hat{\beta}=(X'X)^{-1}X'y$
+
+First, recall that not all square matrixes are inversible, and that there are some properties of the inverse matrix such as:
+
+1. $AA^{-1}=I=A^{-1}A$
+2. $(AB)^{-1}=B^{-1}A^{-1}$
+3. $(A^{T})^{-1}=(A^{-1})^{T}$
+
+Let use an example to disentangle some of the properties! First,
+
+\[
+A = 
+\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}
+\]
+
+and
+
+\[
+A^{-1} = 
+\begin{pmatrix}
+x_{1} & x_{2} \\
+y_{1} & y_{2}
+\end{pmatrix}
+\]
+
+we also know that
+
+\[
+I = 
+\begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}
+\]
+
+All together and considering $(1)$ we have
+
+\[
+AA^{-1}=I=A^{-1}A=
+\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}
+\begin{pmatrix}
+x_{1} & x_{2} \\
+y_{1} & y_{2}
+\end{pmatrix} =
+\begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix} =
+\begin{pmatrix}
+x_{1} & x_{2} \\
+y_{1} & y_{2}
+\end{pmatrix}
+\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}
+\]
+
+Now, solving the **linear system of equation** we have
+
+1. $ax_{1}+by_{1}=1$
+2. $ax_{2}+by_{2}=0$
+3. $cx_{1}+dy_{1}=0$
+4. $cx_{2}+dy_{2}=1$
+
+Also, re-arranging some of the terms and doing some **elementary row operations** we have for:
+
+2. $ax_{2}+by_{2}=0$
+
+That,
+
+\[
+y_{2}=\frac{-a}{b}x_{2}
+\]
+
+and
+
+3. $cx_{1}+dy_{1}=0$
+
+\[
+y_{1}=\frac{-c}{d}x_{1}
+\]
+
+Now, 
+
+1. $ax_{1}+by_{1}=1$
+
+we could replace some terms in such a way that,
+
+\[
+ax_{1}-\frac{bc}{d}x_{1}=1
+\]
+
+and
+
+\[
+x_{1}=\frac{d}{ad-bc}
+\]
+
+then
+
+\[
+y_{1}=\frac{-c}{ad-bc}
+\]
+
+Also,
+
+\[
+\frac{c}{b}x_{2}-\frac{ad}{b}x_{2}=1
+\]
+
+is expressed as
+
+\[
+x_{2}=\frac{b}{bc-ad}
+\]
+
+and
+
+\[
+y_{2}=\frac{a}{ad-bc}
+\]
+
+Puting all together we have the inverse of the matrix
+
+\[
+A^{-1}= \frac{1}{ad-bc}
+\begin{pmatrix}
+d & -b \\
+-c & a
+\end{pmatrix}
+\]
+
+And, considering that the determinant is,
+
+\[
+|A| = 
+\begin{vmatrix}
+a & b \\
+c & d
+\end{vmatrix} = 
+ad-bc
+\]
+
+If the resulting value of $ad-bc=0$, then the matrix is not invertible (is singular or degenerate)
+
+In `R` all this calculation is just a simple function. For example,
+```{r}
+set.seed(1234)
+X <- matrix(rnorm(100 * 100), 100, 100)
+inv_X <- solve(X)
+```
+
+</div>
+
+
+A better option that is less computationally demanding is re-arranging the terms in the following way:
+
+\[
+X'X\beta = X'y
+\]
+
+Which, gives the same result
+```{r}
+set.seed(1234)
+X <- matrix(rnorm(5000 * 100), 5000, 100)
+betahat <- solve(crossprod(X), crossprod(X, y))
+head(betahat)
+```
+
+
+### Gaussian elimination
+
+The difference between computing the inverse of $X'X$, and using a *Gaussian elimination* to compute $\hat{\beta}$ is that the solution is numerically more stable and faster. Also, if there are high colinearity amongst the predictors, then the results would be unstable if the inverse in $X'X$ is used. 
+
+<div class="alert alert-info">
+**PENDING!!!! (check my algebra notebook)**
+
+Quick look of **Guassian elimination** (or **row reduction**): algorithm to solve linear equations.
+
+The idea is to use **elementary row operations** and modify te matrix to produce a "triangular" matrix with zeros in the bottom left corner (achieving a **upper triangular matrix**), that is said to be in a **reduced row echelon form**. 
+
+For example, we could try the **back substitution** in an augmented matrix
+
+**PENDING: edit the matrix R1(ccc|c)**
+\[
+\begin{array}{ccc|c} 
+1 & -1 & 5 & -9 \\ 
+2 & -1 & -3 & -19 \\ 
+3 & 1 & 4 & -13
+\end{array} 
+\]
+
+Consiering that we have three rows ($R1, R2, R3$)... 
+
+
+**I JUST ADD HERE A NICE MATRIX!!!:**
+
+\[
+A = 
+  \begin{matrix}\begin{pmatrix}x & y\end{pmatrix}\\\mbox{}\end{matrix}
+  \begin{pmatrix} a & b \\ c & d \end{pmatrix} 
+  \begin{pmatrix} x \\ y \end{pmatrix}
+\]
+
+[here](https://stackoverflow.com/questions/16044377/how-to-do-gaussian-elimination-in-r-do-not-use-solve)
+```{r results='hold'}
+# Data
+A <- matrix(c(2,-5,4,1,-2.5,1,1,-4,6),byrow=T,nrow=3,ncol=3)
+b <- matrix(c(-3,5,10),nrow=3,ncol=1)
+p <- nrow(A)
+(U.pls <- cbind(A,b))
+
+# Gaussian Elimination
+U.pls[1,] <- U.pls[1,]/U.pls[1,1]
+i <- 2
+while (i < p+1) {
+ j <- i
+ while (j < p+1) {
+  U.pls[j, ] <- U.pls[j, ] - U.pls[i-1, ] * U.pls[j, i-1]
+  j <- j+1
+ }
+ while (U.pls[i,i] == 0) {
+  U.pls <- rbind(U.pls[-i,],U.pls[i,])
+ }
+ U.pls[i,] <- U.pls[i,]/U.pls[i,i]
+ i <- i+1
+}
+for (i in p:2){
+ for (j in i:2-1) {
+  U.pls[j, ] <- U.pls[j, ] - U.pls[i, ] * U.pls[j, i]
+ }
+}
+U.pls
+
+# Check:
+library(pracma)
+rref(cbind(A, b))
+
+```
+
+</div>
+
+Comparing both strategies, we could check that the **Gaussian elimination** in comparisson with the other strategy is less time consuming
+```{r  message=FALSE}
+library(microbenchmark)
+library(magrittr)
+set.seed(1234)
+X <- matrix(rnorm(5000 * 100), 5000, 100)
+microbenchmark(
+  inverse = solve(t(X) %*% X) %*% t(X) %*% y,
+  gaussian = solve(crossprod(X), crossprod(X, y))
+  ) %>% summary(unit = "ms") %>% knitr::kable(format = "markdown")
+
+```
+
+On the other hand, the Gaussian elimination would breaks down when there is collinearity in the $X$ matrix. Meaning that the column $X$ would be very similar, but not identical, to the first column of $X$. For example,
+```{r error=TRUE}
+set.seed(127893)
+X <- matrix(rnorm(5000 * 100), 5000, 100)
+W <- cbind(X, X[, 1] + rnorm(5000, sd = 0.0000000001))
+solve(crossprod(W), crossprod(W, y)) 
+```
+
+In this case, the cross product matrix $W'W$ is singular (determinant is $0$)
+
+
+### QR decomposition
+
+`R` use as a default the **QR decomposition**, that is not fast, but can detect and handle colinear columns in the matrix. 
+
+<div class="alert alert-info">
+Quick look of *orthogonal matrix* to understand the **QR decomposition** (also known as **QR factorization** or **QU factorization**): $A=QR$. 
+
+To work out with the orthogonal vector, we often work with **orthonormal** vectors. That assumes that all the vectors have lenght $1$ ($||v_{1}||=1$, $||v_{1}||^{2}=1$ or $v_{1}v_{2}=1$ for $i, 1,2,...k$). Therefore, they have all been "normalized" (unit vectors).
+
+Two vectors $v_{1}$ and $v_{2}$, are said to be *orthogonal* if $\langle v_{1},v_{2} \rangle = 0$ (sometime expressed as $v_{1} \perp v_{2}$) 
+
+A set of nonzero vectors that are mutually orthogonal are necessarily linearly independent. Meaning that each vector in one is orthogonal to every vector in the other, and said to be *normal* to that space (*normal vector*).
+
+[Example](https://www.khanacademy.org/math/linear-algebra/alternate-bases/orthonormal-basis/v/linear-algebra-introduction-to-orthonormal-bases):
+
+Assuming that we have a vector
+
+\[
+v_{1} = 
+  \begin{pmatrix} 1/3 \\ 2/3 \\ 2/3 \end{pmatrix}
+\]
+
+and 
+
+\[
+v_{1} = 
+  \begin{pmatrix} 2/3 \\ 1/3 \\ -2/3 \end{pmatrix}
+\]
+
+and $B=\{v_{1}, v_{2}\}$.
+
+What is the lenght of $v_{1}$ and $v_{2}$?
+
+$||v_{1}||^2=v_{1}v_{2}=1/9+4/9+4/9=1$ and $||v_{2}||^2=4/9+1/9+4/9=1$. We know that we have a normalized set $B$.
+
+Are they orthogonal?
+$v_{1}v_{2}=2/9+2/9+-4/9=0$
+
+If we know that we have a space, such as $V=span(v_{1},v_{2})$, the we can say that $B$ is an ortohonormal basis for $V$.
+
+We do know that the **QR decomposition** decompose a matrix $A$ into a product $A=QR$ of an othogonal matrix $Q$ and an upper triangular matrix $R$. 
+</div>
+
+
+<div class="alert alert-info">
+Quick look of the [**Gram-Schmidt process**](https://en.wikipedia.org/wiki/QR_decomposition) to compute the **QR decomposition**.
+
+**PENDING!!!! (check my algebra notebook)**
+
+[check](https://genomicsclass.github.io/book/pages/qr_and_regression.html)
+
+</div>
+
+Knowing that $X$ can be decomposed as $X=QR$, the linear regression
+
+\[
+X'X\beta = X'y
+\]
+
+can be writted as
+
+\[
+R'Q'QR'\beta = R'Q'y \\
+R'R\beta = R'Q'y \\
+R\beta = Q'y
+\]
+
+Considering that $Q'Q=I$, now we have a simpler equation that does not longer require to compute the cross product. Also, due the QR decomposition $R$ is upper triangular and, therefore, we can solve $\beta$ via Gaussian elimination. Some of the benefits are that the cross product $X'X$ was numerically unstable if it is not properly centered or scaled. 
+
+To compute the singular matrix $W$ of the example, the QR decomposition continous without error. Notices that the ouput have $100$ and not $101$ ranks, this is because the colinear column. 
+```{r}
+Qw <- qr(W)
+str(Qw)
+```
+
+After understanding the QR decomposition for the matrix, we can now solve the regression equation to estimate $\hat{\beta}$ using `R`:
+```{r}
+betahat <- qr.coef(Qw, y)
+tail(betahat, 1)
+```
+Notices that the last element in the position $101$ is `NA` due the colliniarity. Meaning that the coefficient could not be calculated.
+
+This approach helps with colliniarity, is better and more stable. However, is slower:
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(microbenchmark)
+m <- microbenchmark(solve(t(X) %*% X) %*% t(X) %*% y,
+                    solve(crossprod(X), crossprod(X, y)),
+                    qr.coef(qr(X), y))
+autoplot(m)
+```
+
+
+## Multivariate Normal Distribution
+
+The *p*-dimensional multivariate Normal density is written as
+\[
+\begin{aligned}
+\varphi(x|\mu, \Sigma)=-\frac{p}{2}log|\Sigma|-\frac{1}{2}(x-\mu)'\Sigma ^{ -1}(x-\mu)
+\end{aligned}
+\]
+
+<div class="alert alert-info">
+Quick look of the **multivariate Normal density**.
+
+Considering that the Gaussian or normal distribution for the univariate case is $f(x|\mu, \sigma^2)=\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}$
+
+With parameters: mean $\mu$ and variance $\sigma^{2}$ (standard deviation $\sigma$). We know that the maximum likelihood estimates are
+\[
+\begin{aligned}
+\hat{\mu}=\frac{1}{N}\sum_{i}x^{(i)} \\
+\hat{\sigma}^{2}=\frac{1}{N}\sum_{i}(x^{(i)}-\hat{\mu})^{2}
+\end{aligned}
+\]
+
+Then, we have the multivariate Normal density which is the extension of this model to vector value random variables in a multidimensional space. In which $x$ would be a vector with $d$ values, with $\mu$ as the length-d row vector, and $\Sigma$ a $d \times d$ matrix.Remember that $|\Sigma|$ is the determinant matrix of the covariants, 
+
+The maximum likelihood are similar to the univariate case
+\[
+\begin{aligned}
+\hat{\mu}=\frac{1}{m}\sum_{j}x^{(j)} \\
+\hat{\Sigma}^{2}=\frac{1}{m}\sum_{j}(x^{(j)}-\hat{\mu})^{T}(x^{(j)}-\hat{\mu})
+\end{aligned}
+\]
+Where $\Sigma$ is the average of the $d \times d$ matrix (outer product). 
+
+For [example](https://www.youtube.com/watch?v=eho8xH3E6mE),
+
+If we have two independent Gaussian variables $x_{1}$ and $x_{2}$, normalized with a $Z$ constant
+\[
+\begin{aligned}
+p(x_{1})=\frac{1}{Z_{1}}exp\{-\frac{1}{2\sigma^{2}_{1}}(x_{1}-\mu_{1})^{2}\} \\
+p(x_{2})=\frac{1}{Z_{2}}exp\{-\frac{1}{2\sigma^{2}_{2}}(x_{2}-\mu_{2})^{2}\}
+\end{aligned}
+\]
+We can a new vector concatenating the two vectors, $x=[x_{1}x_{2}]$ we can ask for the distribution of $x$ assuming that $x_{1}$ and $x_{2}$ are independents. Then, the joint distribution is the product of the individual distributions. Then, we have
+\[
+p(x_{1})p(x_{2})=\frac{1}{Z_{1}Z_{2}}exp\{-\frac{1}{2}\}(x-\mu)^{T}\Sigma^{-1}(x-\mu) \\
+\mu=[\mu_{1}\mu_{2}] \\
+\Sigma = diag(\sigma^{2}_{1}, \sigma^{2}_{2}) \\
+\Sigma=\begin{pmatrix} \sigma^{2}_{11} & 0 \\ 0 & \sigma^{2}_{22} \end{pmatrix}
+\]
+</div>
+
+From the multivariate Normal density equation, the most time-consuming part is the quadratic form
+\[
+(x-\mu)'\Sigma^{-1}(x-\mu) = z'\Sigma^{-1}z \\
+z=x-\mu
+\]
+
+Similarly to the regression example above is the inversion of the of the *p*-dimensional covariance matrix $\Sigma$. Taking $z$ as a $p \times 1$ column vector, then in `R` this could be expressed as
+```{r eval=FALSE}
+t(z) %*% solve(Sigma) %*% z
+```
+
+
+### Choleskey decomposition
+
+Rather than using the literal equation, a similar approach is using the **Choleskey decomposition** of $\Sigma$.
+
+<div class="alert alert-info">
+Quick look of the **Choleskey decomposition** or **Choleskey factorization**.
+
+[here](https://www.maths.manchester.ac.uk/~higham/papers/high09c.pdf)
+Recall that if all the eigenvalues of $A$ are positive, or if $x^{T}Ax$ is positive for all non-zero vector $x$ (which is equivalent), then we assume that a symmetric $n \times n$ matrix $A$ is **positive definite**. If a matrix is **positive definite**, then it could be defined as $A=X'X$ for a non-singular (non-invertible) matrix $X$. 
+
+
+**PENDING!!!! (check my algebra notebook)**
+
+[check](http://www.seas.ucla.edu/~vandenbe/133A/lectures/chol.pdf)
+
+</div>
+
+<div class="alert alert-info">
+Quick look of the **eigenvalues**.
+
+**PENDING!!!! (check my algebra notebook)**
+
+</div>
+
+Using the Choleskey decomposition for a positive definite matrix on $\Sigma$, we have 
+\[
+\Sigma = R'R 
+\]
+were $R$ is an upper triangular matrix (also called the *square root* of $\Sigma$). Using Choleskey decomposition on $\Sigma$ and the rules of matrix algebra, the multivariate Normal density equation can be written as
+\[
+z'\Sigma^{-1}z = z'(R'R)^{-1}z \\
+= z'R^{-1}R'^{-1}z \\
+= (R'^{-1}z)'R'^{-1}z \\
+= v'v
+\]
+Where $v=R'^{-1}z$ and is a $p \times 1$ vector. Also, to avoid inverting $R'^{-1}$ by computing $v$ as solution of the linear system
+\[
+R'v=z
+\]
+Then, computing $v$, we can compute $v'v$, which is simply the cross-product of two *p*-dimensional vectors.
+
+One of the benefits of using Choleskey decomposition is that gives a way of computing the log-determinant of $\Sigma$. Where the log-determinant of $\Sigma$ is simply $2$ times the sum of the log of the diagional elements of $R$. Implementing this in a function
+```{r warning=FALSE, message=FALSE}
+set.seed(93287)
+z <- matrix(rnorm(200 * 100), 200, 100)
+S <- cov(z)
+quad.naive <- function(z, S) {
+        Sinv <- solve(S)
+        rowSums((z %*% Sinv) * z)
+}
+library(dplyr)
+quad.naive(z, S) %>% summary
+
+```
+
+Now, a version that use the Choleskey decomposition 
+```{r}
+quad.chol <- function(z, S) {
+        R <- chol(S)
+        v <- backsolve(R, t(z), transpose = TRUE)
+        colSums(v * v)
+}
+quad.chol(z, S) %>% summary
+```
+
+Comparing both approaches
+```{r}
+library(microbenchmark)
+microbenchmark(quad.naive(z, S), quad.chol(z, S))
+```
+
+The Choelsky decomposition is faster. Also, because **we know** that the covariance matrix in a multivariate Normal is symmetric and positive define we can use the Choleskey decomposition. The naive version does not have that information, therefore, inverte the matrix and takes more time to estimate!
+
+
+<!--chapter:end:01-linear.Rmd-->
+
+---
+output: github_document
+---
+
+<!-- sna_r_python.md is generated from sna_r_python.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+
+# Notes of R and Python
+
+## Connecting R and Python for Social Network Science Projects
+
+My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html) and I am currentley a PhD student in Sociology and member of the [Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) at the University of Manchester
+
+Pending,
+
+- Check `graph-tool` installation
+- Create a new script with a small tutorial of some of the module for social network analysis (maybe: `EstimNetDirected`)
+
+
+The following script is my notes for Social Network Science Projects to combine `R` and `Python`. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the "Anaconda prompt". 
+
+In the following, I will only present Mac OS/Linux operation system.
+
+## Conda environment
+
+To begin, I will first create an environment that would contain all the python modules of the entire Social Network Science Project using [conda](https://docs.conda.io/). After installing conda in my computer, I open my terminal and add the following line of codes: `conda create --name sns python=3.8 anaconda` that would create a new environment called `sns` (*Social Network Science*) and would also install python version 3.8. 
+
+## Installing Social Network Science modules from Python
+
+If you are willing to activate the environment from the terminal, then you would have to use `conda activate sns`. Notice that I give the name `sns` that could be modified for whatever you prefer. We can install some modules from python activating the environment from the terminal (i.e. `conda activate sns`), and then running the following codes
+
+- `python -m pip install numpy`
+- `python -m pip install panda`
+- `python -m pip install igraph`
+- `python -m pip install matplotlib`
+- `python -m pip install leidenalg`
+- `python -m pip install networkx`
+- `python -m pip install pyintergraph`
+
+Or, all at once
+- `python -m pip install numpy panda igraph matplotlib leidenalg networkx pyintergraph`
+
+Check the modules installed in your environment with `pip list`.
+
+In my personal computer, I had some issues with the visualizations of `igraph`. Hence, I install some extra modules:
+
+- `python -m pip install cairocffi`
+- `python -m pip install pycairo`
+
+Also, I install `cairo` using the following code suggested in the webpage of [pycairo](https://pycairo.readthedocs.io/en/latest/getting_started.html), that use [Homebrew](https://brew.sh):
+
+- `brew install cairo pkg-config`
+
+After installing some modules, you should now deactivate the session, and you would have to put the following line of code: `conda deactivate` in your terminal. If you are willing to check your environments, just press: `conda info --envs` in your terminal. If for some reason you prefer to remove your entire environment, you would have to use the following code: `conda remove --name sns --all`
+
+Is often common for `python` users to use the `Jupyter Notebook`, that might be a better option if you are just going to use `python`. In which case, after activating your conda environment, you could set your working directory through `cd [DIRECTORY]` in the terminal. Then launch the Jupyter notebook by `jupyter notebook`. 
+
+
+## Connecting R and Python
+
+<div class="alert alert-success">
+We can run `Python` codes directly from `R` using [`RMarkdown`](https://rmarkdown.rstudio.com). I prefer connecting the <span style="color:blue">**best of both worlds**</span>. Mostly, because in my personal workflow I tend to use statistical models for social networks analysis. Some of these other statistical models that use social networks are:  
+
+1. Different models available in [Statnet](http://statnet.org) (e.g. exponential random graph models, epidemiological models, relational event models, or the latent position and cluster models for statistical networks)
+
+2. [Stochastic actor-oriented model](https://www.stats.ox.ac.uk/~snijders/siena/)
+
+3. [Dynamic Network Actor-Oriented Model](https://github.com/snlab-ch/goldfish)
+</div>
+
+Now that I have an environment called `sns`, I could now start using R and Python together. We would need to install the `reticulate` package.
+```{r, message=FALSE, eval=FALSE}
+#install.packages("reticulate")
+library(reticulate)
+
+use_condaenv(condaenv = "sns", conda = "auto", required = TRUE)
+main <- import_main()
+
+```
+
+We can also install a package from R using anaconda of Python, and run any Python code in R using `py_run_string`
+```{r eval=FALSE}
+#reticulate::conda_install(c("leidenalg", "igraph"), 
+#                            envname = "sns", pip = TRUE)
+
+py_run_string("import numpy as np")
+py_run_string("my_python_array = np.array([2,4,6,8])")
+py_run_string("print(my_python_array)")
+
+```
+
+Also, we can use python directly from `Rmarkdown` adding the chunk `{python}` instead of `{r}` in the Rmarkdown. For example, we can replicate the classic model of Holland, Laskey & Leinhardt (1983) on Stochastic Block Model using [stochastic_block_model](https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html)
+```{python, eval=FALSE}
+import networkx as nx
+sizes = [75, 75, 300]
+probs = [[0.25, 0.05, 0.02],
+        [0.05, 0.35, 0.07],
+        [0.02, 0.07, 0.40]]
+        
+g = nx.stochastic_block_model(sizes, probs, seed=0)
+len(g)
+
+H = nx.quotient_graph(g, g.graph['partition'], relabel=True)
+
+for v in H.nodes(data=True):
+      print(round(v[1]['density'], 3))
+      
+for v in H.edges(data=True):
+      print(round(1.0 * v[2]['weight'] / (sizes[v[0]] * sizes[v[1]]), 3))
+
+```
+
+There are neat packages out there in `Python`, some of my favourites are:
+
+1. [`python`](https://igraph.org/python/):  general purpose network analysis
+
+2. [`NetworkX`](https://networkx.github.io):  general purpose network analysis
+
+3. [`pyintergraph`](https://pypi.org/project/pyintergraph/): convert Python-Graph-Objects between networkx, python-igraph and graph-tools
+
+4. [`snap`](general purpose network analysis and graph mining library): general purpose network analysis
+
+5. [`metaknowledge`](https://metaknowledge.readthedocs.io/en/latest/): computational research in bibliometrics, scientometrics, and network analysis
+
+6. [`pySciSci`](https://github.com/SciSciCollective/pyscisci): computational research in bibliometrics, scientometrics, and network analysis
+
+7. [`leiden_lag`](https://leidenalg.readthedocs.io/en/stable/): for community detection, with a special focus in the `leiden algorithm`. Some nice codes are  available in the official GitHub of [CWTS](https://github.com/CWTSLeiden/CSSS)
+
+8. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general purpose network analysis
+
+9. [`EstimNetDirected`](https://github.com/stivalaa/EstimNetDirected): Exponential random graph models for big networks
+
+
+
+<!--chapter:end:02-python.Rmd-->
+
+---
+title: "Notes of R and C++"
+author: |
+ | [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
+ | *The Mitchell Centre for Social Network Analysis, The University of Manchester*
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Notes of R and C++
+
+## RcppArmadillo
+
+```{r}
+library(Rcpp)
+
+cppFunction("arma::mat v(arma::colvec a) {
+ return a*a.t();}",
+depends="RcppArmadillo")
+
+v(1:3)
+
+```
+
+I had a problem compiling codes from `RcppArmadillo`. A nice discussion of my problem was solved in the [here](https://stackoverflow.com/questions/35999874/mac-os-x-r-error-ld-warning-directory-not-found-for-option).
+
+
+What I did was to solve my issue:
+
+- First I install `brew install gcc`
+- Then, I also install `brew cask install gfortran`
+- I have some issues with `brew cleanup`, I will try `brew install yarn` then `sudo yarn cache clean` 
+- Trying this [here](https://discourse.brew.sh/t/brew-gcc-does-not-install-properly/7762/8)... `sudo chown -R $(whoami) /usr/local/*`
+- Okay, I give up... problem for [another day](https://github.com/Homebrew/homebrew-core/issues/45009)
+- Seems that there is an issue installing `Fortran`. Alternative solution in [here](https://cran.r-project.org/bin/macosx/tools/)
+- `brew upgrade gcc`
+
+
+I seems that there is a mayor issue that should be solved connecting `R` with `gcc`. To do that, I had to find the following file from my local computer: `~/.R/Makevars/`
+
+Inside that file, it was the following code:
+`CC=clang`
+`CXX=clang++`
+
+Then, I modify everything for: 
+`VER=-10`
+`CC=gcc$(VER)`
+`CXX=g++$(VER)`
+`CFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`FLIBS=-L/usr/local/Cellar/gcc/10.0.1/lib/gcc/10`
+
+In my case, i have `gcc` version `10.0.1` that is why the code have too many `10` in the modified file! (i.e. `VER=-10` and `FLIBS=-L/usr/local/Cellar/gcc/10.0.1/lib/gcc/10`)
+
+If you are not sure what is your `gcc` version, you can check this on your terminal: 
+
+- Check version `gcc --version`
+
+But,
+
+- Checking the version of fortran: `gfortran --version`, should it be this?
+
+`VER=-8.2.0`
+`CC=gcc$(VER)`
+`CXX=g++$(VER)`
+`CFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`FLIBS=-L/usr/local/Cellar/gcc/8.2.0/lib/gcc/8`
+
+
+Sources of `RcppArmadillo`:
+
+- Course of [Armadillo](https://scholar.princeton.edu/sites/default/files/q-aps/files/slides_day4_am.pdf)
+
+Another example using [`RcppArmadillo`](http://arma.sourceforge.net)
+```{r}
+library(RcppArmadillo)
+
+```
+
+```{Rcpp firstChunk, eval=FALSE}
+#include <Rcpp.h>
+
+// [[ Rcpp :: export ()]]
+double inner1 (Rcpp::NumericVector x,
+               Rcpp::NumericVector y
+                 ){
+  int K = x.length() ;
+  double ip = 0 ;
+  for (int k = 0 ; k < K ; k++) {
+  ip += x(k) * y(k) ;
+    }
+  return(ip) ;
+}
+
+
+```
+
+`using namespace Rcpp;` can call any Rcpp constructs by their given name without the Rcpp:: prefix:
+```{r engine='Rcpp', eval=FALSE}
+#include <RcppArmadillo.h>
+using namespace Rcpp; 
+
+//[[Rcpp::depends(RcppArmadillo)]]
+double inner2 (arma::vec x,
+               arma::vec y
+                 ){
+  arma::mat ip = x.t() * y ;
+  return(ip(0)) ;
+}
+
+```
+
+```{r engine='Rcpp', eval=FALSE}
+#include <RcppArmadillo.h>
+#include <cmath.h>
+//[[Rcpp::depends(RcppArmadillo)]]
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double Mutual_Information(
+    arma::mat joint_dist
+    ){
+        joint_dist = joint_dist/sum(sum(joint_dist));
+        double mutual_information = 0;
+        int num_rows = joint_dist.n_rows;
+        int num_cols = joint_dist.n_cols;
+        arma::mat colsums = sum(joint_dist,0);
+        arma::mat rowsums = sum(joint_dist,1);
+        for(int i = 0; i < num_rows; ++i){
+           for(int j = 0; j <  num_cols; ++j){
+                double temp = log((joint_dist(i,j)/(colsums[j]*rowsums[i])));
+                if(!std::isfinite(temp)){
+                    temp = 0;
+                }
+                mutual_information += joint_dist(i,j) * temp; 
+            }
+        } 
+        return mutual_information;    
+    }
+```
+
+```{Rcpp firstChunk, eval=FALSE}
+#include <RcppArmadillo.h>
+
+//[[Rcpp::depends(RcppArmadillo)]]
+
+// another simple example: outer product of a vector,
+// returning a matrix
+
+// [[Rcpp::export]]
+arma::mat rcpparma_outerproduct(const arma::colvec & x){
+  arma::mat m = x * x.t();
+  return m;
+}
+
+// and the inner product retunrs a scalar
+//
+// [[Rcpp::export]]
+double rcpparma_innerproduct(const arma::colvec & x){
+  double v = arma::as_scalar(x.t() * x);
+  return v;
+}
+
+```
+
+```{r engine='Rcpp', eval=FALSE}
+#include <RcppArmadillo.h>
+
+// [[Rcpp::depends(RcppArmadillo)]]
+
+// [[Rcpp::export]]
+arma::rowvec colSums(arma::mat mat){
+  size_t cols = mat.n_cols;
+  arma::rowvec res(cols);
+  
+  for(size_t i=0; i<cols; i++){
+    res[i] = sum(mat.col(i));
+  }
+}
+
+```
+
+## RcppArrayFire
+
+[Check this](https://www.r-bloggers.com/introducing-rcpparrayfire/)
+
+
+
+## OTHER NOTES
+
+We can also write some `C++` codes directley in RMarkdown adding to the chunck the following line of codes `r engine='Rcpp'`
+```{r engine='Rcpp'}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+int fibonacci(const int x) {
+    if (x == 0 || x == 1) return(x);
+    return (fibonacci(x - 1)) + fibonacci(x - 2);
+}
+```
+
+Now we can use the function created in `C++` directley in `R`
+```{r}
+fibonacci(10L)
+fibonacci(20L)
+```
+
+
+```{r}
+slowmax <- function(x){
+  res <- x[1]
+  for(i in 2:length(x)){
+    if(x[i] > res) res <- x[i]
+  }
+  res
+}
+
+library(microbenchmark)
+x <- rnorm(1e6)
+microbenchmark(slowmax(x), max(x))
+
+library(Rcpp)
+evalCpp("40 + 2")
+
+evalCpp("exp(1.0)")
+
+evalCpp("sqrt(4.0)")
+
+evalCpp(" std::numeric_limits<int>::max()")
+
+```
+
+
+
+[Check this!](https://www.youtube.com/watch?v=57H34Njrns4)
+
+Some other stuff: [here](https://gallery.rcpp.org//articles/handling-R6-objects-in-rcpp/)
+
+
+<!--chapter:end:03-cpp.Rmd-->
+
