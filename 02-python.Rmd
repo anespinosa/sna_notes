@@ -1,0 +1,142 @@
+---
+output: github_document
+---
+
+<!-- sna_r_python.md is generated from sna_r_python.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+
+# Notes of R and Python
+
+## Connecting R and Python for Social Network Science Projects
+
+My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html) and I am currentley a PhD student in Sociology and member of the [Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) at the University of Manchester
+
+Pending,
+
+- Check `graph-tool` installation
+- Create a new script with a small tutorial of some of the module for social network analysis (maybe: `EstimNetDirected`)
+
+
+The following script is my notes for Social Network Science Projects to combine `R` and `Python`. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the "Anaconda prompt". 
+
+In the following, I will only present Mac OS/Linux operation system.
+
+## Conda environment
+
+To begin, I will first create an environment that would contain all the python modules of the entire Social Network Science Project using [conda](https://docs.conda.io/). After installing conda in my computer, I open my terminal and add the following line of codes: `conda create --name sns python=3.8 anaconda` that would create a new environment called `sns` (*Social Network Science*) and would also install python version 3.8. 
+
+## Installing Social Network Science modules from Python
+
+If you are willing to activate the environment from the terminal, then you would have to use `conda activate sns`. Notice that I give the name `sns` that could be modified for whatever you prefer. We can install some modules from python activating the environment from the terminal (i.e. `conda activate sns`), and then running the following codes
+
+- `python -m pip install numpy`
+- `python -m pip install panda`
+- `python -m pip install igraph`
+- `python -m pip install matplotlib`
+- `python -m pip install leidenalg`
+- `python -m pip install networkx`
+- `python -m pip install pyintergraph`
+
+Or, all at once
+- `python -m pip install numpy panda igraph matplotlib leidenalg networkx pyintergraph`
+
+Check the modules installed in your environment with `pip list`.
+
+In my personal computer, I had some issues with the visualizations of `igraph`. Hence, I install some extra modules:
+
+- `python -m pip install cairocffi`
+- `python -m pip install pycairo`
+
+Also, I install `cairo` using the following code suggested in the webpage of [pycairo](https://pycairo.readthedocs.io/en/latest/getting_started.html), that use [Homebrew](https://brew.sh):
+
+- `brew install cairo pkg-config`
+
+After installing some modules, you should now deactivate the session, and you would have to put the following line of code: `conda deactivate` in your terminal. If you are willing to check your environments, just press: `conda info --envs` in your terminal. If for some reason you prefer to remove your entire environment, you would have to use the following code: `conda remove --name sns --all`
+
+Is often common for `python` users to use the `Jupyter Notebook`, that might be a better option if you are just going to use `python`. In which case, after activating your conda environment, you could set your working directory through `cd [DIRECTORY]` in the terminal. Then launch the Jupyter notebook by `jupyter notebook`. 
+
+
+## Connecting R and Python
+
+<div class="alert alert-success">
+We can run `Python` codes directly from `R` using [`RMarkdown`](https://rmarkdown.rstudio.com). I prefer connecting the <span style="color:blue">**best of both worlds**</span>. Mostly, because in my personal workflow I tend to use statistical models for social networks analysis. Some of these other statistical models that use social networks are:  
+
+1. Different models available in [Statnet](http://statnet.org) (e.g. exponential random graph models, epidemiological models, relational event models, or the latent position and cluster models for statistical networks)
+
+2. [Stochastic actor-oriented model](https://www.stats.ox.ac.uk/~snijders/siena/)
+
+3. [Dynamic Network Actor-Oriented Model](https://github.com/snlab-ch/goldfish)
+</div>
+
+Now that I have an environment called `sns`, I could now start using R and Python together. We would need to install the `reticulate` package.
+```{r, message=FALSE, eval=FALSE}
+#install.packages("reticulate")
+library(reticulate)
+
+use_condaenv(condaenv = "sns", conda = "auto", required = TRUE)
+main <- import_main()
+
+```
+
+We can also install a package from R using anaconda of Python, and run any Python code in R using `py_run_string`
+```{r eval=FALSE}
+#reticulate::conda_install(c("leidenalg", "igraph"), 
+#                            envname = "sns", pip = TRUE)
+
+py_run_string("import numpy as np")
+py_run_string("my_python_array = np.array([2,4,6,8])")
+py_run_string("print(my_python_array)")
+
+```
+
+Also, we can use python directly from `Rmarkdown` adding the chunk `{python}` instead of `{r}` in the Rmarkdown. For example, we can replicate the classic model of Holland, Laskey & Leinhardt (1983) on Stochastic Block Model using [stochastic_block_model](https://networkx.github.io/documentation/stable/reference/generated/networkx.generators.community.stochastic_block_model.html)
+```{python, eval=FALSE}
+import networkx as nx
+sizes = [75, 75, 300]
+probs = [[0.25, 0.05, 0.02],
+        [0.05, 0.35, 0.07],
+        [0.02, 0.07, 0.40]]
+        
+g = nx.stochastic_block_model(sizes, probs, seed=0)
+len(g)
+
+H = nx.quotient_graph(g, g.graph['partition'], relabel=True)
+
+for v in H.nodes(data=True):
+      print(round(v[1]['density'], 3))
+      
+for v in H.edges(data=True):
+      print(round(1.0 * v[2]['weight'] / (sizes[v[0]] * sizes[v[1]]), 3))
+
+```
+
+There are neat packages out there in `Python`, some of my favourites are:
+
+1. [`python`](https://igraph.org/python/):  general purpose network analysis
+
+2. [`NetworkX`](https://networkx.github.io):  general purpose network analysis
+
+3. [`pyintergraph`](https://pypi.org/project/pyintergraph/): convert Python-Graph-Objects between networkx, python-igraph and graph-tools
+
+4. [`snap`](general purpose network analysis and graph mining library): general purpose network analysis
+
+5. [`metaknowledge`](https://metaknowledge.readthedocs.io/en/latest/): computational research in bibliometrics, scientometrics, and network analysis
+
+6. [`pySciSci`](https://github.com/SciSciCollective/pyscisci): computational research in bibliometrics, scientometrics, and network analysis
+
+7. [`leiden_lag`](https://leidenalg.readthedocs.io/en/stable/): for community detection, with a special focus in the `leiden algorithm`. Some nice codes are  available in the official GitHub of [CWTS](https://github.com/CWTSLeiden/CSSS)
+
+8. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general purpose network analysis
+
+9. [`EstimNetDirected`](https://github.com/stivalaa/EstimNetDirected): Exponential random graph models for big networks
+
+

@@ -1,0 +1,246 @@
+---
+title: "Notes of R and C++"
+author: |
+ | [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
+ | *The Mitchell Centre for Social Network Analysis, The University of Manchester*
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Notes of R and C++
+
+## RcppArmadillo
+
+```{r}
+library(Rcpp)
+
+cppFunction("arma::mat v(arma::colvec a) {
+ return a*a.t();}",
+depends="RcppArmadillo")
+
+v(1:3)
+
+```
+
+I had a problem compiling codes from `RcppArmadillo`. A nice discussion of my problem was solved in the [here](https://stackoverflow.com/questions/35999874/mac-os-x-r-error-ld-warning-directory-not-found-for-option).
+
+
+What I did was to solve my issue:
+
+- First I install `brew install gcc`
+- Then, I also install `brew cask install gfortran`
+- I have some issues with `brew cleanup`, I will try `brew install yarn` then `sudo yarn cache clean` 
+- Trying this [here](https://discourse.brew.sh/t/brew-gcc-does-not-install-properly/7762/8)... `sudo chown -R $(whoami) /usr/local/*`
+- Okay, I give up... problem for [another day](https://github.com/Homebrew/homebrew-core/issues/45009)
+- Seems that there is an issue installing `Fortran`. Alternative solution in [here](https://cran.r-project.org/bin/macosx/tools/)
+- `brew upgrade gcc`
+
+
+I seems that there is a mayor issue that should be solved connecting `R` with `gcc`. To do that, I had to find the following file from my local computer: `~/.R/Makevars/`
+
+Inside that file, it was the following code:
+`CC=clang`
+`CXX=clang++`
+
+Then, I modify everything for: 
+`VER=-10`
+`CC=gcc$(VER)`
+`CXX=g++$(VER)`
+`CFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`FLIBS=-L/usr/local/Cellar/gcc/10.0.1/lib/gcc/10`
+
+In my case, i have `gcc` version `10.0.1` that is why the code have too many `10` in the modified file! (i.e. `VER=-10` and `FLIBS=-L/usr/local/Cellar/gcc/10.0.1/lib/gcc/10`)
+
+If you are not sure what is your `gcc` version, you can check this on your terminal: 
+
+- Check version `gcc --version`
+
+But,
+
+- Checking the version of fortran: `gfortran --version`, should it be this?
+
+`VER=-8.2.0`
+`CC=gcc$(VER)`
+`CXX=g++$(VER)`
+`CFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion`
+`FLIBS=-L/usr/local/Cellar/gcc/8.2.0/lib/gcc/8`
+
+
+Sources of `RcppArmadillo`:
+
+- Course of [Armadillo](https://scholar.princeton.edu/sites/default/files/q-aps/files/slides_day4_am.pdf)
+
+Another example using [`RcppArmadillo`](http://arma.sourceforge.net)
+```{r}
+library(RcppArmadillo)
+
+```
+
+```{Rcpp firstChunk, eval=FALSE}
+#include <Rcpp.h>
+
+// [[ Rcpp :: export ()]]
+double inner1 (Rcpp::NumericVector x,
+               Rcpp::NumericVector y
+                 ){
+  int K = x.length() ;
+  double ip = 0 ;
+  for (int k = 0 ; k < K ; k++) {
+  ip += x(k) * y(k) ;
+    }
+  return(ip) ;
+}
+
+
+```
+
+`using namespace Rcpp;` can call any Rcpp constructs by their given name without the Rcpp:: prefix:
+```{r engine='Rcpp', eval=FALSE}
+#include <RcppArmadillo.h>
+using namespace Rcpp; 
+
+//[[Rcpp::depends(RcppArmadillo)]]
+double inner2 (arma::vec x,
+               arma::vec y
+                 ){
+  arma::mat ip = x.t() * y ;
+  return(ip(0)) ;
+}
+
+```
+
+```{r engine='Rcpp', eval=FALSE}
+#include <RcppArmadillo.h>
+#include <cmath.h>
+//[[Rcpp::depends(RcppArmadillo)]]
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double Mutual_Information(
+    arma::mat joint_dist
+    ){
+        joint_dist = joint_dist/sum(sum(joint_dist));
+        double mutual_information = 0;
+        int num_rows = joint_dist.n_rows;
+        int num_cols = joint_dist.n_cols;
+        arma::mat colsums = sum(joint_dist,0);
+        arma::mat rowsums = sum(joint_dist,1);
+        for(int i = 0; i < num_rows; ++i){
+           for(int j = 0; j <  num_cols; ++j){
+                double temp = log((joint_dist(i,j)/(colsums[j]*rowsums[i])));
+                if(!std::isfinite(temp)){
+                    temp = 0;
+                }
+                mutual_information += joint_dist(i,j) * temp; 
+            }
+        } 
+        return mutual_information;    
+    }
+```
+
+```{Rcpp firstChunk, eval=FALSE}
+#include <RcppArmadillo.h>
+
+//[[Rcpp::depends(RcppArmadillo)]]
+
+// another simple example: outer product of a vector,
+// returning a matrix
+
+// [[Rcpp::export]]
+arma::mat rcpparma_outerproduct(const arma::colvec & x){
+  arma::mat m = x * x.t();
+  return m;
+}
+
+// and the inner product retunrs a scalar
+//
+// [[Rcpp::export]]
+double rcpparma_innerproduct(const arma::colvec & x){
+  double v = arma::as_scalar(x.t() * x);
+  return v;
+}
+
+```
+
+```{r engine='Rcpp', eval=FALSE}
+#include <RcppArmadillo.h>
+
+// [[Rcpp::depends(RcppArmadillo)]]
+
+// [[Rcpp::export]]
+arma::rowvec colSums(arma::mat mat){
+  size_t cols = mat.n_cols;
+  arma::rowvec res(cols);
+  
+  for(size_t i=0; i<cols; i++){
+    res[i] = sum(mat.col(i));
+  }
+}
+
+```
+
+## RcppArrayFire
+
+[Check this](https://www.r-bloggers.com/introducing-rcpparrayfire/)
+
+
+
+## OTHER NOTES
+
+We can also write some `C++` codes directley in RMarkdown adding to the chunck the following line of codes `r engine='Rcpp'`
+```{r engine='Rcpp'}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+int fibonacci(const int x) {
+    if (x == 0 || x == 1) return(x);
+    return (fibonacci(x - 1)) + fibonacci(x - 2);
+}
+```
+
+Now we can use the function created in `C++` directley in `R`
+```{r}
+fibonacci(10L)
+fibonacci(20L)
+```
+
+
+```{r}
+slowmax <- function(x){
+  res <- x[1]
+  for(i in 2:length(x)){
+    if(x[i] > res) res <- x[i]
+  }
+  res
+}
+
+library(microbenchmark)
+x <- rnorm(1e6)
+microbenchmark(slowmax(x), max(x))
+
+library(Rcpp)
+evalCpp("40 + 2")
+
+evalCpp("exp(1.0)")
+
+evalCpp("sqrt(4.0)")
+
+evalCpp(" std::numeric_limits<int>::max()")
+
+```
+
+
+
+[Check this!](https://www.youtube.com/watch?v=57H34Njrns4)
+
+Some other stuff: [here](https://gallery.rcpp.org//articles/handling-R6-objects-in-rcpp/)
+
