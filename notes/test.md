@@ -1,3 +1,5 @@
+
+```yaml
 ---
 title: "Notes of Maximum Likelihood"
 author: |
@@ -9,6 +11,7 @@ output:
     theme: cayman
     highlight: github
 ---
+```
 
 <!-- opt_linear_regression.md is generated from opt_linear_regression.Rmd. Please edit that file -->
 
