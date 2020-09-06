@@ -8,7 +8,7 @@ My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/porta
 
 Content,
 
-- Notes of Optimization)
+- Notes of Optimization
 - Notes of R and Python
 - Notes of C++ and R
 
