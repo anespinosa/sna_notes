@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Notes of R and Python | Notes for Social Network Science Projects using R</title>
-  <meta name="description" content="Chapter 3 Notes of R and Python | Notes for Social Network Science Projects using R" />
+  <title>3 Notes of R and Python | Notes for Social Network Science Projects using R</title>
+  <meta name="description" content="3 Notes of R and Python | Notes for Social Network Science Projects using R" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Notes of R and Python | Notes for Social Network Science Projects using R" />
+  <meta property="og:title" content="3 Notes of R and Python | Notes for Social Network Science Projects using R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Notes of R and Python | Notes for Social Network Science Projects using R" />
+  <meta name="twitter:title" content="3 Notes of R and Python | Notes for Social Network Science Projects using R" />
   
   
   
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="notes-of-optimization.html"/>
-<link rel="next" href="notes-of-r-and-c.html"/>
+<link rel="next" href="notes-of-c-and-r.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -150,11 +150,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#installing-social-network-science-modules-from-python"><i class="fa fa-check"></i><b>3.3</b> Installing Social Network Science modules from Python</a></li>
 <li class="chapter" data-level="3.4" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#connecting-r-and-python"><i class="fa fa-check"></i><b>3.4</b> Connecting R and Python</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html"><i class="fa fa-check"></i><b>4</b> Notes of R and C++</a>
+<li class="chapter" data-level="4" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html"><i class="fa fa-check"></i><b>4</b> Notes of C++ and R</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparmadillo"><i class="fa fa-check"></i><b>4.1</b> RcppArmadillo</a></li>
-<li class="chapter" data-level="4.2" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparrayfire"><i class="fa fa-check"></i><b>4.2</b> RcppArrayFire</a></li>
-<li class="chapter" data-level="4.3" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#other-notes"><i class="fa fa-check"></i><b>4.3</b> OTHER NOTES</a></li>
+<li class="chapter" data-level="4.1" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#c-and-rcpp"><i class="fa fa-check"></i><b>4.1</b> C++ and Rcpp</a></li>
+<li class="chapter" data-level="4.2" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#rcpp-and-social-network-analysis"><i class="fa fa-check"></i><b>4.2</b> Rcpp and Social Network Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#setup"><i class="fa fa-check"></i><b>4.3</b> Setup</a></li>
+<li class="chapter" data-level="4.4" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#rcpp-introduction"><i class="fa fa-check"></i><b>4.4</b> Rcpp Introduction</a></li>
+<li class="chapter" data-level="4.5" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#d.-eddelbuettel-tutorial"><i class="fa fa-check"></i><b>4.5</b> D. Eddelbuettel tutorial</a></li>
 </ul></li>
 </ul>
 
@@ -174,15 +176,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="notes-of-r-and-python" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Notes of R and Python</h1>
-<div id="connecting-r-and-python-for-social-network-science-projects" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Connecting R and Python for Social Network Science Projects</h2>
-<p>My name is <a href="https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html">Alejandro Espinosa-Rada</a> and I am currentley a PhD student in Sociology and member of the <a href="https://www.socialsciences.manchester.ac.uk/mitchell-centre/">Mitchell Centre for Social Network Analysis</a> at the University of Manchester</p>
+<h1><span class="header-section-number">3</span> Notes of R and Python</h1>
 <p>Pending,</p>
 <ul>
 <li>Check <code>graph-tool</code> installation</li>
 <li>Create a new script with a small tutorial of some of the module for social network analysis (maybe: <code>EstimNetDirected</code>)</li>
 </ul>
+<div id="connecting-r-and-python-for-social-network-science-projects" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Connecting R and Python for Social Network Science Projects</h2>
 <p>The following script is my notes for Social Network Science Projects to combine <code>R</code> and <code>Python</code>. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the “Anaconda prompt”.</p>
 <p>In the following, I will only present Mac OS/Linux operation system.</p>
 </div>
@@ -270,6 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><a href="https://github.com/stivalaa/EstimNetDirected"><code>EstimNetDirected</code></a>: Exponential random graph models for big networks</p></li>
 </ol>
 
+<!-- r_cpp.md is generated from r_cpp.Rmd. Please edit that file -->
 </div>
 </div>
             </section>
@@ -278,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="notes-of-optimization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="notes-of-r-and-c.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="notes-of-c-and-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

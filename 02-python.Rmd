@@ -16,15 +16,13 @@ knitr::opts_chunk$set(
 
 # Notes of R and Python
 
-## Connecting R and Python for Social Network Science Projects
-
-My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html) and I am currentley a PhD student in Sociology and member of the [Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) at the University of Manchester
-
 Pending,
 
 - Check `graph-tool` installation
 - Create a new script with a small tutorial of some of the module for social network analysis (maybe: `EstimNetDirected`)
 
+
+## Connecting R and Python for Social Network Science Projects
 
 The following script is my notes for Social Network Science Projects to combine `R` and `Python`. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the "Anaconda prompt". 
 

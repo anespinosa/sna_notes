@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R</title>
-  <meta name="description" content="Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R" />
+  <title>2 Notes of Optimization | Notes for Social Network Science Projects using R</title>
+  <meta name="description" content="2 Notes of Optimization | Notes for Social Network Science Projects using R" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R" />
+  <meta property="og:title" content="2 Notes of Optimization | Notes for Social Network Science Projects using R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R" />
+  <meta name="twitter:title" content="2 Notes of Optimization | Notes for Social Network Science Projects using R" />
   
   
   
@@ -150,11 +150,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#installing-social-network-science-modules-from-python"><i class="fa fa-check"></i><b>3.3</b> Installing Social Network Science modules from Python</a></li>
 <li class="chapter" data-level="3.4" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#connecting-r-and-python"><i class="fa fa-check"></i><b>3.4</b> Connecting R and Python</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html"><i class="fa fa-check"></i><b>4</b> Notes of R and C++</a>
+<li class="chapter" data-level="4" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html"><i class="fa fa-check"></i><b>4</b> Notes of C++ and R</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparmadillo"><i class="fa fa-check"></i><b>4.1</b> RcppArmadillo</a></li>
-<li class="chapter" data-level="4.2" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparrayfire"><i class="fa fa-check"></i><b>4.2</b> RcppArrayFire</a></li>
-<li class="chapter" data-level="4.3" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#other-notes"><i class="fa fa-check"></i><b>4.3</b> OTHER NOTES</a></li>
+<li class="chapter" data-level="4.1" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#c-and-rcpp"><i class="fa fa-check"></i><b>4.1</b> C++ and Rcpp</a></li>
+<li class="chapter" data-level="4.2" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#rcpp-and-social-network-analysis"><i class="fa fa-check"></i><b>4.2</b> Rcpp and Social Network Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#setup"><i class="fa fa-check"></i><b>4.3</b> Setup</a></li>
+<li class="chapter" data-level="4.4" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#rcpp-introduction"><i class="fa fa-check"></i><b>4.4</b> Rcpp Introduction</a></li>
+<li class="chapter" data-level="4.5" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#d.-eddelbuettel-tutorial"><i class="fa fa-check"></i><b>4.5</b> D. Eddelbuettel tutorial</a></li>
 </ul></li>
 </ul>
 
@@ -174,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="notes-of-optimization" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Notes of Optimization</h1>
+<h1><span class="header-section-number">2</span> Notes of Optimization</h1>
 <div id="notes-of-linear-regression" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Notes of Linear Regression</h2>
 <p>The following notes are from this <a href="https://bookdown.org/rdpeng/advstatcomp/textbooks-vs-computers.html">BOOK</a>. Most of the original references become from there.</p>
@@ -475,23 +477,23 @@ A =
 <tbody>
 <tr class="odd">
 <td align="left">inverse</td>
-<td align="right">81.79982</td>
-<td align="right">88.16441</td>
-<td align="right">97.14815</td>
-<td align="right">92.90058</td>
-<td align="right">99.76945</td>
-<td align="right">318.38034</td>
+<td align="right">84.91737</td>
+<td align="right">90.63136</td>
+<td align="right">100.94535</td>
+<td align="right">94.82188</td>
+<td align="right">106.2691</td>
+<td align="right">246.94232</td>
 <td align="right">100</td>
 <td align="left">b</td>
 </tr>
 <tr class="even">
 <td align="left">gaussian</td>
-<td align="right">27.31293</td>
-<td align="right">27.60945</td>
-<td align="right">29.90226</td>
-<td align="right">27.83424</td>
-<td align="right">28.08875</td>
-<td align="right">69.32175</td>
+<td align="right">27.26502</td>
+<td align="right">27.87683</td>
+<td align="right">29.48857</td>
+<td align="right">28.17794</td>
+<td align="right">28.7411</td>
+<td align="right">58.92675</td>
 <td align="right">100</td>
 <td align="left">a</td>
 </tr>
@@ -678,8 +680,8 @@ Then, computing <span class="math inline">\(v\)</span>, we can compute <span cla
 <span id="cb18-2"><a href="notes-of-optimization.html#cb18-2" aria-hidden="true"></a><span class="kw">microbenchmark</span>(<span class="kw">quad.naive</span>(z, S), <span class="kw">quad.chol</span>(z, S))</span>
 <span id="cb18-3"><a href="notes-of-optimization.html#cb18-3" aria-hidden="true"></a><span class="co">#&gt; Unit: milliseconds</span></span>
 <span id="cb18-4"><a href="notes-of-optimization.html#cb18-4" aria-hidden="true"></a><span class="co">#&gt;              expr      min       lq     mean   median       uq      max neval</span></span>
-<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true"></a><span class="co">#&gt;  quad.naive(z, S) 2.981073 3.026898 4.242848 3.093638 4.074770 15.77061   100</span></span>
-<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt;   quad.chol(z, S) 1.380789 1.419182 2.231272 1.461667 1.839957 24.43293   100</span></span>
+<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true"></a><span class="co">#&gt;  quad.naive(z, S) 2.911500 3.155574 4.872747 3.495575 5.489413 13.82233   100</span></span>
+<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt;   quad.chol(z, S) 1.241434 1.469026 2.221595 1.669068 2.090864 18.95524   100</span></span>
 <span id="cb18-7"><a href="notes-of-optimization.html#cb18-7" aria-hidden="true"></a><span class="co">#&gt;  cld</span></span>
 <span id="cb18-8"><a href="notes-of-optimization.html#cb18-8" aria-hidden="true"></a><span class="co">#&gt;    b</span></span>
 <span id="cb18-9"><a href="notes-of-optimization.html#cb18-9" aria-hidden="true"></a><span class="co">#&gt;   a</span></span></code></pre></div>

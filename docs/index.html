@@ -150,11 +150,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#installing-social-network-science-modules-from-python"><i class="fa fa-check"></i><b>3.3</b> Installing Social Network Science modules from Python</a></li>
 <li class="chapter" data-level="3.4" data-path="notes-of-r-and-python.html"><a href="notes-of-r-and-python.html#connecting-r-and-python"><i class="fa fa-check"></i><b>3.4</b> Connecting R and Python</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html"><i class="fa fa-check"></i><b>4</b> Notes of R and C++</a>
+<li class="chapter" data-level="4" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html"><i class="fa fa-check"></i><b>4</b> Notes of C++ and R</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparmadillo"><i class="fa fa-check"></i><b>4.1</b> RcppArmadillo</a></li>
-<li class="chapter" data-level="4.2" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#rcpparrayfire"><i class="fa fa-check"></i><b>4.2</b> RcppArrayFire</a></li>
-<li class="chapter" data-level="4.3" data-path="notes-of-r-and-c.html"><a href="notes-of-r-and-c.html#other-notes"><i class="fa fa-check"></i><b>4.3</b> OTHER NOTES</a></li>
+<li class="chapter" data-level="4.1" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#c-and-rcpp"><i class="fa fa-check"></i><b>4.1</b> C++ and Rcpp</a></li>
+<li class="chapter" data-level="4.2" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#rcpp-and-social-network-analysis"><i class="fa fa-check"></i><b>4.2</b> Rcpp and Social Network Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#setup"><i class="fa fa-check"></i><b>4.3</b> Setup</a></li>
+<li class="chapter" data-level="4.4" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#rcpp-introduction"><i class="fa fa-check"></i><b>4.4</b> Rcpp Introduction</a></li>
+<li class="chapter" data-level="4.5" data-path="notes-of-c-and-r.html"><a href="notes-of-c-and-r.html#d.-eddelbuettel-tutorial"><i class="fa fa-check"></i><b>4.5</b> D. Eddelbuettel tutorial</a></li>
 </ul></li>
 </ul>
 
@@ -180,14 +182,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="date"><em>2020-09-06</em></p>
 </div>
 <div id="notes-for-social-network-science-projects-using-r" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Notes for Social Network Science Projects using R</h1>
+<h1><span class="header-section-number">1</span> Notes for Social Network Science Projects using R</h1>
 <p>My name is <a href="https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html">Alejandro Espinosa-Rada</a>, and I am currently a PhD student in Sociology and a member of <a href="https://www.socialsciences.manchester.ac.uk/mitchell-centre/">the Mitchell Centre for Social Network Analysis</a> from the University of Manchester. This document are my notes of some of the random stuff that I am interested that involve R, social networks, or statistics.</p>
 <p>My own implementations would be collected in the <strong><a href="https://github.com/anespinosa/netmem"><code>netmem: Network Measures using Matrices</code></a></strong> package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true"></a>g &lt;-<span class="st"> </span><span class="kw">erdos.renyi.game</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dv">1</span>), <span class="dt">p.or.m =</span> <span class="kw">runif</span>(<span class="dv">1</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true"></a>G <span class="op">=</span> zen.erdos_renyi(<span class="dv">10</span>,<span class="fl">0.1</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true"></a><span class="fu">sudo</span> apt-get install g++</span></code></pre></div>
+<p>The online version of this document is free to read here, and licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
 
+<!-- opt_linear_regression.md is generated from opt_linear_regression.Rmd. Please edit that file -->
 </div>
             </section>
 
@@ -245,6 +249,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
