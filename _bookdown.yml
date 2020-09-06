@@ -1,6 +1,10 @@
+title: "Notes for Social Network Science Projects using R"
+author: "Alejandro Espinosa-Rada"
+date: "`r Sys.Date()`"
 book_filename: "SNA notes"
 output_dir: "docs"
 language:
   ui:
     chapter_name: "Chapter "
 delete_merged_file: true
+documentclass: book

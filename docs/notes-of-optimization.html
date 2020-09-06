@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Notes of Optimization | Notes of R and C++</title>
-  <meta name="description" content="Chapter 2 Notes of Optimization | Notes of R and C++" />
+  <title>Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R</title>
+  <meta name="description" content="Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Notes of Optimization | Notes of R and C++" />
+  <meta property="og:title" content="Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Notes of Optimization | Notes of R and C++" />
+  <meta name="twitter:title" content="Chapter 2 Notes of Optimization | Notes for Social Network Science Projects using R" />
   
   
   
@@ -165,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes of R and C++</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Social Network Science Projects using R</a>
           </h1>
         </div>
 
@@ -475,23 +475,23 @@ A =
 <tbody>
 <tr class="odd">
 <td align="left">inverse</td>
-<td align="right">80.63035</td>
-<td align="right">86.47495</td>
-<td align="right">93.11727</td>
-<td align="right">90.42861</td>
-<td align="right">96.22473</td>
-<td align="right">220.90384</td>
+<td align="right">82.10334</td>
+<td align="right">88.88371</td>
+<td align="right">95.71806</td>
+<td align="right">92.91456</td>
+<td align="right">99.10285</td>
+<td align="right">189.2704</td>
 <td align="right">100</td>
 <td align="left">b</td>
 </tr>
 <tr class="even">
 <td align="left">gaussian</td>
-<td align="right">27.36156</td>
-<td align="right">27.59561</td>
-<td align="right">29.82000</td>
-<td align="right">27.89244</td>
-<td align="right">28.41476</td>
-<td align="right">71.54528</td>
+<td align="right">27.32902</td>
+<td align="right">27.77993</td>
+<td align="right">29.71031</td>
+<td align="right">27.95967</td>
+<td align="right">28.69138</td>
+<td align="right">116.5214</td>
 <td align="right">100</td>
 <td align="left">a</td>
 </tr>
@@ -678,8 +678,8 @@ Then, computing <span class="math inline">\(v\)</span>, we can compute <span cla
 <span id="cb18-2"><a href="notes-of-optimization.html#cb18-2" aria-hidden="true"></a><span class="kw">microbenchmark</span>(<span class="kw">quad.naive</span>(z, S), <span class="kw">quad.chol</span>(z, S))</span>
 <span id="cb18-3"><a href="notes-of-optimization.html#cb18-3" aria-hidden="true"></a><span class="co">#&gt; Unit: milliseconds</span></span>
 <span id="cb18-4"><a href="notes-of-optimization.html#cb18-4" aria-hidden="true"></a><span class="co">#&gt;              expr      min       lq     mean   median       uq      max neval</span></span>
-<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true"></a><span class="co">#&gt;  quad.naive(z, S) 2.992874 3.201773 4.524689 3.433701 5.542063 12.51164   100</span></span>
-<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt;   quad.chol(z, S) 1.282458 1.439277 2.147807 1.562650 1.927422 13.68097   100</span></span>
+<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true"></a><span class="co">#&gt;  quad.naive(z, S) 2.755969 3.020216 4.378261 3.071935 4.750246 17.84528   100</span></span>
+<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt;   quad.chol(z, S) 1.140910 1.404029 2.338647 1.429454 2.100014 12.35883   100</span></span>
 <span id="cb18-7"><a href="notes-of-optimization.html#cb18-7" aria-hidden="true"></a><span class="co">#&gt;  cld</span></span>
 <span id="cb18-8"><a href="notes-of-optimization.html#cb18-8" aria-hidden="true"></a><span class="co">#&gt;    b</span></span>
 <span id="cb18-9"><a href="notes-of-optimization.html#cb18-9" aria-hidden="true"></a><span class="co">#&gt;   a</span></span></code></pre></div>

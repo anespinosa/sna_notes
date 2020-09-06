@@ -1,6 +1,9 @@
 ---
-title: "SNA Notes"
-author: "Alejandro Espinosa-Rada"
+title: "Notes for Social Network Science Projects using R"
+author: |
+ | [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
+ | *The Mitchell Centre for Social Network Analysis, The University of Manchester*
+date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 output:
