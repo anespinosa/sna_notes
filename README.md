@@ -1,6 +1,6 @@
 # Notes for Social Network Science Projects using R
 
-My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html), and I am currently a PhD student in Sociology and a member of [the Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) from the University of Manchester. This document are my notes of some of the random stuff that I am interested that involve R, social networks, or statistics.
+My name is [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html), and I am currently a PhD student in Sociology and a member of [the Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/) from the University of Manchester. [This document](https://anespinosa.github.io/sna_notes/) are my notes of some of the random stuff that I am interested that involve R, social networks, or statistics.
 
 My own implementations would be collected in the **[`netmem: Network Measures using Matrices`](https://github.com/anespinosa/netmem)** package.    
 
