@@ -1,10 +1,18 @@
 ---
-title: "SNA Notes"
+title: "Notes for Social Network Science Projects using R"
 author: "Alejandro Espinosa-Rada"
 site: bookdown::bookdown_site
 documentclass: book
 output:
-  bookdown::gitbook: default
+  bookdown::gitbook:
+    lib_dir: assets
+    split_by: section
+    config:
+      toolbar:
+        position: static
+  bookdown::html_book:
+    css: toc.css
+  #bookdown::gitbook: default
   #bookdown::pdf_book: default
 ---
 
