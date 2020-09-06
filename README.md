@@ -12,7 +12,9 @@ Content,
 - Notes of R and Python
 - Notes of C++ and R
 
-My own implementations would be collected in the **[`netmem: Network Measures using Matrices`](https://github.com/anespinosa/netmem)** package.    
+My own implementations would be collected in the **[`netmem: Network Measures using Matrices`](https://github.com/anespinosa/netmem)** package.  
+
+You can also check [**Knitting Networks**](https://knittingnetworks.com), the podcast of the Social Network Analysis (*some chapters in Spanish and English*) hosted by [Francisca Ortiz](https://www.research.manchester.ac.uk/portal/francisca.ortiz.html) and myself.
 
 ```r
 g <- erdos.renyi.game(sample(1:100, 1), p.or.m = runif(1))
