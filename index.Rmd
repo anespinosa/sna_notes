@@ -1,7 +1,7 @@
 ---
 title: "SNA Notes"
 author: "Alejandro Espinosa-Rada"
-site: https://github.com/anespinosa/sna_notes
+site: bookdown::bookdown_site
 documentclass: book
 output:
   bookdown::gitbook: default
