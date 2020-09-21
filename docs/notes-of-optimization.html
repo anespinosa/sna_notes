@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2020-09-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,6 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Expand the <strong>Guassian elimination</strong> notes with an analytical example and an <code>R</code> code</li>
 <li>Expand the <strong>Gram-Schmidt process</strong> notes with an analytical example and an <code>R</code> code.</li>
+<li><a href="https://csgillespie.github.io/efficientR/performance.html">Check</a></li>
 </ul>
 </div>
 <div id="logarithms" class="section level2" number="2.2">
@@ -471,31 +472,28 @@ A =
 <th align="right">uq</th>
 <th align="right">max</th>
 <th align="right">neval</th>
-<th align="left">cld</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">inverse</td>
-<td align="right">85.75258</td>
-<td align="right">93.64495</td>
-<td align="right">103.03926</td>
-<td align="right">98.08822</td>
-<td align="right">105.50272</td>
-<td align="right">263.36540</td>
+<td align="right">90.21554</td>
+<td align="right">94.90794</td>
+<td align="right">103.71136</td>
+<td align="right">99.66515</td>
+<td align="right">105.4624</td>
+<td align="right">334.99834</td>
 <td align="right">100</td>
-<td align="left">b</td>
 </tr>
 <tr class="even">
 <td align="left">gaussian</td>
-<td align="right">27.93382</td>
-<td align="right">28.76065</td>
-<td align="right">31.27557</td>
-<td align="right">29.12637</td>
-<td align="right">30.31611</td>
-<td align="right">58.34899</td>
+<td align="right">27.49114</td>
+<td align="right">29.06401</td>
+<td align="right">30.84471</td>
+<td align="right">29.41411</td>
+<td align="right">30.0125</td>
+<td align="right">47.91229</td>
 <td align="right">100</td>
-<td align="left">a</td>
 </tr>
 </tbody>
 </table>
@@ -680,11 +678,8 @@ Then, computing <span class="math inline">\(v\)</span>, we can compute <span cla
 <span id="cb18-2"><a href="notes-of-optimization.html#cb18-2" aria-hidden="true"></a><span class="kw">microbenchmark</span>(<span class="kw">quad.naive</span>(z, S), <span class="kw">quad.chol</span>(z, S))</span>
 <span id="cb18-3"><a href="notes-of-optimization.html#cb18-3" aria-hidden="true"></a><span class="co">#&gt; Unit: milliseconds</span></span>
 <span id="cb18-4"><a href="notes-of-optimization.html#cb18-4" aria-hidden="true"></a><span class="co">#&gt;              expr      min       lq     mean   median       uq      max neval</span></span>
-<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true"></a><span class="co">#&gt;  quad.naive(z, S) 3.085939 3.251968 4.574137 3.461480 4.986992 20.40842   100</span></span>
-<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt;   quad.chol(z, S) 1.474169 1.574538 2.960061 2.004181 2.811306 31.29867   100</span></span>
-<span id="cb18-7"><a href="notes-of-optimization.html#cb18-7" aria-hidden="true"></a><span class="co">#&gt;  cld</span></span>
-<span id="cb18-8"><a href="notes-of-optimization.html#cb18-8" aria-hidden="true"></a><span class="co">#&gt;    b</span></span>
-<span id="cb18-9"><a href="notes-of-optimization.html#cb18-9" aria-hidden="true"></a><span class="co">#&gt;   a</span></span></code></pre></div>
+<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true"></a><span class="co">#&gt;  quad.naive(z, S) 2.527893 2.813426 2.994938 2.856565 2.914456 10.49887   100</span></span>
+<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt;   quad.chol(z, S) 1.416209 1.500875 1.684979 1.522258 1.549739 12.62963   100</span></span></code></pre></div>
 <p>The Choelsky decomposition is faster. Also, because <strong>we know</strong> that the covariance matrix in a multivariate Normal is symmetric and positive define we can use the Choleskey decomposition. The naive version does not have that information, therefore, inverte the matrix and takes more time to estimate!</p>
 
 <!-- sna_r_python.md is generated from sna_r_python.Rmd. Please edit that file -->

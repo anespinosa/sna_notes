@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2020-09-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -177,11 +177,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="notes-of-r-and-python" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Notes of R and Python</h1>
-<p>Pending,</p>
-<ul>
-<li>Check <code>graph-tool</code> installation</li>
-<li>Create a new script with a small tutorial of some of the module for social network analysis (maybe: <code>EstimNetDirected</code>)</li>
-</ul>
 <div id="connecting-r-and-python-for-social-network-science-projects" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Connecting R and Python for Social Network Science Projects</h2>
 <p>The following script is my notes for Social Network Science Projects to combine <code>R</code> and <code>Python</code>. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the “Anaconda prompt”.</p>
@@ -215,8 +210,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>brew install cairo pkg-config</code></li>
 </ul>
+<p>I will also install <code>graph-tool</code> using <code>brew</code> (other options in the <a href="https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions">webpage</a>):</p>
+<ul>
+<li><code>brew install graph-tool</code></li>
+</ul>
 <p>After installing some modules, you should now deactivate the session, and you would have to put the following line of code: <code>conda deactivate</code> in your terminal. If you are willing to check your environments, just press: <code>conda info --envs</code> in your terminal. If for some reason you prefer to remove your entire environment, you would have to use the following code: <code>conda remove --name sns --all</code></p>
-<p>Is often common for <code>python</code> users to use the <code>Jupyter Notebook</code>, that might be a better option if you are just going to use <code>python</code>. In which case, after activating your conda environment, you could set your working directory through <code>cd [DIRECTORY]</code> in the terminal. Then launch the Jupyter notebook by <code>jupyter notebook</code>.</p>
+<p>Is often common for <code>python</code> users to use the <code>Jupyter Notebook</code>, that might be a better option if you are just going to use <code>python</code>. In which case, after activating your <code>conda</code> environment, you could set your working directory through <code>cd [DIRECTORY]</code> in the terminal. Then launch the Jupyter notebook by <code>jupyter notebook</code>.</p>
 </div>
 <div id="connecting-r-and-python" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Connecting R and Python</h2>
@@ -269,6 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><a href="https://leidenalg.readthedocs.io/en/stable/"><code>leiden_lag</code></a>: for community detection, with a special focus in the <code>leiden algorithm</code>. Some nice codes are available in the official GitHub of <a href="https://github.com/CWTSLeiden/CSSS">CWTS</a></p></li>
 <li><p><a href="https://graph-tool.skewed.de"><code>graph-tool</code></a>: for stochastic block models and other general purpose network analysis</p></li>
 <li><p><a href="https://github.com/stivalaa/EstimNetDirected"><code>EstimNetDirected</code></a>: Exponential random graph models for big networks</p></li>
+<li><p><a href="https://github.com/stivalaa/ALAAMEE">ALAAMEE</a>: Autologistic Actor Attribute Model (ALAAM) parameter estimation using Equilibrium Expectation (EE) algorithm</p></li>
 </ol>
 
 <!-- r_cpp.md is generated from r_cpp.Rmd. Please edit that file -->

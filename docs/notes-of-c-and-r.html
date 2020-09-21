@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2020-09-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -284,42 +284,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="right">uq</th>
 <th align="right">max</th>
 <th align="right">neval</th>
-<th align="left">cld</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">native</td>
-<td align="right">0.005430</td>
-<td align="right">0.0056260</td>
-<td align="right">0.0064114</td>
-<td align="right">0.0057760</td>
-<td align="right">0.0077590</td>
-<td align="right">0.009176</td>
+<td align="right">0.004750</td>
+<td align="right">0.0049275</td>
+<td align="right">0.0056320</td>
+<td align="right">0.0050425</td>
+<td align="right">0.0053665</td>
+<td align="right">0.015240</td>
 <td align="right">100</td>
-<td align="left">a</td>
 </tr>
 <tr class="even">
 <td align="left">loop</td>
-<td align="right">0.114044</td>
-<td align="right">0.1148515</td>
-<td align="right">0.1256670</td>
-<td align="right">0.1155555</td>
-<td align="right">0.1199380</td>
-<td align="right">0.261443</td>
+<td align="right">0.092223</td>
+<td align="right">0.0932315</td>
+<td align="right">0.1053320</td>
+<td align="right">0.0948280</td>
+<td align="right">0.1035500</td>
+<td align="right">0.228412</td>
 <td align="right">100</td>
-<td align="left">b</td>
 </tr>
 <tr class="odd">
 <td align="left">Rcpp</td>
-<td align="right">0.003942</td>
-<td align="right">0.0044890</td>
-<td align="right">0.0191009</td>
-<td align="right">0.0050830</td>
-<td align="right">0.0079405</td>
-<td align="right">1.185225</td>
+<td align="right">0.004096</td>
+<td align="right">0.0050155</td>
+<td align="right">0.0203097</td>
+<td align="right">0.0054730</td>
+<td align="right">0.0102755</td>
+<td align="right">1.291070</td>
 <td align="right">100</td>
-<td align="left">a</td>
 </tr>
 </tbody>
 </table>
@@ -350,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-9"><a href="notes-of-c-and-r.html#cb27-9" aria-hidden="true"></a><span class="co"># R function with same name as C++ function</span></span>
 <span id="cb27-10"><a href="notes-of-c-and-r.html#cb27-10" aria-hidden="true"></a>add</span>
 <span id="cb27-11"><a href="notes-of-c-and-r.html#cb27-11" aria-hidden="true"></a><span class="co">#&gt; function (x, y, z) </span></span>
-<span id="cb27-12"><a href="notes-of-c-and-r.html#cb27-12" aria-hidden="true"></a><span class="co">#&gt; .Call(&lt;pointer: 0x1155df850&gt;, x, y, z)</span></span>
+<span id="cb27-12"><a href="notes-of-c-and-r.html#cb27-12" aria-hidden="true"></a><span class="co">#&gt; .Call(&lt;pointer: 0x108b0df70&gt;, x, y, z)</span></span>
 <span id="cb27-13"><a href="notes-of-c-and-r.html#cb27-13" aria-hidden="true"></a><span class="kw">add</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
 <span id="cb27-14"><a href="notes-of-c-and-r.html#cb27-14" aria-hidden="true"></a><span class="co">#&gt; [1] 6</span></span>
 <span id="cb27-15"><a href="notes-of-c-and-r.html#cb27-15" aria-hidden="true"></a></span>
@@ -372,7 +368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-31"><a href="notes-of-c-and-r.html#cb27-31" aria-hidden="true"></a><span class="st">            &quot;</span>)</span>
 <span id="cb27-32"><a href="notes-of-c-and-r.html#cb27-32" aria-hidden="true"></a>doubleMe</span>
 <span id="cb27-33"><a href="notes-of-c-and-r.html#cb27-33" aria-hidden="true"></a><span class="co">#&gt; function (a) </span></span>
-<span id="cb27-34"><a href="notes-of-c-and-r.html#cb27-34" aria-hidden="true"></a><span class="co">#&gt; .Call(&lt;pointer: 0x1156ea880&gt;, a)</span></span>
+<span id="cb27-34"><a href="notes-of-c-and-r.html#cb27-34" aria-hidden="true"></a><span class="co">#&gt; .Call(&lt;pointer: 0x108b37fa0&gt;, a)</span></span>
 <span id="cb27-35"><a href="notes-of-c-and-r.html#cb27-35" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
 <span id="cb27-36"><a href="notes-of-c-and-r.html#cb27-36" aria-hidden="true"></a><span class="kw">doubleMe</span>(a)</span>
 <span id="cb27-37"><a href="notes-of-c-and-r.html#cb27-37" aria-hidden="true"></a><span class="co">#&gt; [1] 6</span></span>
@@ -499,21 +495,21 @@ Some names that are used in <code>R</code>:</p>
 <span id="cb31-19"><a href="notes-of-c-and-r.html#cb31-19" aria-hidden="true"></a><span class="kw">library</span>(rbenchmark)</span>
 <span id="cb31-20"><a href="notes-of-c-and-r.html#cb31-20" aria-hidden="true"></a><span class="kw">benchmark</span>(<span class="kw">f</span>(<span class="dv">10</span>), <span class="kw">f</span>(<span class="dv">15</span>), <span class="kw">f</span>(<span class="dv">20</span>))[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span>
 <span id="cb31-21"><a href="notes-of-c-and-r.html#cb31-21" aria-hidden="true"></a><span class="co">#&gt;    test replications elapsed relative</span></span>
-<span id="cb31-22"><a href="notes-of-c-and-r.html#cb31-22" aria-hidden="true"></a><span class="co">#&gt; 1 f(10)          100   0.015      1.0</span></span>
-<span id="cb31-23"><a href="notes-of-c-and-r.html#cb31-23" aria-hidden="true"></a><span class="co">#&gt; 2 f(15)          100   0.078      5.2</span></span>
-<span id="cb31-24"><a href="notes-of-c-and-r.html#cb31-24" aria-hidden="true"></a><span class="co">#&gt; 3 f(20)          100   0.894     59.6</span></span>
+<span id="cb31-22"><a href="notes-of-c-and-r.html#cb31-22" aria-hidden="true"></a><span class="co">#&gt; 1 f(10)          100   0.010      1.0</span></span>
+<span id="cb31-23"><a href="notes-of-c-and-r.html#cb31-23" aria-hidden="true"></a><span class="co">#&gt; 2 f(15)          100   0.108     10.8</span></span>
+<span id="cb31-24"><a href="notes-of-c-and-r.html#cb31-24" aria-hidden="true"></a><span class="co">#&gt; 3 f(20)          100   1.112    111.2</span></span>
 <span id="cb31-25"><a href="notes-of-c-and-r.html#cb31-25" aria-hidden="true"></a></span>
 <span id="cb31-26"><a href="notes-of-c-and-r.html#cb31-26" aria-hidden="true"></a><span class="co"># Now we would compare both functions, C++ perform incredible faster!</span></span>
 <span id="cb31-27"><a href="notes-of-c-and-r.html#cb31-27" aria-hidden="true"></a><span class="kw">benchmark</span>(<span class="kw">f</span>(<span class="dv">20</span>), <span class="kw">g</span>(<span class="dv">20</span>))[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span>
 <span id="cb31-28"><a href="notes-of-c-and-r.html#cb31-28" aria-hidden="true"></a><span class="co">#&gt;    test replications elapsed relative</span></span>
-<span id="cb31-29"><a href="notes-of-c-and-r.html#cb31-29" aria-hidden="true"></a><span class="co">#&gt; 1 f(20)          100   0.917    183.4</span></span>
-<span id="cb31-30"><a href="notes-of-c-and-r.html#cb31-30" aria-hidden="true"></a><span class="co">#&gt; 2 g(20)          100   0.005      1.0</span></span>
+<span id="cb31-29"><a href="notes-of-c-and-r.html#cb31-29" aria-hidden="true"></a><span class="co">#&gt; 1 f(20)          100   1.136  189.333</span></span>
+<span id="cb31-30"><a href="notes-of-c-and-r.html#cb31-30" aria-hidden="true"></a><span class="co">#&gt; 2 g(20)          100   0.006    1.000</span></span>
 <span id="cb31-31"><a href="notes-of-c-and-r.html#cb31-31" aria-hidden="true"></a>res &lt;-<span class="st"> </span>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>(<span class="kw">f</span>(<span class="dv">20</span>), <span class="kw">g</span>(<span class="dv">20</span>))</span>
 <span id="cb31-32"><a href="notes-of-c-and-r.html#cb31-32" aria-hidden="true"></a>res</span>
 <span id="cb31-33"><a href="notes-of-c-and-r.html#cb31-33" aria-hidden="true"></a><span class="co">#&gt; Unit: microseconds</span></span>
-<span id="cb31-34"><a href="notes-of-c-and-r.html#cb31-34" aria-hidden="true"></a><span class="co">#&gt;   expr      min       lq       mean   median       uq       max neval cld</span></span>
-<span id="cb31-35"><a href="notes-of-c-and-r.html#cb31-35" aria-hidden="true"></a><span class="co">#&gt;  f(20) 7894.129 8090.161 8863.63072 8332.932 8844.599 13053.743   100   b</span></span>
-<span id="cb31-36"><a href="notes-of-c-and-r.html#cb31-36" aria-hidden="true"></a><span class="co">#&gt;  g(20)   44.589   45.041   50.95426   51.119   53.574   107.632   100  a</span></span>
+<span id="cb31-34"><a href="notes-of-c-and-r.html#cb31-34" aria-hidden="true"></a><span class="co">#&gt;   expr      min         lq        mean     median         uq       max neval</span></span>
+<span id="cb31-35"><a href="notes-of-c-and-r.html#cb31-35" aria-hidden="true"></a><span class="co">#&gt;  f(20) 9648.429 10316.9750 11232.48900 10873.3730 11604.2060 16424.554   100</span></span>
+<span id="cb31-36"><a href="notes-of-c-and-r.html#cb31-36" aria-hidden="true"></a><span class="co">#&gt;  g(20)   42.862    43.5735    54.90096    53.6065    55.4295   121.729   100</span></span>
 <span id="cb31-37"><a href="notes-of-c-and-r.html#cb31-37" aria-hidden="true"></a><span class="kw">suppressMessages</span>(microbenchmark<span class="op">:::</span><span class="kw">autoplot.microbenchmark</span>(res))</span></code></pre></div>
 <p><img src="man/figures/README-unnamed-chunk-31-1.png" width="100%" /></p>
 </div>
