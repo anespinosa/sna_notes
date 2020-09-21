@@ -16,12 +16,6 @@ knitr::opts_chunk$set(
 
 # Notes of R and Python
 
-Pending,
-
-- Check `graph-tool` installation
-- Create a new script with a small tutorial of some of the module for social network analysis (maybe: `EstimNetDirected`)
-
-
 ## Connecting R and Python for Social Network Science Projects
 
 The following script is my notes for Social Network Science Projects to combine `R` and `Python`. Also, in my particular case, I am using a Mac OS/Linux operation system. In Windows, please launch the "Anaconda prompt". 
@@ -58,9 +52,13 @@ Also, I install `cairo` using the following code suggested in the webpage of [py
 
 - `brew install cairo pkg-config`
 
+I will also install `graph-tool` using `brew` (other options in the [webpage](https://git.skewed.de/count0/graph-tool/-/wikis/installation-instructions)):
+
+- `brew install graph-tool`
+
 After installing some modules, you should now deactivate the session, and you would have to put the following line of code: `conda deactivate` in your terminal. If you are willing to check your environments, just press: `conda info --envs` in your terminal. If for some reason you prefer to remove your entire environment, you would have to use the following code: `conda remove --name sns --all`
 
-Is often common for `python` users to use the `Jupyter Notebook`, that might be a better option if you are just going to use `python`. In which case, after activating your conda environment, you could set your working directory through `cd [DIRECTORY]` in the terminal. Then launch the Jupyter notebook by `jupyter notebook`. 
+Is often common for `python` users to use the `Jupyter Notebook`, that might be a better option if you are just going to use `python`. In which case, after activating your `conda` environment, you could set your working directory through `cd [DIRECTORY]` in the terminal. Then launch the Jupyter notebook by `jupyter notebook`. 
 
 
 ## Connecting R and Python
@@ -137,4 +135,5 @@ There are neat packages out there in `Python`, some of my favourites are:
 
 9. [`EstimNetDirected`](https://github.com/stivalaa/EstimNetDirected): Exponential random graph models for big networks
 
+10. [ALAAMEE](https://github.com/stivalaa/ALAAMEE): Autologistic Actor Attribute Model (ALAAM) parameter estimation using Equilibrium Expectation (EE) algorithm
 
