@@ -131,7 +131,7 @@ There are neat packages out there in `Python`, some of my favourites are:
 
 7. [`leiden_lag`](https://leidenalg.readthedocs.io/en/stable/): for community detection, with a special focus in the `leiden algorithm`. Some nice codes are  available in the official GitHub of [CWTS](https://github.com/CWTSLeiden/CSSS)
 
-8. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general purpose network analysis
+8. [`graph-tool`](https://graph-tool.skewed.de): for stochastic block models and other general purpose network analysis. Check also the databases available in [Netzschleuder](https://networks.skewed.de).
 
 9. [`EstimNetDirected`](https://github.com/stivalaa/EstimNetDirected): Exponential random graph models for big networks
 
