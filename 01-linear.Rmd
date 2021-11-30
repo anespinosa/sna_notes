@@ -1,5 +1,8 @@
 ---
-output: github_document
+output: 
+github_document:
+  pandoc_args: "--webtex"
+  mathjax: NULL
 ---
 
 <!-- opt_linear_regression.md is generated from opt_linear_regression.Rmd. Please edit that file -->

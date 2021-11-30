@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Notes of C++ and R | Notes for Social Network Science Projects using R</title>
   <meta name="description" content="4 Notes of C++ and R | Notes for Social Network Science Projects using R" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Notes of C++ and R | Notes for Social Network Science Projects using R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-09-21" />
+<meta name="date" content="2021-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="notes-of-r-and-python.html"/>
 
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,13 +50,15 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +118,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 </head>
 
@@ -226,53 +230,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rcpp-introduction" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Rcpp Introduction</h2>
 <p>We would now create a <code>C++</code> function- However, the most important element in the following code to connect <code>R</code> with <code>C++</code> is this code <code>// [[Rcpp::export]]</code>, which allow exporting the <code>cumSum</code> function that is created in the following chunk into <code>R</code>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="notes-of-c-and-r.html#cb22-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
-<span id="cb22-2"><a href="notes-of-c-and-r.html#cb22-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</span>
-<span id="cb22-3"><a href="notes-of-c-and-r.html#cb22-3" aria-hidden="true"></a></span>
-<span id="cb22-4"><a href="notes-of-c-and-r.html#cb22-4" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
-<span id="cb22-5"><a href="notes-of-c-and-r.html#cb22-5" aria-hidden="true"></a>NumericVector cumSum(NumericVector x) {</span>
-<span id="cb22-6"><a href="notes-of-c-and-r.html#cb22-6" aria-hidden="true"></a>  <span class="dt">int</span> n = x.size();</span>
-<span id="cb22-7"><a href="notes-of-c-and-r.html#cb22-7" aria-hidden="true"></a>  NumericVector out(n);</span>
-<span id="cb22-8"><a href="notes-of-c-and-r.html#cb22-8" aria-hidden="true"></a>  out[<span class="dv">0</span>] = x[<span class="dv">0</span>];</span>
-<span id="cb22-9"><a href="notes-of-c-and-r.html#cb22-9" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; n; ++i) { </span>
-<span id="cb22-10"><a href="notes-of-c-and-r.html#cb22-10" aria-hidden="true"></a>    </span>
-<span id="cb22-11"><a href="notes-of-c-and-r.html#cb22-11" aria-hidden="true"></a>    <span class="co">/*</span></span>
-<span id="cb22-12"><a href="notes-of-c-and-r.html#cb22-12" aria-hidden="true"></a><span class="co">     ++i: incrementing (adding 1 to a variable)</span></span>
-<span id="cb22-13"><a href="notes-of-c-and-r.html#cb22-13" aria-hidden="true"></a><span class="co">     --i: decrementing (subtracting 1 from a variable)</span></span>
-<span id="cb22-14"><a href="notes-of-c-and-r.html#cb22-14" aria-hidden="true"></a><span class="co">     i++: increment after the variable&#39;s value is used in the remainder of the expression </span></span>
-<span id="cb22-15"><a href="notes-of-c-and-r.html#cb22-15" aria-hidden="true"></a><span class="co">     i--: decrement occurs after the variable&#39;s value is used in the remainder of the expression </span></span>
-<span id="cb22-16"><a href="notes-of-c-and-r.html#cb22-16" aria-hidden="true"></a><span class="co">    */</span></span>
-<span id="cb22-17"><a href="notes-of-c-and-r.html#cb22-17" aria-hidden="true"></a>    </span>
-<span id="cb22-18"><a href="notes-of-c-and-r.html#cb22-18" aria-hidden="true"></a>    out[i] = out[i-<span class="dv">1</span>] + x[i];</span>
-<span id="cb22-19"><a href="notes-of-c-and-r.html#cb22-19" aria-hidden="true"></a>  }</span>
-<span id="cb22-20"><a href="notes-of-c-and-r.html#cb22-20" aria-hidden="true"></a>  <span class="cf">return</span> out;</span>
-<span id="cb22-21"><a href="notes-of-c-and-r.html#cb22-21" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="notes-of-c-and-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb22-2"><a href="notes-of-c-and-r.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</span>
+<span id="cb22-3"><a href="notes-of-c-and-r.html#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="notes-of-c-and-r.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb22-5"><a href="notes-of-c-and-r.html#cb22-5" aria-hidden="true" tabindex="-1"></a>NumericVector cumSum(NumericVector x) {</span>
+<span id="cb22-6"><a href="notes-of-c-and-r.html#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n = x.size();</span>
+<span id="cb22-7"><a href="notes-of-c-and-r.html#cb22-7" aria-hidden="true" tabindex="-1"></a>  NumericVector out(n);</span>
+<span id="cb22-8"><a href="notes-of-c-and-r.html#cb22-8" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">0</span>] = x[<span class="dv">0</span>];</span>
+<span id="cb22-9"><a href="notes-of-c-and-r.html#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; n; ++i) { </span>
+<span id="cb22-10"><a href="notes-of-c-and-r.html#cb22-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-11"><a href="notes-of-c-and-r.html#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
+<span id="cb22-12"><a href="notes-of-c-and-r.html#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">     ++i: incrementing (adding 1 to a variable)</span></span>
+<span id="cb22-13"><a href="notes-of-c-and-r.html#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">     --i: decrementing (subtracting 1 from a variable)</span></span>
+<span id="cb22-14"><a href="notes-of-c-and-r.html#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">     i++: increment after the variable&#39;s value is used in the remainder of the expression </span></span>
+<span id="cb22-15"><a href="notes-of-c-and-r.html#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">     i--: decrement occurs after the variable&#39;s value is used in the remainder of the expression </span></span>
+<span id="cb22-16"><a href="notes-of-c-and-r.html#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">    */</span></span>
+<span id="cb22-17"><a href="notes-of-c-and-r.html#cb22-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-18"><a href="notes-of-c-and-r.html#cb22-18" aria-hidden="true" tabindex="-1"></a>    out[i] = out[i-<span class="dv">1</span>] + x[i];</span>
+<span id="cb22-19"><a href="notes-of-c-and-r.html#cb22-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-20"><a href="notes-of-c-and-r.html#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out;</span>
+<span id="cb22-21"><a href="notes-of-c-and-r.html#cb22-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Same code in <code>R</code>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="notes-of-c-and-r.html#cb23-1" aria-hidden="true"></a>CumSum &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb23-2"><a href="notes-of-c-and-r.html#cb23-2" aria-hidden="true"></a>    output &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="kw">length</span>(x))</span>
-<span id="cb23-3"><a href="notes-of-c-and-r.html#cb23-3" aria-hidden="true"></a>    output[<span class="dv">1</span>] &lt;-<span class="st"> </span>x[<span class="dv">1</span>]</span>
-<span id="cb23-4"><a href="notes-of-c-and-r.html#cb23-4" aria-hidden="true"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(x)) {</span>
-<span id="cb23-5"><a href="notes-of-c-and-r.html#cb23-5" aria-hidden="true"></a>      output[i] &lt;-<span class="st"> </span>output[i<span class="dv">-1</span>] <span class="op">+</span><span class="st"> </span>x[i]</span>
-<span id="cb23-6"><a href="notes-of-c-and-r.html#cb23-6" aria-hidden="true"></a>    }</span>
-<span id="cb23-7"><a href="notes-of-c-and-r.html#cb23-7" aria-hidden="true"></a>    <span class="kw">return</span>(output)</span>
-<span id="cb23-8"><a href="notes-of-c-and-r.html#cb23-8" aria-hidden="true"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="notes-of-c-and-r.html#cb23-1" aria-hidden="true" tabindex="-1"></a>CumSum <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-2"><a href="notes-of-c-and-r.html#cb23-2" aria-hidden="true" tabindex="-1"></a>    output <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(x))</span>
+<span id="cb23-3"><a href="notes-of-c-and-r.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    output[<span class="dv">1</span>] <span class="ot">&lt;-</span> x[<span class="dv">1</span>]</span>
+<span id="cb23-4"><a href="notes-of-c-and-r.html#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb23-5"><a href="notes-of-c-and-r.html#cb23-5" aria-hidden="true" tabindex="-1"></a>      output[i] <span class="ot">&lt;-</span> output[i<span class="dv">-1</span>] <span class="sc">+</span> x[i]</span>
+<span id="cb23-6"><a href="notes-of-c-and-r.html#cb23-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb23-7"><a href="notes-of-c-and-r.html#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(output)</span>
+<span id="cb23-8"><a href="notes-of-c-and-r.html#cb23-8" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
 <p>This is the process that we are calculating with the function in the first iteration <span class="math inline">\((0-1)+2\)</span>, then <span class="math inline">\((1-1)+3\)</span>, and <span class="math inline">\((3-1)+4....\)</span>. Recall that <code>C++</code> start from <span class="math inline">\(0\)</span> rather than <span class="math inline">\(1\)</span> (<em>in C++, vectors indices start at 0</em>). Now, we have three similar functions. One from <code>base R</code>, the other is a <code>C++</code> function (called: <code>cumSum</code>), and the loop <code>CumSum</code> created in <code>R</code>. They should give the same results:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="notes-of-c-and-r.html#cb24-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
-<span id="cb24-2"><a href="notes-of-c-and-r.html#cb24-2" aria-hidden="true"></a><span class="kw">cumsum</span>(x)</span>
-<span id="cb24-3"><a href="notes-of-c-and-r.html#cb24-3" aria-hidden="true"></a><span class="kw">cumSum</span>(x)</span>
-<span id="cb24-4"><a href="notes-of-c-and-r.html#cb24-4" aria-hidden="true"></a><span class="kw">CumSum</span>(x)</span>
-<span id="cb24-5"><a href="notes-of-c-and-r.html#cb24-5" aria-hidden="true"></a><span class="co">#&gt;  [1]  1  3  6 10 15 21 28 36 45 55</span></span>
-<span id="cb24-6"><a href="notes-of-c-and-r.html#cb24-6" aria-hidden="true"></a><span class="co">#&gt;  [1]  1  3  6 10 15 21 28 36 45 55</span></span>
-<span id="cb24-7"><a href="notes-of-c-and-r.html#cb24-7" aria-hidden="true"></a><span class="co">#&gt;  [1]  1  3  6 10 15 21 28 36 45 55</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="notes-of-c-and-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb24-2"><a href="notes-of-c-and-r.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(x)</span>
+<span id="cb24-3"><a href="notes-of-c-and-r.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cumSum</span>(x)</span>
+<span id="cb24-4"><a href="notes-of-c-and-r.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">CumSum</span>(x)</span>
+<span id="cb24-5"><a href="notes-of-c-and-r.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  3  6 10 15 21 28 36 45 55</span></span>
+<span id="cb24-6"><a href="notes-of-c-and-r.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  3  6 10 15 21 28 36 45 55</span></span>
+<span id="cb24-7"><a href="notes-of-c-and-r.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  3  6 10 15 21 28 36 45 55</span></span></code></pre></div>
 <p>Now, we can compare the performance of each function using <code>microbenchmark</code>. <code>Rcpp</code> should be faster than the <code>R</code> functions:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="notes-of-c-and-r.html#cb25-1" aria-hidden="true"></a><span class="kw">library</span>(magrittr)</span>
-<span id="cb25-2"><a href="notes-of-c-and-r.html#cb25-2" aria-hidden="true"></a><span class="kw">library</span>(microbenchmark)</span>
-<span id="cb25-3"><a href="notes-of-c-and-r.html#cb25-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
-<span id="cb25-4"><a href="notes-of-c-and-r.html#cb25-4" aria-hidden="true"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb25-5"><a href="notes-of-c-and-r.html#cb25-5" aria-hidden="true"></a>  <span class="dt">native =</span> <span class="kw">cumsum</span>(x),</span>
-<span id="cb25-6"><a href="notes-of-c-and-r.html#cb25-6" aria-hidden="true"></a>  <span class="dt">loop =</span> <span class="kw">CumSum</span>(x),</span>
-<span id="cb25-7"><a href="notes-of-c-and-r.html#cb25-7" aria-hidden="true"></a>  <span class="dt">Rcpp =</span> <span class="kw">cumSum</span>(x)</span>
-<span id="cb25-8"><a href="notes-of-c-and-r.html#cb25-8" aria-hidden="true"></a>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>(<span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">format =</span> <span class="st">&quot;markdown&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="notes-of-c-and-r.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb25-2"><a href="notes-of-c-and-r.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb25-3"><a href="notes-of-c-and-r.html#cb25-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span></span>
+<span id="cb25-4"><a href="notes-of-c-and-r.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb25-5"><a href="notes-of-c-and-r.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">native =</span> <span class="fu">cumsum</span>(x),</span>
+<span id="cb25-6"><a href="notes-of-c-and-r.html#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">loop =</span> <span class="fu">CumSum</span>(x),</span>
+<span id="cb25-7"><a href="notes-of-c-and-r.html#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Rcpp =</span> <span class="fu">cumSum</span>(x)</span>
+<span id="cb25-8"><a href="notes-of-c-and-r.html#cb25-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>(<span class="at">unit =</span> <span class="st">&quot;ms&quot;</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">&quot;markdown&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -284,233 +288,237 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="right">uq</th>
 <th align="right">max</th>
 <th align="right">neval</th>
+<th align="left">cld</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">native</td>
-<td align="right">0.004725</td>
-<td align="right">0.0048760</td>
-<td align="right">0.0051564</td>
-<td align="right">0.0050275</td>
-<td align="right">0.0052860</td>
-<td align="right">0.007571</td>
+<td align="right">0.005017</td>
+<td align="right">0.0053145</td>
+<td align="right">0.0058378</td>
+<td align="right">0.0055340</td>
+<td align="right">0.0063890</td>
+<td align="right">0.009001</td>
 <td align="right">100</td>
+<td align="left">a</td>
 </tr>
 <tr class="even">
 <td align="left">loop</td>
-<td align="right">0.091814</td>
-<td align="right">0.0938255</td>
-<td align="right">0.1004935</td>
-<td align="right">0.0962805</td>
-<td align="right">0.0984540</td>
-<td align="right">0.154307</td>
+<td align="right">0.089442</td>
+<td align="right">0.0916370</td>
+<td align="right">0.0952121</td>
+<td align="right">0.0949095</td>
+<td align="right">0.0974105</td>
+<td align="right">0.115373</td>
 <td align="right">100</td>
+<td align="left">b</td>
 </tr>
 <tr class="odd">
 <td align="left">Rcpp</td>
-<td align="right">0.004006</td>
-<td align="right">0.0051105</td>
-<td align="right">0.0240588</td>
-<td align="right">0.0105175</td>
-<td align="right">0.0110745</td>
-<td align="right">1.388723</td>
+<td align="right">0.004407</td>
+<td align="right">0.0051995</td>
+<td align="right">0.0212336</td>
+<td align="right">0.0063640</td>
+<td align="right">0.0103825</td>
+<td align="right">1.323327</td>
 <td align="right">100</td>
+<td align="left">a</td>
 </tr>
 </tbody>
 </table>
 <p>The speed and ability to cheaply use resources are two of the main features of <code>C++</code>. Due that is a compiler and not an interpreter is one of the reasons why is faster than <code>R</code>.</p>
 <p>Using <code>Rcpp</code> we can use <code>C++</code> codes directley into <code>R</code> (<code>evalCpp</code>)</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="notes-of-c-and-r.html#cb26-1" aria-hidden="true"></a><span class="kw">library</span>(Rcpp)</span>
-<span id="cb26-2"><a href="notes-of-c-and-r.html#cb26-2" aria-hidden="true"></a></span>
-<span id="cb26-3"><a href="notes-of-c-and-r.html#cb26-3" aria-hidden="true"></a><span class="co"># evaluate simple expression as C++</span></span>
-<span id="cb26-4"><a href="notes-of-c-and-r.html#cb26-4" aria-hidden="true"></a>Rcpp<span class="op">::</span><span class="kw">evalCpp</span>(<span class="st">&quot;3 + 2&quot;</span>) </span>
-<span id="cb26-5"><a href="notes-of-c-and-r.html#cb26-5" aria-hidden="true"></a><span class="co">#&gt; [1] 5</span></span>
-<span id="cb26-6"><a href="notes-of-c-and-r.html#cb26-6" aria-hidden="true"></a></span>
-<span id="cb26-7"><a href="notes-of-c-and-r.html#cb26-7" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb26-8"><a href="notes-of-c-and-r.html#cb26-8" aria-hidden="true"></a>Rcpp<span class="op">::</span><span class="kw">evalCpp</span>(<span class="st">&quot;Rcpp::rnorm(2)&quot;</span>)</span>
-<span id="cb26-9"><a href="notes-of-c-and-r.html#cb26-9" aria-hidden="true"></a><span class="co">#&gt; [1]  1.3709584 -0.5646982</span></span>
-<span id="cb26-10"><a href="notes-of-c-and-r.html#cb26-10" aria-hidden="true"></a></span>
-<span id="cb26-11"><a href="notes-of-c-and-r.html#cb26-11" aria-hidden="true"></a><span class="co"># maximum numeric limits of my computer in terms of double</span></span>
-<span id="cb26-12"><a href="notes-of-c-and-r.html#cb26-12" aria-hidden="true"></a>Rcpp<span class="op">::</span><span class="kw">evalCpp</span>(<span class="st">&quot;std::numeric_limits&lt;double&gt;::max()&quot;</span>)</span>
-<span id="cb26-13"><a href="notes-of-c-and-r.html#cb26-13" aria-hidden="true"></a><span class="co">#&gt; [1] 1.797693e+308</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="notes-of-c-and-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rcpp)</span>
+<span id="cb26-2"><a href="notes-of-c-and-r.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="notes-of-c-and-r.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># evaluate simple expression as C++</span></span>
+<span id="cb26-4"><a href="notes-of-c-and-r.html#cb26-4" aria-hidden="true" tabindex="-1"></a>Rcpp<span class="sc">::</span><span class="fu">evalCpp</span>(<span class="st">&quot;3 + 2&quot;</span>) </span>
+<span id="cb26-5"><a href="notes-of-c-and-r.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span>
+<span id="cb26-6"><a href="notes-of-c-and-r.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="notes-of-c-and-r.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb26-8"><a href="notes-of-c-and-r.html#cb26-8" aria-hidden="true" tabindex="-1"></a>Rcpp<span class="sc">::</span><span class="fu">evalCpp</span>(<span class="st">&quot;Rcpp::rnorm(2)&quot;</span>)</span>
+<span id="cb26-9"><a href="notes-of-c-and-r.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1.3709584 -0.5646982</span></span>
+<span id="cb26-10"><a href="notes-of-c-and-r.html#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="notes-of-c-and-r.html#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># maximum numeric limits of my computer in terms of double</span></span>
+<span id="cb26-12"><a href="notes-of-c-and-r.html#cb26-12" aria-hidden="true" tabindex="-1"></a>Rcpp<span class="sc">::</span><span class="fu">evalCpp</span>(<span class="st">&quot;std::numeric_limits&lt;double&gt;::max()&quot;</span>)</span>
+<span id="cb26-13"><a href="notes-of-c-and-r.html#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.797693e+308</span></span></code></pre></div>
 <p>Also, we can add functions from <code>C++</code> (<code>cppFunction</code>) into the <code>R</code> environment.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="notes-of-c-and-r.html#cb27-1" aria-hidden="true"></a><span class="kw">library</span>(Rcpp)</span>
-<span id="cb27-2"><a href="notes-of-c-and-r.html#cb27-2" aria-hidden="true"></a><span class="co">## Example 1</span></span>
-<span id="cb27-3"><a href="notes-of-c-and-r.html#cb27-3" aria-hidden="true"></a><span class="co"># create a C++ function to be used in R</span></span>
-<span id="cb27-4"><a href="notes-of-c-and-r.html#cb27-4" aria-hidden="true"></a><span class="kw">cppFunction</span>(<span class="st">&#39;int add(int x, int y, int z) {</span></span>
-<span id="cb27-5"><a href="notes-of-c-and-r.html#cb27-5" aria-hidden="true"></a><span class="st">  int sum = x + y + z;</span></span>
-<span id="cb27-6"><a href="notes-of-c-and-r.html#cb27-6" aria-hidden="true"></a><span class="st">  return sum;</span></span>
-<span id="cb27-7"><a href="notes-of-c-and-r.html#cb27-7" aria-hidden="true"></a><span class="st">}&#39;</span>)</span>
-<span id="cb27-8"><a href="notes-of-c-and-r.html#cb27-8" aria-hidden="true"></a></span>
-<span id="cb27-9"><a href="notes-of-c-and-r.html#cb27-9" aria-hidden="true"></a><span class="co"># R function with same name as C++ function</span></span>
-<span id="cb27-10"><a href="notes-of-c-and-r.html#cb27-10" aria-hidden="true"></a>add</span>
-<span id="cb27-11"><a href="notes-of-c-and-r.html#cb27-11" aria-hidden="true"></a><span class="co">#&gt; function (x, y, z) </span></span>
-<span id="cb27-12"><a href="notes-of-c-and-r.html#cb27-12" aria-hidden="true"></a><span class="co">#&gt; .Call(&lt;pointer: 0x108a31f70&gt;, x, y, z)</span></span>
-<span id="cb27-13"><a href="notes-of-c-and-r.html#cb27-13" aria-hidden="true"></a><span class="kw">add</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb27-14"><a href="notes-of-c-and-r.html#cb27-14" aria-hidden="true"></a><span class="co">#&gt; [1] 6</span></span>
-<span id="cb27-15"><a href="notes-of-c-and-r.html#cb27-15" aria-hidden="true"></a></span>
-<span id="cb27-16"><a href="notes-of-c-and-r.html#cb27-16" aria-hidden="true"></a><span class="co">## Example 2</span></span>
-<span id="cb27-17"><a href="notes-of-c-and-r.html#cb27-17" aria-hidden="true"></a><span class="co"># create a C++ function to be used in R</span></span>
-<span id="cb27-18"><a href="notes-of-c-and-r.html#cb27-18" aria-hidden="true"></a><span class="kw">cppFunction</span>(<span class="st">&quot;</span></span>
-<span id="cb27-19"><a href="notes-of-c-and-r.html#cb27-19" aria-hidden="true"></a><span class="st">            int exampleCpp11(){</span></span>
-<span id="cb27-20"><a href="notes-of-c-and-r.html#cb27-20" aria-hidden="true"></a><span class="st">            auto x = 10; // guesses type</span></span>
-<span id="cb27-21"><a href="notes-of-c-and-r.html#cb27-21" aria-hidden="true"></a><span class="st">            return x;</span></span>
-<span id="cb27-22"><a href="notes-of-c-and-r.html#cb27-22" aria-hidden="true"></a><span class="st">            }&quot;</span>, <span class="dt">plugins=</span><span class="kw">c</span>(<span class="st">&quot;cpp11&quot;</span>)) <span class="co">## C++11 is a version of the standard for the programming language C++</span></span>
-<span id="cb27-23"><a href="notes-of-c-and-r.html#cb27-23" aria-hidden="true"></a></span>
-<span id="cb27-24"><a href="notes-of-c-and-r.html#cb27-24" aria-hidden="true"></a><span class="co"># R function with same name as C++ function</span></span>
-<span id="cb27-25"><a href="notes-of-c-and-r.html#cb27-25" aria-hidden="true"></a><span class="kw">exampleCpp11</span>()</span>
-<span id="cb27-26"><a href="notes-of-c-and-r.html#cb27-26" aria-hidden="true"></a><span class="co">#&gt; [1] 10</span></span>
-<span id="cb27-27"><a href="notes-of-c-and-r.html#cb27-27" aria-hidden="true"></a></span>
-<span id="cb27-28"><a href="notes-of-c-and-r.html#cb27-28" aria-hidden="true"></a><span class="co">## Other examples</span></span>
-<span id="cb27-29"><a href="notes-of-c-and-r.html#cb27-29" aria-hidden="true"></a><span class="kw">cppFunction</span>(<span class="st">&quot;</span></span>
-<span id="cb27-30"><a href="notes-of-c-and-r.html#cb27-30" aria-hidden="true"></a><span class="st">            int doubleMe(int a){return a+a;}</span></span>
-<span id="cb27-31"><a href="notes-of-c-and-r.html#cb27-31" aria-hidden="true"></a><span class="st">            &quot;</span>)</span>
-<span id="cb27-32"><a href="notes-of-c-and-r.html#cb27-32" aria-hidden="true"></a>doubleMe</span>
-<span id="cb27-33"><a href="notes-of-c-and-r.html#cb27-33" aria-hidden="true"></a><span class="co">#&gt; function (a) </span></span>
-<span id="cb27-34"><a href="notes-of-c-and-r.html#cb27-34" aria-hidden="true"></a><span class="co">#&gt; .Call(&lt;pointer: 0x108a5bfa0&gt;, a)</span></span>
-<span id="cb27-35"><a href="notes-of-c-and-r.html#cb27-35" aria-hidden="true"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb27-36"><a href="notes-of-c-and-r.html#cb27-36" aria-hidden="true"></a><span class="kw">doubleMe</span>(a)</span>
-<span id="cb27-37"><a href="notes-of-c-and-r.html#cb27-37" aria-hidden="true"></a><span class="co">#&gt; [1] 6</span></span>
-<span id="cb27-38"><a href="notes-of-c-and-r.html#cb27-38" aria-hidden="true"></a></span>
-<span id="cb27-39"><a href="notes-of-c-and-r.html#cb27-39" aria-hidden="true"></a><span class="kw">cppFunction</span>(<span class="st">&quot;</span></span>
-<span id="cb27-40"><a href="notes-of-c-and-r.html#cb27-40" aria-hidden="true"></a><span class="st">            int f(int a, int b){</span></span>
-<span id="cb27-41"><a href="notes-of-c-and-r.html#cb27-41" aria-hidden="true"></a><span class="st">            return(a+b);</span></span>
-<span id="cb27-42"><a href="notes-of-c-and-r.html#cb27-42" aria-hidden="true"></a><span class="st">            }</span></span>
-<span id="cb27-43"><a href="notes-of-c-and-r.html#cb27-43" aria-hidden="true"></a><span class="st">            &quot;</span>)</span>
-<span id="cb27-44"><a href="notes-of-c-and-r.html#cb27-44" aria-hidden="true"></a><span class="kw">f</span>(<span class="dv">21</span>, <span class="dv">21</span>)</span>
-<span id="cb27-45"><a href="notes-of-c-and-r.html#cb27-45" aria-hidden="true"></a><span class="co">#&gt; [1] 42</span></span>
-<span id="cb27-46"><a href="notes-of-c-and-r.html#cb27-46" aria-hidden="true"></a><span class="kw">f</span>(<span class="fl">21.0</span>, <span class="dv">21</span>)</span>
-<span id="cb27-47"><a href="notes-of-c-and-r.html#cb27-47" aria-hidden="true"></a><span class="co">#&gt; [1] 42</span></span>
-<span id="cb27-48"><a href="notes-of-c-and-r.html#cb27-48" aria-hidden="true"></a><span class="kw">f</span>(<span class="fl">21.5</span>, <span class="fl">21.5</span>) <span class="co"># !</span></span>
-<span id="cb27-49"><a href="notes-of-c-and-r.html#cb27-49" aria-hidden="true"></a><span class="co">#&gt; [1] 42</span></span>
-<span id="cb27-50"><a href="notes-of-c-and-r.html#cb27-50" aria-hidden="true"></a><span class="co">#f(21.5, &quot;hello, world&quot;) # error!</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="notes-of-c-and-r.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rcpp)</span>
+<span id="cb27-2"><a href="notes-of-c-and-r.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Example 1</span></span>
+<span id="cb27-3"><a href="notes-of-c-and-r.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a C++ function to be used in R</span></span>
+<span id="cb27-4"><a href="notes-of-c-and-r.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">&#39;int add(int x, int y, int z) {</span></span>
+<span id="cb27-5"><a href="notes-of-c-and-r.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">  int sum = x + y + z;</span></span>
+<span id="cb27-6"><a href="notes-of-c-and-r.html#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">  return sum;</span></span>
+<span id="cb27-7"><a href="notes-of-c-and-r.html#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">}&#39;</span>)</span>
+<span id="cb27-8"><a href="notes-of-c-and-r.html#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="notes-of-c-and-r.html#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># R function with same name as C++ function</span></span>
+<span id="cb27-10"><a href="notes-of-c-and-r.html#cb27-10" aria-hidden="true" tabindex="-1"></a>add</span>
+<span id="cb27-11"><a href="notes-of-c-and-r.html#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x, y, z) </span></span>
+<span id="cb27-12"><a href="notes-of-c-and-r.html#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .Call(&lt;pointer: 0x10eac18f0&gt;, x, y, z)</span></span>
+<span id="cb27-13"><a href="notes-of-c-and-r.html#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb27-14"><a href="notes-of-c-and-r.html#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6</span></span>
+<span id="cb27-15"><a href="notes-of-c-and-r.html#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="notes-of-c-and-r.html#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Example 2</span></span>
+<span id="cb27-17"><a href="notes-of-c-and-r.html#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># create a C++ function to be used in R</span></span>
+<span id="cb27-18"><a href="notes-of-c-and-r.html#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">&quot;</span></span>
+<span id="cb27-19"><a href="notes-of-c-and-r.html#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="st">            int exampleCpp11(){</span></span>
+<span id="cb27-20"><a href="notes-of-c-and-r.html#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="st">            auto x = 10; // guesses type</span></span>
+<span id="cb27-21"><a href="notes-of-c-and-r.html#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="st">            return x;</span></span>
+<span id="cb27-22"><a href="notes-of-c-and-r.html#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="st">            }&quot;</span>, <span class="at">plugins=</span><span class="fu">c</span>(<span class="st">&quot;cpp11&quot;</span>)) <span class="do">## C++11 is a version of the standard for the programming language C++</span></span>
+<span id="cb27-23"><a href="notes-of-c-and-r.html#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-24"><a href="notes-of-c-and-r.html#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="co"># R function with same name as C++ function</span></span>
+<span id="cb27-25"><a href="notes-of-c-and-r.html#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="fu">exampleCpp11</span>()</span>
+<span id="cb27-26"><a href="notes-of-c-and-r.html#cb27-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 10</span></span>
+<span id="cb27-27"><a href="notes-of-c-and-r.html#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="notes-of-c-and-r.html#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Other examples</span></span>
+<span id="cb27-29"><a href="notes-of-c-and-r.html#cb27-29" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">&quot;</span></span>
+<span id="cb27-30"><a href="notes-of-c-and-r.html#cb27-30" aria-hidden="true" tabindex="-1"></a><span class="st">            int doubleMe(int a){return a+a;}</span></span>
+<span id="cb27-31"><a href="notes-of-c-and-r.html#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="st">            &quot;</span>)</span>
+<span id="cb27-32"><a href="notes-of-c-and-r.html#cb27-32" aria-hidden="true" tabindex="-1"></a>doubleMe</span>
+<span id="cb27-33"><a href="notes-of-c-and-r.html#cb27-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (a) </span></span>
+<span id="cb27-34"><a href="notes-of-c-and-r.html#cb27-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .Call(&lt;pointer: 0x112b89910&gt;, a)</span></span>
+<span id="cb27-35"><a href="notes-of-c-and-r.html#cb27-35" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb27-36"><a href="notes-of-c-and-r.html#cb27-36" aria-hidden="true" tabindex="-1"></a><span class="fu">doubleMe</span>(a)</span>
+<span id="cb27-37"><a href="notes-of-c-and-r.html#cb27-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6</span></span>
+<span id="cb27-38"><a href="notes-of-c-and-r.html#cb27-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-39"><a href="notes-of-c-and-r.html#cb27-39" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">&quot;</span></span>
+<span id="cb27-40"><a href="notes-of-c-and-r.html#cb27-40" aria-hidden="true" tabindex="-1"></a><span class="st">            int f(int a, int b){</span></span>
+<span id="cb27-41"><a href="notes-of-c-and-r.html#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="st">            return(a+b);</span></span>
+<span id="cb27-42"><a href="notes-of-c-and-r.html#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="st">            }</span></span>
+<span id="cb27-43"><a href="notes-of-c-and-r.html#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="st">            &quot;</span>)</span>
+<span id="cb27-44"><a href="notes-of-c-and-r.html#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">21</span>, <span class="dv">21</span>)</span>
+<span id="cb27-45"><a href="notes-of-c-and-r.html#cb27-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 42</span></span>
+<span id="cb27-46"><a href="notes-of-c-and-r.html#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="fl">21.0</span>, <span class="dv">21</span>)</span>
+<span id="cb27-47"><a href="notes-of-c-and-r.html#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 42</span></span>
+<span id="cb27-48"><a href="notes-of-c-and-r.html#cb27-48" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="fl">21.5</span>, <span class="fl">21.5</span>) <span class="co"># !</span></span>
+<span id="cb27-49"><a href="notes-of-c-and-r.html#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 42</span></span>
+<span id="cb27-50"><a href="notes-of-c-and-r.html#cb27-50" aria-hidden="true" tabindex="-1"></a><span class="co">#f(21.5, &quot;hello, world&quot;) # error!</span></span></code></pre></div>
 <p>There are some issues with <code>integer</code> and <code>double</code>
 Some names that are used in <code>R</code>:</p>
 <ul>
 <li>integer numbers: <code>int</code></li>
 <li>Floating point number: <code>double</code></li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="notes-of-c-and-r.html#cb28-1" aria-hidden="true"></a><span class="co">## R</span></span>
-<span id="cb28-2"><a href="notes-of-c-and-r.html#cb28-2" aria-hidden="true"></a><span class="co"># literal numbers are double</span></span>
-<span id="cb28-3"><a href="notes-of-c-and-r.html#cb28-3" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="dv">42</span></span>
-<span id="cb28-4"><a href="notes-of-c-and-r.html#cb28-4" aria-hidden="true"></a><span class="kw">storage.mode</span>(x)</span>
-<span id="cb28-5"><a href="notes-of-c-and-r.html#cb28-5" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;double&quot;</span></span>
-<span id="cb28-6"><a href="notes-of-c-and-r.html#cb28-6" aria-hidden="true"></a></span>
-<span id="cb28-7"><a href="notes-of-c-and-r.html#cb28-7" aria-hidden="true"></a><span class="co"># integers needs the L suffix</span></span>
-<span id="cb28-8"><a href="notes-of-c-and-r.html#cb28-8" aria-hidden="true"></a>y &lt;-<span class="st"> </span>42L</span>
-<span id="cb28-9"><a href="notes-of-c-and-r.html#cb28-9" aria-hidden="true"></a><span class="kw">storage.mode</span>(y)</span>
-<span id="cb28-10"><a href="notes-of-c-and-r.html#cb28-10" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
-<span id="cb28-11"><a href="notes-of-c-and-r.html#cb28-11" aria-hidden="true"></a></span>
-<span id="cb28-12"><a href="notes-of-c-and-r.html#cb28-12" aria-hidden="true"></a>z &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="dv">42</span>)</span>
-<span id="cb28-13"><a href="notes-of-c-and-r.html#cb28-13" aria-hidden="true"></a><span class="kw">storage.mode</span>(z)</span>
-<span id="cb28-14"><a href="notes-of-c-and-r.html#cb28-14" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
-<span id="cb28-15"><a href="notes-of-c-and-r.html#cb28-15" aria-hidden="true"></a></span>
-<span id="cb28-16"><a href="notes-of-c-and-r.html#cb28-16" aria-hidden="true"></a><span class="co">## C++</span></span>
-<span id="cb28-17"><a href="notes-of-c-and-r.html#cb28-17" aria-hidden="true"></a><span class="kw">library</span>(Rcpp)</span>
-<span id="cb28-18"><a href="notes-of-c-and-r.html#cb28-18" aria-hidden="true"></a></span>
-<span id="cb28-19"><a href="notes-of-c-and-r.html#cb28-19" aria-hidden="true"></a><span class="co"># Literal integers are `int`</span></span>
-<span id="cb28-20"><a href="notes-of-c-and-r.html#cb28-20" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">evalCpp</span>(<span class="st">&quot;42&quot;</span>)</span>
-<span id="cb28-21"><a href="notes-of-c-and-r.html#cb28-21" aria-hidden="true"></a><span class="kw">storage.mode</span>(x)</span>
-<span id="cb28-22"><a href="notes-of-c-and-r.html#cb28-22" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
-<span id="cb28-23"><a href="notes-of-c-and-r.html#cb28-23" aria-hidden="true"></a></span>
-<span id="cb28-24"><a href="notes-of-c-and-r.html#cb28-24" aria-hidden="true"></a><span class="co"># Suffix with .0 forces a double</span></span>
-<span id="cb28-25"><a href="notes-of-c-and-r.html#cb28-25" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">evalCpp</span>(<span class="st">&quot;42.0&quot;</span>)</span>
-<span id="cb28-26"><a href="notes-of-c-and-r.html#cb28-26" aria-hidden="true"></a><span class="kw">storage.mode</span>(y)</span>
-<span id="cb28-27"><a href="notes-of-c-and-r.html#cb28-27" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;double&quot;</span></span>
-<span id="cb28-28"><a href="notes-of-c-and-r.html#cb28-28" aria-hidden="true"></a></span>
-<span id="cb28-29"><a href="notes-of-c-and-r.html#cb28-29" aria-hidden="true"></a><span class="co"># explicit casting with (double)</span></span>
-<span id="cb28-30"><a href="notes-of-c-and-r.html#cb28-30" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">evalCpp</span>(<span class="st">&quot;double(40+2)&quot;</span>)</span>
-<span id="cb28-31"><a href="notes-of-c-and-r.html#cb28-31" aria-hidden="true"></a><span class="kw">storage.mode</span>(y)</span>
-<span id="cb28-32"><a href="notes-of-c-and-r.html#cb28-32" aria-hidden="true"></a><span class="co">#&gt; [1] &quot;double&quot;</span></span>
-<span id="cb28-33"><a href="notes-of-c-and-r.html#cb28-33" aria-hidden="true"></a></span>
-<span id="cb28-34"><a href="notes-of-c-and-r.html#cb28-34" aria-hidden="true"></a><span class="co"># Beware of the integer division!</span></span>
-<span id="cb28-35"><a href="notes-of-c-and-r.html#cb28-35" aria-hidden="true"></a><span class="co"># integer division</span></span>
-<span id="cb28-36"><a href="notes-of-c-and-r.html#cb28-36" aria-hidden="true"></a><span class="kw">evalCpp</span>(<span class="st">&quot;13/4&quot;</span>)</span>
-<span id="cb28-37"><a href="notes-of-c-and-r.html#cb28-37" aria-hidden="true"></a><span class="co">#&gt; [1] 3</span></span>
-<span id="cb28-38"><a href="notes-of-c-and-r.html#cb28-38" aria-hidden="true"></a></span>
-<span id="cb28-39"><a href="notes-of-c-and-r.html#cb28-39" aria-hidden="true"></a><span class="co"># explicit cast, and hence use of double division</span></span>
-<span id="cb28-40"><a href="notes-of-c-and-r.html#cb28-40" aria-hidden="true"></a><span class="kw">evalCpp</span>(<span class="st">&quot;(double)13/4&quot;</span>)</span>
-<span id="cb28-41"><a href="notes-of-c-and-r.html#cb28-41" aria-hidden="true"></a><span class="co">#&gt; [1] 3.25</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="notes-of-c-and-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## R</span></span>
+<span id="cb28-2"><a href="notes-of-c-and-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># literal numbers are double</span></span>
+<span id="cb28-3"><a href="notes-of-c-and-r.html#cb28-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb28-4"><a href="notes-of-c-and-r.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">storage.mode</span>(x)</span>
+<span id="cb28-5"><a href="notes-of-c-and-r.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;double&quot;</span></span>
+<span id="cb28-6"><a href="notes-of-c-and-r.html#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="notes-of-c-and-r.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># integers needs the L suffix</span></span>
+<span id="cb28-8"><a href="notes-of-c-and-r.html#cb28-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> 42L</span>
+<span id="cb28-9"><a href="notes-of-c-and-r.html#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">storage.mode</span>(y)</span>
+<span id="cb28-10"><a href="notes-of-c-and-r.html#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
+<span id="cb28-11"><a href="notes-of-c-and-r.html#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="notes-of-c-and-r.html#cb28-12" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="dv">42</span>)</span>
+<span id="cb28-13"><a href="notes-of-c-and-r.html#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="fu">storage.mode</span>(z)</span>
+<span id="cb28-14"><a href="notes-of-c-and-r.html#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
+<span id="cb28-15"><a href="notes-of-c-and-r.html#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="notes-of-c-and-r.html#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="do">## C++</span></span>
+<span id="cb28-17"><a href="notes-of-c-and-r.html#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rcpp)</span>
+<span id="cb28-18"><a href="notes-of-c-and-r.html#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="notes-of-c-and-r.html#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Literal integers are `int`</span></span>
+<span id="cb28-20"><a href="notes-of-c-and-r.html#cb28-20" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">evalCpp</span>(<span class="st">&quot;42&quot;</span>)</span>
+<span id="cb28-21"><a href="notes-of-c-and-r.html#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="fu">storage.mode</span>(x)</span>
+<span id="cb28-22"><a href="notes-of-c-and-r.html#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;integer&quot;</span></span>
+<span id="cb28-23"><a href="notes-of-c-and-r.html#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-24"><a href="notes-of-c-and-r.html#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Suffix with .0 forces a double</span></span>
+<span id="cb28-25"><a href="notes-of-c-and-r.html#cb28-25" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">evalCpp</span>(<span class="st">&quot;42.0&quot;</span>)</span>
+<span id="cb28-26"><a href="notes-of-c-and-r.html#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="fu">storage.mode</span>(y)</span>
+<span id="cb28-27"><a href="notes-of-c-and-r.html#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;double&quot;</span></span>
+<span id="cb28-28"><a href="notes-of-c-and-r.html#cb28-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-29"><a href="notes-of-c-and-r.html#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="co"># explicit casting with (double)</span></span>
+<span id="cb28-30"><a href="notes-of-c-and-r.html#cb28-30" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">evalCpp</span>(<span class="st">&quot;double(40+2)&quot;</span>)</span>
+<span id="cb28-31"><a href="notes-of-c-and-r.html#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="fu">storage.mode</span>(y)</span>
+<span id="cb28-32"><a href="notes-of-c-and-r.html#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;double&quot;</span></span>
+<span id="cb28-33"><a href="notes-of-c-and-r.html#cb28-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-34"><a href="notes-of-c-and-r.html#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Beware of the integer division!</span></span>
+<span id="cb28-35"><a href="notes-of-c-and-r.html#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="co"># integer division</span></span>
+<span id="cb28-36"><a href="notes-of-c-and-r.html#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="fu">evalCpp</span>(<span class="st">&quot;13/4&quot;</span>)</span>
+<span id="cb28-37"><a href="notes-of-c-and-r.html#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span>
+<span id="cb28-38"><a href="notes-of-c-and-r.html#cb28-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-39"><a href="notes-of-c-and-r.html#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="co"># explicit cast, and hence use of double division</span></span>
+<span id="cb28-40"><a href="notes-of-c-and-r.html#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="fu">evalCpp</span>(<span class="st">&quot;(double)13/4&quot;</span>)</span>
+<span id="cb28-41"><a href="notes-of-c-and-r.html#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.25</span></span></code></pre></div>
 <p>The last function of the package <code>Rcpp</code> is <code>sourceCpp()</code> that is the source code in which other functions are built (e.g. <code>evalCpp</code> and <code>cppFunction</code>). This function builds on and extends <code>cxxfunction()</code>. On the features is that can compile a number of functions and create a file from all of them. Also, have some plugins and dependency options (e.g. <code>RcppArmadillo</code>, <code>RcppEigen</code>, <code>RcppSGL</code>). These plugins can also turn on support for <code>C++11</code>, <code>OpenMp</code>, and more.</p>
 <p>We can also write some <code>C++</code> codes directly in RMarkdown adding to the chunk the following line of codes</p>
 <p>Now we will create an example, and create a function called <code>timesTwo</code> and run the <code>C++</code> code as an <code>R</code> function from <code>C++</code>. The most important element is the code <code>// [[Rcpp::export]]</code> which export the following function into <code>R</code>. Also, we would ask for <code>Rcpp</code> to <code>source</code> the function for us. Behind the scenes <code>Rcpp</code> creates a wrapper, and then <code>Rcpp</code> compiles, links, and loads the wrapper. Notice that <code>std</code> is tacking the standard package of <code>C++</code> to conduct a second function.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="notes-of-c-and-r.html#cb29-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
-<span id="cb29-2"><a href="notes-of-c-and-r.html#cb29-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</span>
-<span id="cb29-3"><a href="notes-of-c-and-r.html#cb29-3" aria-hidden="true"></a></span>
-<span id="cb29-4"><a href="notes-of-c-and-r.html#cb29-4" aria-hidden="true"></a><span class="co">// This is a simple example of exporting a C++ function to R. You can</span></span>
-<span id="cb29-5"><a href="notes-of-c-and-r.html#cb29-5" aria-hidden="true"></a><span class="co">// source this function into an R session using the Rcpp::sourceCpp</span></span>
-<span id="cb29-6"><a href="notes-of-c-and-r.html#cb29-6" aria-hidden="true"></a><span class="co">// function (or via the Source button on the editor toolbar). ...</span></span>
-<span id="cb29-7"><a href="notes-of-c-and-r.html#cb29-7" aria-hidden="true"></a></span>
-<span id="cb29-8"><a href="notes-of-c-and-r.html#cb29-8" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
-<span id="cb29-9"><a href="notes-of-c-and-r.html#cb29-9" aria-hidden="true"></a>NumericVector timesTwo(NumericVector x){</span>
-<span id="cb29-10"><a href="notes-of-c-and-r.html#cb29-10" aria-hidden="true"></a>  <span class="cf">return</span> x * <span class="dv">2</span>;</span>
-<span id="cb29-11"><a href="notes-of-c-and-r.html#cb29-11" aria-hidden="true"></a>}</span>
-<span id="cb29-12"><a href="notes-of-c-and-r.html#cb29-12" aria-hidden="true"></a></span>
-<span id="cb29-13"><a href="notes-of-c-and-r.html#cb29-13" aria-hidden="true"></a><span class="co">// You can include R code blocks in C++ files processed with source Cpp</span></span>
-<span id="cb29-14"><a href="notes-of-c-and-r.html#cb29-14" aria-hidden="true"></a><span class="co">// (useful for testing and development). The R code will be automatically</span></span>
-<span id="cb29-15"><a href="notes-of-c-and-r.html#cb29-15" aria-hidden="true"></a><span class="co">// fun after the compilation.</span></span>
-<span id="cb29-16"><a href="notes-of-c-and-r.html#cb29-16" aria-hidden="true"></a></span>
-<span id="cb29-17"><a href="notes-of-c-and-r.html#cb29-17" aria-hidden="true"></a><span class="co">/*** R</span></span>
-<span id="cb29-18"><a href="notes-of-c-and-r.html#cb29-18" aria-hidden="true"></a><span class="co">timesTwo(42)</span></span>
-<span id="cb29-19"><a href="notes-of-c-and-r.html#cb29-19" aria-hidden="true"></a><span class="co">cat(&quot;hello!\n&quot;)</span></span>
-<span id="cb29-20"><a href="notes-of-c-and-r.html#cb29-20" aria-hidden="true"></a><span class="co">timesTwo(c(12,48,28))</span></span>
-<span id="cb29-21"><a href="notes-of-c-and-r.html#cb29-21" aria-hidden="true"></a><span class="co">*/</span></span>
-<span id="cb29-22"><a href="notes-of-c-and-r.html#cb29-22" aria-hidden="true"></a></span>
-<span id="cb29-23"><a href="notes-of-c-and-r.html#cb29-23" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
-<span id="cb29-24"><a href="notes-of-c-and-r.html#cb29-24" aria-hidden="true"></a><span class="dt">double</span> cubed(<span class="dt">double</span> x){</span>
-<span id="cb29-25"><a href="notes-of-c-and-r.html#cb29-25" aria-hidden="true"></a>  <span class="cf">return</span> <span class="bu">std::</span>pow(x, <span class="dv">3</span>);</span>
-<span id="cb29-26"><a href="notes-of-c-and-r.html#cb29-26" aria-hidden="true"></a>}</span>
-<span id="cb29-27"><a href="notes-of-c-and-r.html#cb29-27" aria-hidden="true"></a></span>
-<span id="cb29-28"><a href="notes-of-c-and-r.html#cb29-28" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
-<span id="cb29-29"><a href="notes-of-c-and-r.html#cb29-29" aria-hidden="true"></a>NumericVector cubedVec(NumericVector x){</span>
-<span id="cb29-30"><a href="notes-of-c-and-r.html#cb29-30" aria-hidden="true"></a>  <span class="cf">return</span> pow(x, <span class="dv">3</span>);</span>
-<span id="cb29-31"><a href="notes-of-c-and-r.html#cb29-31" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="notes-of-c-and-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb29-2"><a href="notes-of-c-and-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</span>
+<span id="cb29-3"><a href="notes-of-c-and-r.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="notes-of-c-and-r.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">// This is a simple example of exporting a C++ function to R. You can</span></span>
+<span id="cb29-5"><a href="notes-of-c-and-r.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">// source this function into an R session using the Rcpp::sourceCpp</span></span>
+<span id="cb29-6"><a href="notes-of-c-and-r.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">// function (or via the Source button on the editor toolbar). ...</span></span>
+<span id="cb29-7"><a href="notes-of-c-and-r.html#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="notes-of-c-and-r.html#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb29-9"><a href="notes-of-c-and-r.html#cb29-9" aria-hidden="true" tabindex="-1"></a>NumericVector timesTwo(NumericVector x){</span>
+<span id="cb29-10"><a href="notes-of-c-and-r.html#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x * <span class="dv">2</span>;</span>
+<span id="cb29-11"><a href="notes-of-c-and-r.html#cb29-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-12"><a href="notes-of-c-and-r.html#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="notes-of-c-and-r.html#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">// You can include R code blocks in C++ files processed with source Cpp</span></span>
+<span id="cb29-14"><a href="notes-of-c-and-r.html#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">// (useful for testing and development). The R code will be automatically</span></span>
+<span id="cb29-15"><a href="notes-of-c-and-r.html#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">// fun after the compilation.</span></span>
+<span id="cb29-16"><a href="notes-of-c-and-r.html#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="notes-of-c-and-r.html#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">/*** R</span></span>
+<span id="cb29-18"><a href="notes-of-c-and-r.html#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">timesTwo(42)</span></span>
+<span id="cb29-19"><a href="notes-of-c-and-r.html#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co">cat(&quot;hello!\n&quot;)</span></span>
+<span id="cb29-20"><a href="notes-of-c-and-r.html#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">timesTwo(c(12,48,28))</span></span>
+<span id="cb29-21"><a href="notes-of-c-and-r.html#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb29-22"><a href="notes-of-c-and-r.html#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="notes-of-c-and-r.html#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb29-24"><a href="notes-of-c-and-r.html#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> cubed(<span class="dt">double</span> x){</span>
+<span id="cb29-25"><a href="notes-of-c-and-r.html#cb29-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">std::</span>pow(x, <span class="dv">3</span>);</span>
+<span id="cb29-26"><a href="notes-of-c-and-r.html#cb29-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-27"><a href="notes-of-c-and-r.html#cb29-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-28"><a href="notes-of-c-and-r.html#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb29-29"><a href="notes-of-c-and-r.html#cb29-29" aria-hidden="true" tabindex="-1"></a>NumericVector cubedVec(NumericVector x){</span>
+<span id="cb29-30"><a href="notes-of-c-and-r.html#cb29-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> pow(x, <span class="dv">3</span>);</span>
+<span id="cb29-31"><a href="notes-of-c-and-r.html#cb29-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Actually, if we check once again, we would have available the function into our <code>R</code> environment.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="notes-of-c-and-r.html#cb30-1" aria-hidden="true"></a><span class="kw">timesTwo</span>(<span class="dv">42</span>)</span>
-<span id="cb30-2"><a href="notes-of-c-and-r.html#cb30-2" aria-hidden="true"></a><span class="co">#&gt; [1] 84</span></span>
-<span id="cb30-3"><a href="notes-of-c-and-r.html#cb30-3" aria-hidden="true"></a><span class="kw">cubed</span>(<span class="dv">2</span>)</span>
-<span id="cb30-4"><a href="notes-of-c-and-r.html#cb30-4" aria-hidden="true"></a><span class="co">#&gt; [1] 8</span></span>
-<span id="cb30-5"><a href="notes-of-c-and-r.html#cb30-5" aria-hidden="true"></a><span class="kw">cubedVec</span>(<span class="dv">3</span>)</span>
-<span id="cb30-6"><a href="notes-of-c-and-r.html#cb30-6" aria-hidden="true"></a><span class="co">#&gt; [1] 27</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="notes-of-c-and-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">timesTwo</span>(<span class="dv">42</span>)</span>
+<span id="cb30-2"><a href="notes-of-c-and-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 84</span></span>
+<span id="cb30-3"><a href="notes-of-c-and-r.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cubed</span>(<span class="dv">2</span>)</span>
+<span id="cb30-4"><a href="notes-of-c-and-r.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8</span></span>
+<span id="cb30-5"><a href="notes-of-c-and-r.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cubedVec</span>(<span class="dv">3</span>)</span>
+<span id="cb30-6"><a href="notes-of-c-and-r.html#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 27</span></span></code></pre></div>
 <p>Now we would check the speed of a function from <code>R</code> and another from <code>C++</code>. We would try the Fibonacci sequence</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="notes-of-c-and-r.html#cb31-1" aria-hidden="true"></a><span class="co"># An R function</span></span>
-<span id="cb31-2"><a href="notes-of-c-and-r.html#cb31-2" aria-hidden="true"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
-<span id="cb31-3"><a href="notes-of-c-and-r.html#cb31-3" aria-hidden="true"></a>  <span class="cf">if</span>(n <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="kw">return</span>(n)</span>
-<span id="cb31-4"><a href="notes-of-c-and-r.html#cb31-4" aria-hidden="true"></a>  <span class="kw">return</span>(<span class="kw">f</span>(n<span class="dv">-1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">f</span>(n<span class="dv">-2</span>))</span>
-<span id="cb31-5"><a href="notes-of-c-and-r.html#cb31-5" aria-hidden="true"></a>}</span>
-<span id="cb31-6"><a href="notes-of-c-and-r.html#cb31-6" aria-hidden="true"></a><span class="kw">sapply</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, f)</span>
-<span id="cb31-7"><a href="notes-of-c-and-r.html#cb31-7" aria-hidden="true"></a><span class="co">#&gt;  [1]  0  1  1  2  3  5  8 13 21 34 55</span></span>
-<span id="cb31-8"><a href="notes-of-c-and-r.html#cb31-8" aria-hidden="true"></a></span>
-<span id="cb31-9"><a href="notes-of-c-and-r.html#cb31-9" aria-hidden="true"></a><span class="co"># A C++ function</span></span>
-<span id="cb31-10"><a href="notes-of-c-and-r.html#cb31-10" aria-hidden="true"></a>Rcpp<span class="op">::</span><span class="kw">cppFunction</span>(<span class="st">&#39;int g(int n){</span></span>
-<span id="cb31-11"><a href="notes-of-c-and-r.html#cb31-11" aria-hidden="true"></a><span class="st">                  if (n &lt; 2) return(n);</span></span>
-<span id="cb31-12"><a href="notes-of-c-and-r.html#cb31-12" aria-hidden="true"></a><span class="st">                  return(g(n-1) + g(n-2));</span></span>
-<span id="cb31-13"><a href="notes-of-c-and-r.html#cb31-13" aria-hidden="true"></a><span class="st">                  }</span></span>
-<span id="cb31-14"><a href="notes-of-c-and-r.html#cb31-14" aria-hidden="true"></a><span class="st">                  &#39;</span>)</span>
-<span id="cb31-15"><a href="notes-of-c-and-r.html#cb31-15" aria-hidden="true"></a><span class="kw">sapply</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, g)</span>
-<span id="cb31-16"><a href="notes-of-c-and-r.html#cb31-16" aria-hidden="true"></a><span class="co">#&gt;  [1]  0  1  1  2  3  5  8 13 21 34 55</span></span>
-<span id="cb31-17"><a href="notes-of-c-and-r.html#cb31-17" aria-hidden="true"></a></span>
-<span id="cb31-18"><a href="notes-of-c-and-r.html#cb31-18" aria-hidden="true"></a><span class="co"># Check time! increase exponentially</span></span>
-<span id="cb31-19"><a href="notes-of-c-and-r.html#cb31-19" aria-hidden="true"></a><span class="kw">library</span>(rbenchmark)</span>
-<span id="cb31-20"><a href="notes-of-c-and-r.html#cb31-20" aria-hidden="true"></a><span class="kw">benchmark</span>(<span class="kw">f</span>(<span class="dv">10</span>), <span class="kw">f</span>(<span class="dv">15</span>), <span class="kw">f</span>(<span class="dv">20</span>))[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span>
-<span id="cb31-21"><a href="notes-of-c-and-r.html#cb31-21" aria-hidden="true"></a><span class="co">#&gt;    test replications elapsed relative</span></span>
-<span id="cb31-22"><a href="notes-of-c-and-r.html#cb31-22" aria-hidden="true"></a><span class="co">#&gt; 1 f(10)          100   0.008    1.000</span></span>
-<span id="cb31-23"><a href="notes-of-c-and-r.html#cb31-23" aria-hidden="true"></a><span class="co">#&gt; 2 f(15)          100   0.091   11.375</span></span>
-<span id="cb31-24"><a href="notes-of-c-and-r.html#cb31-24" aria-hidden="true"></a><span class="co">#&gt; 3 f(20)          100   1.023  127.875</span></span>
-<span id="cb31-25"><a href="notes-of-c-and-r.html#cb31-25" aria-hidden="true"></a></span>
-<span id="cb31-26"><a href="notes-of-c-and-r.html#cb31-26" aria-hidden="true"></a><span class="co"># Now we would compare both functions, C++ perform incredible faster!</span></span>
-<span id="cb31-27"><a href="notes-of-c-and-r.html#cb31-27" aria-hidden="true"></a><span class="kw">benchmark</span>(<span class="kw">f</span>(<span class="dv">20</span>), <span class="kw">g</span>(<span class="dv">20</span>))[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span>
-<span id="cb31-28"><a href="notes-of-c-and-r.html#cb31-28" aria-hidden="true"></a><span class="co">#&gt;    test replications elapsed relative</span></span>
-<span id="cb31-29"><a href="notes-of-c-and-r.html#cb31-29" aria-hidden="true"></a><span class="co">#&gt; 1 f(20)          100   1.024    204.8</span></span>
-<span id="cb31-30"><a href="notes-of-c-and-r.html#cb31-30" aria-hidden="true"></a><span class="co">#&gt; 2 g(20)          100   0.005      1.0</span></span>
-<span id="cb31-31"><a href="notes-of-c-and-r.html#cb31-31" aria-hidden="true"></a>res &lt;-<span class="st"> </span>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>(<span class="kw">f</span>(<span class="dv">20</span>), <span class="kw">g</span>(<span class="dv">20</span>))</span>
-<span id="cb31-32"><a href="notes-of-c-and-r.html#cb31-32" aria-hidden="true"></a>res</span>
-<span id="cb31-33"><a href="notes-of-c-and-r.html#cb31-33" aria-hidden="true"></a><span class="co">#&gt; Unit: microseconds</span></span>
-<span id="cb31-34"><a href="notes-of-c-and-r.html#cb31-34" aria-hidden="true"></a><span class="co">#&gt;   expr      min       lq        mean   median         uq       max neval</span></span>
-<span id="cb31-35"><a href="notes-of-c-and-r.html#cb31-35" aria-hidden="true"></a><span class="co">#&gt;  f(20) 9603.809 9696.594 10289.30009 9816.240 10424.4180 13714.109   100</span></span>
-<span id="cb31-36"><a href="notes-of-c-and-r.html#cb31-36" aria-hidden="true"></a><span class="co">#&gt;  g(20)   42.770   43.522    48.93411   49.204    52.8245   102.616   100</span></span>
-<span id="cb31-37"><a href="notes-of-c-and-r.html#cb31-37" aria-hidden="true"></a><span class="kw">suppressMessages</span>(microbenchmark<span class="op">:::</span><span class="kw">autoplot.microbenchmark</span>(res))</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="notes-of-c-and-r.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An R function</span></span>
+<span id="cb31-2"><a href="notes-of-c-and-r.html#cb31-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb31-3"><a href="notes-of-c-and-r.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(n <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(n)</span>
+<span id="cb31-4"><a href="notes-of-c-and-r.html#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">f</span>(n<span class="dv">-1</span>) <span class="sc">+</span> <span class="fu">f</span>(n<span class="dv">-2</span>))</span>
+<span id="cb31-5"><a href="notes-of-c-and-r.html#cb31-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-6"><a href="notes-of-c-and-r.html#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, f)</span>
+<span id="cb31-7"><a href="notes-of-c-and-r.html#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  0  1  1  2  3  5  8 13 21 34 55</span></span>
+<span id="cb31-8"><a href="notes-of-c-and-r.html#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="notes-of-c-and-r.html#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A C++ function</span></span>
+<span id="cb31-10"><a href="notes-of-c-and-r.html#cb31-10" aria-hidden="true" tabindex="-1"></a>Rcpp<span class="sc">::</span><span class="fu">cppFunction</span>(<span class="st">&#39;int g(int n){</span></span>
+<span id="cb31-11"><a href="notes-of-c-and-r.html#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="st">                  if (n &lt; 2) return(n);</span></span>
+<span id="cb31-12"><a href="notes-of-c-and-r.html#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="st">                  return(g(n-1) + g(n-2));</span></span>
+<span id="cb31-13"><a href="notes-of-c-and-r.html#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="st">                  }</span></span>
+<span id="cb31-14"><a href="notes-of-c-and-r.html#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="st">                  &#39;</span>)</span>
+<span id="cb31-15"><a href="notes-of-c-and-r.html#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, g)</span>
+<span id="cb31-16"><a href="notes-of-c-and-r.html#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  0  1  1  2  3  5  8 13 21 34 55</span></span>
+<span id="cb31-17"><a href="notes-of-c-and-r.html#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-18"><a href="notes-of-c-and-r.html#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Check time! increase exponentially</span></span>
+<span id="cb31-19"><a href="notes-of-c-and-r.html#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rbenchmark)</span>
+<span id="cb31-20"><a href="notes-of-c-and-r.html#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="fu">benchmark</span>(<span class="fu">f</span>(<span class="dv">10</span>), <span class="fu">f</span>(<span class="dv">15</span>), <span class="fu">f</span>(<span class="dv">20</span>))[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb31-21"><a href="notes-of-c-and-r.html#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    test replications elapsed relative</span></span>
+<span id="cb31-22"><a href="notes-of-c-and-r.html#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 f(10)          100   0.007    1.000</span></span>
+<span id="cb31-23"><a href="notes-of-c-and-r.html#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 f(15)          100   0.074   10.571</span></span>
+<span id="cb31-24"><a href="notes-of-c-and-r.html#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 f(20)          100   0.738  105.429</span></span>
+<span id="cb31-25"><a href="notes-of-c-and-r.html#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="notes-of-c-and-r.html#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we would compare both functions, C++ perform incredible faster!</span></span>
+<span id="cb31-27"><a href="notes-of-c-and-r.html#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="fu">benchmark</span>(<span class="fu">f</span>(<span class="dv">20</span>), <span class="fu">g</span>(<span class="dv">20</span>))[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb31-28"><a href="notes-of-c-and-r.html#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    test replications elapsed relative</span></span>
+<span id="cb31-29"><a href="notes-of-c-and-r.html#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 f(20)          100   0.718    179.5</span></span>
+<span id="cb31-30"><a href="notes-of-c-and-r.html#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 g(20)          100   0.004      1.0</span></span>
+<span id="cb31-31"><a href="notes-of-c-and-r.html#cb31-31" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(<span class="fu">f</span>(<span class="dv">20</span>), <span class="fu">g</span>(<span class="dv">20</span>))</span>
+<span id="cb31-32"><a href="notes-of-c-and-r.html#cb31-32" aria-hidden="true" tabindex="-1"></a>res</span>
+<span id="cb31-33"><a href="notes-of-c-and-r.html#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unit: microseconds</span></span>
+<span id="cb31-34"><a href="notes-of-c-and-r.html#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   expr      min       lq       mean    median        uq      max neval cld</span></span>
+<span id="cb31-35"><a href="notes-of-c-and-r.html#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  f(20) 6483.526 6626.454 7084.06236 6819.7120 7263.3165 8991.043   100   b</span></span>
+<span id="cb31-36"><a href="notes-of-c-and-r.html#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  g(20)   20.397   21.238   23.36513   22.7275   24.2655   39.573   100  a</span></span>
+<span id="cb31-37"><a href="notes-of-c-and-r.html#cb31-37" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(microbenchmark<span class="sc">:::</span><span class="fu">autoplot.microbenchmark</span>(res))</span></code></pre></div>
 <p><img src="man/figures/README-unnamed-chunk-31-1.png" width="100%" /></p>
 </div>
 <div id="d.-eddelbuettel-tutorial" class="section level2" number="4.5">
@@ -557,33 +565,33 @@ Some names that are used in <code>R</code>:</p>
 <li><code>bool</code>: LogicalVector</li>
 <li><code>complex</code>: ComplexVector</li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="notes-of-c-and-r.html#cb32-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
-<span id="cb32-2"><a href="notes-of-c-and-r.html#cb32-2" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
-<span id="cb32-3"><a href="notes-of-c-and-r.html#cb32-3" aria-hidden="true"></a><span class="dt">double</span> getMax(Rcpp::NumericVector v){</span>
-<span id="cb32-4"><a href="notes-of-c-and-r.html#cb32-4" aria-hidden="true"></a>  <span class="dt">int</span> n = v.size(); <span class="co">// vectors are describing</span></span>
-<span id="cb32-5"><a href="notes-of-c-and-r.html#cb32-5" aria-hidden="true"></a>  <span class="dt">double</span> m = v[<span class="dv">0</span>]; <span class="co">// initialize</span></span>
-<span id="cb32-6"><a href="notes-of-c-and-r.html#cb32-6" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;n; i++){</span>
-<span id="cb32-7"><a href="notes-of-c-and-r.html#cb32-7" aria-hidden="true"></a>    <span class="cf">if</span> (v[i] &gt; m){</span>
-<span id="cb32-8"><a href="notes-of-c-and-r.html#cb32-8" aria-hidden="true"></a>      Rcpp::Rcout &lt;&lt; <span class="st">&quot;Now&quot;</span> &lt;&lt; m &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb32-9"><a href="notes-of-c-and-r.html#cb32-9" aria-hidden="true"></a>      m = v[i];</span>
-<span id="cb32-10"><a href="notes-of-c-and-r.html#cb32-10" aria-hidden="true"></a>    }</span>
-<span id="cb32-11"><a href="notes-of-c-and-r.html#cb32-11" aria-hidden="true"></a>  }</span>
-<span id="cb32-12"><a href="notes-of-c-and-r.html#cb32-12" aria-hidden="true"></a>  <span class="cf">return</span>(m);</span>
-<span id="cb32-13"><a href="notes-of-c-and-r.html#cb32-13" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="notes-of-c-and-r.html#cb33-1" aria-hidden="true"></a><span class="kw">getMax</span>(<span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">201</span>, <span class="dv">18</span>))</span>
-<span id="cb33-2"><a href="notes-of-c-and-r.html#cb33-2" aria-hidden="true"></a><span class="co">#&gt; Now20</span></span>
-<span id="cb33-3"><a href="notes-of-c-and-r.html#cb33-3" aria-hidden="true"></a><span class="co">#&gt; [1] 201</span></span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="notes-of-c-and-r.html#cb34-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
-<span id="cb34-2"><a href="notes-of-c-and-r.html#cb34-2" aria-hidden="true"></a></span>
-<span id="cb34-3"><a href="notes-of-c-and-r.html#cb34-3" aria-hidden="true"></a><span class="co">//[[Rcpp::export]]</span></span>
-<span id="cb34-4"><a href="notes-of-c-and-r.html#cb34-4" aria-hidden="true"></a>Rcpp::NumericVector colSums(Rcpp::NumericMatrix mat){</span>
-<span id="cb34-5"><a href="notes-of-c-and-r.html#cb34-5" aria-hidden="true"></a>  <span class="dt">size_t</span> cols = mat.cols(); <span class="co">// How big is the matrix?</span></span>
-<span id="cb34-6"><a href="notes-of-c-and-r.html#cb34-6" aria-hidden="true"></a>  Rcpp::NumericVector res(cols); <span class="co">// knowing the size, we could create a vector</span></span>
-<span id="cb34-7"><a href="notes-of-c-and-r.html#cb34-7" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> i=<span class="dv">0</span>; i&lt;cols; i++){ <span class="co">// Then operation from 0 from less of the columns</span></span>
-<span id="cb34-8"><a href="notes-of-c-and-r.html#cb34-8" aria-hidden="true"></a>    res[i] = sum(mat.column(i));</span>
-<span id="cb34-9"><a href="notes-of-c-and-r.html#cb34-9" aria-hidden="true"></a>  }</span>
-<span id="cb34-10"><a href="notes-of-c-and-r.html#cb34-10" aria-hidden="true"></a>  <span class="cf">return</span>(res);</span>
-<span id="cb34-11"><a href="notes-of-c-and-r.html#cb34-11" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="notes-of-c-and-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb32-2"><a href="notes-of-c-and-r.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb32-3"><a href="notes-of-c-and-r.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> getMax(Rcpp::NumericVector v){</span>
+<span id="cb32-4"><a href="notes-of-c-and-r.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n = v.size(); <span class="co">// vectors are describing</span></span>
+<span id="cb32-5"><a href="notes-of-c-and-r.html#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> m = v[<span class="dv">0</span>]; <span class="co">// initialize</span></span>
+<span id="cb32-6"><a href="notes-of-c-and-r.html#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;n; i++){</span>
+<span id="cb32-7"><a href="notes-of-c-and-r.html#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (v[i] &gt; m){</span>
+<span id="cb32-8"><a href="notes-of-c-and-r.html#cb32-8" aria-hidden="true" tabindex="-1"></a>      Rcpp::Rcout &lt;&lt; <span class="st">&quot;Now&quot;</span> &lt;&lt; m &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb32-9"><a href="notes-of-c-and-r.html#cb32-9" aria-hidden="true" tabindex="-1"></a>      m = v[i];</span>
+<span id="cb32-10"><a href="notes-of-c-and-r.html#cb32-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb32-11"><a href="notes-of-c-and-r.html#cb32-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb32-12"><a href="notes-of-c-and-r.html#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(m);</span>
+<span id="cb32-13"><a href="notes-of-c-and-r.html#cb32-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="notes-of-c-and-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getMax</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">201</span>, <span class="dv">18</span>))</span>
+<span id="cb33-2"><a href="notes-of-c-and-r.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Now20</span></span>
+<span id="cb33-3"><a href="notes-of-c-and-r.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 201</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="notes-of-c-and-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb34-2"><a href="notes-of-c-and-r.html#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="notes-of-c-and-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">//[[Rcpp::export]]</span></span>
+<span id="cb34-4"><a href="notes-of-c-and-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a>Rcpp::NumericVector colSums(Rcpp::NumericMatrix mat){</span>
+<span id="cb34-5"><a href="notes-of-c-and-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> cols = mat.cols(); <span class="co">// How big is the matrix?</span></span>
+<span id="cb34-6"><a href="notes-of-c-and-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a>  Rcpp::NumericVector res(cols); <span class="co">// knowing the size, we could create a vector</span></span>
+<span id="cb34-7"><a href="notes-of-c-and-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="dt">size_t</span> i=<span class="dv">0</span>; i&lt;cols; i++){ <span class="co">// Then operation from 0 from less of the columns</span></span>
+<span id="cb34-8"><a href="notes-of-c-and-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a>    res[i] = sum(mat.column(i));</span>
+<span id="cb34-9"><a href="notes-of-c-and-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-10"><a href="notes-of-c-and-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(res);</span>
+<span id="cb34-11"><a href="notes-of-c-and-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>What we did?</p>
 <ul>
 <li><code>NumericMatrix</code> and <code>NumericVector</code> go-to types for matrix and vector operationso n floating point variables</li>
@@ -594,62 +602,62 @@ Some names that are used in <code>R</code>:</p>
 <li>The last <code>sum()</code> was internally vectorised, no need to loop over all elements</li>
 </ul>
 <p>Another example</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="notes-of-c-and-r.html#cb35-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
-<span id="cb35-2"><a href="notes-of-c-and-r.html#cb35-2" aria-hidden="true"></a></span>
-<span id="cb35-3"><a href="notes-of-c-and-r.html#cb35-3" aria-hidden="true"></a><span class="co">//[[Rcpp::export]]</span></span>
-<span id="cb35-4"><a href="notes-of-c-and-r.html#cb35-4" aria-hidden="true"></a><span class="dt">double</span> getMax(Rcpp::NumericVector v){</span>
-<span id="cb35-5"><a href="notes-of-c-and-r.html#cb35-5" aria-hidden="true"></a>  <span class="dt">int</span> n = v.size(); <span class="co">// vectors are describing</span></span>
-<span id="cb35-6"><a href="notes-of-c-and-r.html#cb35-6" aria-hidden="true"></a>  <span class="dt">double</span> m = v[<span class="dv">0</span>];</span>
-<span id="cb35-7"><a href="notes-of-c-and-r.html#cb35-7" aria-hidden="true"></a>  <span class="cf">for</span> (<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;n; i++){</span>
-<span id="cb35-8"><a href="notes-of-c-and-r.html#cb35-8" aria-hidden="true"></a>    <span class="cf">if</span> (v[i] &gt; m) {</span>
-<span id="cb35-9"><a href="notes-of-c-and-r.html#cb35-9" aria-hidden="true"></a>      Rcpp::Rcout &lt;&lt; <span class="st">&quot;Now&quot;</span> &lt;&lt; m &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb35-10"><a href="notes-of-c-and-r.html#cb35-10" aria-hidden="true"></a>      m = v[i];</span>
-<span id="cb35-11"><a href="notes-of-c-and-r.html#cb35-11" aria-hidden="true"></a>    }</span>
-<span id="cb35-12"><a href="notes-of-c-and-r.html#cb35-12" aria-hidden="true"></a>  }</span>
-<span id="cb35-13"><a href="notes-of-c-and-r.html#cb35-13" aria-hidden="true"></a>  <span class="cf">return</span>(m);</span>
-<span id="cb35-14"><a href="notes-of-c-and-r.html#cb35-14" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="notes-of-c-and-r.html#cb36-1" aria-hidden="true"></a><span class="kw">getMax</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">46</span>))</span>
-<span id="cb36-2"><a href="notes-of-c-and-r.html#cb36-2" aria-hidden="true"></a><span class="co">#&gt; Now1</span></span>
-<span id="cb36-3"><a href="notes-of-c-and-r.html#cb36-3" aria-hidden="true"></a><span class="co">#&gt; Now4</span></span>
-<span id="cb36-4"><a href="notes-of-c-and-r.html#cb36-4" aria-hidden="true"></a><span class="co">#&gt; [1] 46</span></span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb37-1"><a href="notes-of-c-and-r.html#cb37-1" aria-hidden="true"></a><span class="kw">struct</span> Date {</span>
-<span id="cb37-2"><a href="notes-of-c-and-r.html#cb37-2" aria-hidden="true"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> year;</span>
-<span id="cb37-3"><a href="notes-of-c-and-r.html#cb37-3" aria-hidden="true"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> month;</span>
-<span id="cb37-4"><a href="notes-of-c-and-r.html#cb37-4" aria-hidden="true"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> day</span>
-<span id="cb37-5"><a href="notes-of-c-and-r.html#cb37-5" aria-hidden="true"></a>};</span>
-<span id="cb37-6"><a href="notes-of-c-and-r.html#cb37-6" aria-hidden="true"></a></span>
-<span id="cb37-7"><a href="notes-of-c-and-r.html#cb37-7" aria-hidden="true"></a><span class="kw">struct</span> Person {</span>
-<span id="cb37-8"><a href="notes-of-c-and-r.html#cb37-8" aria-hidden="true"></a>  <span class="dt">char</span> firstname[<span class="dv">20</span>];</span>
-<span id="cb37-9"><a href="notes-of-c-and-r.html#cb37-9" aria-hidden="true"></a>  <span class="dt">char</span> lastname[<span class="dv">20</span>];</span>
-<span id="cb37-10"><a href="notes-of-c-and-r.html#cb37-10" aria-hidden="true"></a>  <span class="kw">struct</span> Date birthday;</span>
-<span id="cb37-11"><a href="notes-of-c-and-r.html#cb37-11" aria-hidden="true"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> id;</span>
-<span id="cb37-12"><a href="notes-of-c-and-r.html#cb37-12" aria-hidden="true"></a>};</span>
-<span id="cb37-13"><a href="notes-of-c-and-r.html#cb37-13" aria-hidden="true"></a></span>
-<span id="cb37-14"><a href="notes-of-c-and-r.html#cb37-14" aria-hidden="true"></a><span class="kw">class</span> Date {</span>
-<span id="cb37-15"><a href="notes-of-c-and-r.html#cb37-15" aria-hidden="true"></a><span class="kw">private</span>:</span>
-<span id="cb37-16"><a href="notes-of-c-and-r.html#cb37-16" aria-hidden="true"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> year;</span>
-<span id="cb37-17"><a href="notes-of-c-and-r.html#cb37-17" aria-hidden="true"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> month;</span>
-<span id="cb37-18"><a href="notes-of-c-and-r.html#cb37-18" aria-hidden="true"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> date;</span>
-<span id="cb37-19"><a href="notes-of-c-and-r.html#cb37-19" aria-hidden="true"></a><span class="kw">public</span>: </span>
-<span id="cb37-20"><a href="notes-of-c-and-r.html#cb37-20" aria-hidden="true"></a>  <span class="dt">void</span> setDate(<span class="dt">int</span> y, <span class="dt">int</span> m, <span class="dt">int</span> d);</span>
-<span id="cb37-21"><a href="notes-of-c-and-r.html#cb37-21" aria-hidden="true"></a>  <span class="dt">int</span> getDay();</span>
-<span id="cb37-22"><a href="notes-of-c-and-r.html#cb37-22" aria-hidden="true"></a>  <span class="dt">int</span> getMonth();</span>
-<span id="cb37-23"><a href="notes-of-c-and-r.html#cb37-23" aria-hidden="true"></a>  <span class="dt">int</span> getYear();</span>
-<span id="cb37-24"><a href="notes-of-c-and-r.html#cb37-24" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="notes-of-c-and-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb35-2"><a href="notes-of-c-and-r.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="notes-of-c-and-r.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">//[[Rcpp::export]]</span></span>
+<span id="cb35-4"><a href="notes-of-c-and-r.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> getMax(Rcpp::NumericVector v){</span>
+<span id="cb35-5"><a href="notes-of-c-and-r.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n = v.size(); <span class="co">// vectors are describing</span></span>
+<span id="cb35-6"><a href="notes-of-c-and-r.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> m = v[<span class="dv">0</span>];</span>
+<span id="cb35-7"><a href="notes-of-c-and-r.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;n; i++){</span>
+<span id="cb35-8"><a href="notes-of-c-and-r.html#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (v[i] &gt; m) {</span>
+<span id="cb35-9"><a href="notes-of-c-and-r.html#cb35-9" aria-hidden="true" tabindex="-1"></a>      Rcpp::Rcout &lt;&lt; <span class="st">&quot;Now&quot;</span> &lt;&lt; m &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb35-10"><a href="notes-of-c-and-r.html#cb35-10" aria-hidden="true" tabindex="-1"></a>      m = v[i];</span>
+<span id="cb35-11"><a href="notes-of-c-and-r.html#cb35-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb35-12"><a href="notes-of-c-and-r.html#cb35-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb35-13"><a href="notes-of-c-and-r.html#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(m);</span>
+<span id="cb35-14"><a href="notes-of-c-and-r.html#cb35-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="notes-of-c-and-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getMax</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">46</span>))</span>
+<span id="cb36-2"><a href="notes-of-c-and-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Now1</span></span>
+<span id="cb36-3"><a href="notes-of-c-and-r.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Now4</span></span>
+<span id="cb36-4"><a href="notes-of-c-and-r.html#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 46</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb37-1"><a href="notes-of-c-and-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Date {</span>
+<span id="cb37-2"><a href="notes-of-c-and-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> year;</span>
+<span id="cb37-3"><a href="notes-of-c-and-r.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> month;</span>
+<span id="cb37-4"><a href="notes-of-c-and-r.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> day</span>
+<span id="cb37-5"><a href="notes-of-c-and-r.html#cb37-5" aria-hidden="true" tabindex="-1"></a>};</span>
+<span id="cb37-6"><a href="notes-of-c-and-r.html#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="notes-of-c-and-r.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Person {</span>
+<span id="cb37-8"><a href="notes-of-c-and-r.html#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> firstname[<span class="dv">20</span>];</span>
+<span id="cb37-9"><a href="notes-of-c-and-r.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> lastname[<span class="dv">20</span>];</span>
+<span id="cb37-10"><a href="notes-of-c-and-r.html#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">struct</span> Date birthday;</span>
+<span id="cb37-11"><a href="notes-of-c-and-r.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> id;</span>
+<span id="cb37-12"><a href="notes-of-c-and-r.html#cb37-12" aria-hidden="true" tabindex="-1"></a>};</span>
+<span id="cb37-13"><a href="notes-of-c-and-r.html#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-14"><a href="notes-of-c-and-r.html#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Date {</span>
+<span id="cb37-15"><a href="notes-of-c-and-r.html#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span>:</span>
+<span id="cb37-16"><a href="notes-of-c-and-r.html#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> year;</span>
+<span id="cb37-17"><a href="notes-of-c-and-r.html#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> month;</span>
+<span id="cb37-18"><a href="notes-of-c-and-r.html#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> date;</span>
+<span id="cb37-19"><a href="notes-of-c-and-r.html#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span>: </span>
+<span id="cb37-20"><a href="notes-of-c-and-r.html#cb37-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> setDate(<span class="dt">int</span> y, <span class="dt">int</span> m, <span class="dt">int</span> d);</span>
+<span id="cb37-21"><a href="notes-of-c-and-r.html#cb37-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> getDay();</span>
+<span id="cb37-22"><a href="notes-of-c-and-r.html#cb37-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> getMonth();</span>
+<span id="cb37-23"><a href="notes-of-c-and-r.html#cb37-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> getYear();</span>
+<span id="cb37-24"><a href="notes-of-c-and-r.html#cb37-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><code>C++</code> has vectors as well: written as <code>std::vector&lt;T&gt;</code> where <code>T</code> denotes template meaning different <em>types</em> can be used to instantiate</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="notes-of-c-and-r.html#cb38-1" aria-hidden="true"></a>Rcpp<span class="op">::</span><span class="kw">cppFunction</span>(<span class="st">&quot;double getmax2(std::vector&lt;double&gt; v){</span></span>
-<span id="cb38-2"><a href="notes-of-c-and-r.html#cb38-2" aria-hidden="true"></a><span class="st">  int n = v.size(); // vectors are describing</span></span>
-<span id="cb38-3"><a href="notes-of-c-and-r.html#cb38-3" aria-hidden="true"></a><span class="st">  double m = v[0]; // initialize</span></span>
-<span id="cb38-4"><a href="notes-of-c-and-r.html#cb38-4" aria-hidden="true"></a><span class="st">  for(int i=0; i&lt;n; i++){</span></span>
-<span id="cb38-5"><a href="notes-of-c-and-r.html#cb38-5" aria-hidden="true"></a><span class="st">    if (v[i] &gt; m){</span></span>
-<span id="cb38-6"><a href="notes-of-c-and-r.html#cb38-6" aria-hidden="true"></a><span class="st">    m = v[i];</span></span>
-<span id="cb38-7"><a href="notes-of-c-and-r.html#cb38-7" aria-hidden="true"></a><span class="st">    }</span></span>
-<span id="cb38-8"><a href="notes-of-c-and-r.html#cb38-8" aria-hidden="true"></a><span class="st">  }</span></span>
-<span id="cb38-9"><a href="notes-of-c-and-r.html#cb38-9" aria-hidden="true"></a><span class="st">}&quot;</span>)</span>
-<span id="cb38-10"><a href="notes-of-c-and-r.html#cb38-10" aria-hidden="true"></a></span>
-<span id="cb38-11"><a href="notes-of-c-and-r.html#cb38-11" aria-hidden="true"></a><span class="kw">getMax</span>(<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">2</span>))</span>
-<span id="cb38-12"><a href="notes-of-c-and-r.html#cb38-12" aria-hidden="true"></a><span class="co">#&gt; Now4</span></span>
-<span id="cb38-13"><a href="notes-of-c-and-r.html#cb38-13" aria-hidden="true"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="notes-of-c-and-r.html#cb38-1" aria-hidden="true" tabindex="-1"></a>Rcpp<span class="sc">::</span><span class="fu">cppFunction</span>(<span class="st">&quot;double getmax2(std::vector&lt;double&gt; v){</span></span>
+<span id="cb38-2"><a href="notes-of-c-and-r.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = v.size(); // vectors are describing</span></span>
+<span id="cb38-3"><a href="notes-of-c-and-r.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">  double m = v[0]; // initialize</span></span>
+<span id="cb38-4"><a href="notes-of-c-and-r.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i=0; i&lt;n; i++){</span></span>
+<span id="cb38-5"><a href="notes-of-c-and-r.html#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="st">    if (v[i] &gt; m){</span></span>
+<span id="cb38-6"><a href="notes-of-c-and-r.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">    m = v[i];</span></span>
+<span id="cb38-7"><a href="notes-of-c-and-r.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb38-8"><a href="notes-of-c-and-r.html#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb38-9"><a href="notes-of-c-and-r.html#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="st">}&quot;</span>)</span>
+<span id="cb38-10"><a href="notes-of-c-and-r.html#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="notes-of-c-and-r.html#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="fu">getMax</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">2</span>))</span>
+<span id="cb38-12"><a href="notes-of-c-and-r.html#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Now4</span></span>
+<span id="cb38-13"><a href="notes-of-c-and-r.html#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div>
 <ul>
 <li>STL vectors are widely used so <code>Rcpp</code> supports them</li>
 <li>Very useful to access other <code>C++</code> code and libraries</li>
@@ -657,22 +665,22 @@ Some names that are used in <code>R</code>:</p>
 <li>STL vectors have different underpinning so copies</li>
 <li>But not a concern unless you have a) either HUGE data structures, b) or many many calls</li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="notes-of-c-and-r.html#cb39-1" aria-hidden="true"></a>Rcpp<span class="op">::</span><span class="kw">cppFunction</span>(<span class="st">&quot;void setSecond(Rcpp::NumericVector v){</span></span>
-<span id="cb39-2"><a href="notes-of-c-and-r.html#cb39-2" aria-hidden="true"></a><span class="st">            v[1] = 42; // numeric vector (temporal copy! could not survey)</span></span>
-<span id="cb39-3"><a href="notes-of-c-and-r.html#cb39-3" aria-hidden="true"></a><span class="st">}&quot;</span>)</span>
-<span id="cb39-4"><a href="notes-of-c-and-r.html#cb39-4" aria-hidden="true"></a></span>
-<span id="cb39-5"><a href="notes-of-c-and-r.html#cb39-5" aria-hidden="true"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>); <span class="kw">setSecond</span>(v); v <span class="co"># as expected</span></span>
-<span id="cb39-6"><a href="notes-of-c-and-r.html#cb39-6" aria-hidden="true"></a><span class="co">#&gt; [1]  1 42  3</span></span>
-<span id="cb39-7"><a href="notes-of-c-and-r.html#cb39-7" aria-hidden="true"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(1L, 2L, 3L); <span class="kw">setSecond</span>(v); v <span class="co"># different (vector of integers)</span></span>
-<span id="cb39-8"><a href="notes-of-c-and-r.html#cb39-8" aria-hidden="true"></a><span class="co">#&gt; [1] 1 2 3</span></span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="notes-of-c-and-r.html#cb40-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
-<span id="cb40-2"><a href="notes-of-c-and-r.html#cb40-2" aria-hidden="true"></a></span>
-<span id="cb40-3"><a href="notes-of-c-and-r.html#cb40-3" aria-hidden="true"></a><span class="co">// [[Rcpp::export]]</span></span>
-<span id="cb40-4"><a href="notes-of-c-and-r.html#cb40-4" aria-hidden="true"></a><span class="dt">double</span> getMax(Rcpp::NumericVector v){</span>
-<span id="cb40-5"><a href="notes-of-c-and-r.html#cb40-5" aria-hidden="true"></a>  <span class="cf">return</span>( max(v));</span>
-<span id="cb40-6"><a href="notes-of-c-and-r.html#cb40-6" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="notes-of-c-and-r.html#cb41-1" aria-hidden="true"></a><span class="kw">getMax</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))</span>
-<span id="cb41-2"><a href="notes-of-c-and-r.html#cb41-2" aria-hidden="true"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="notes-of-c-and-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a>Rcpp<span class="sc">::</span><span class="fu">cppFunction</span>(<span class="st">&quot;void setSecond(Rcpp::NumericVector v){</span></span>
+<span id="cb39-2"><a href="notes-of-c-and-r.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">            v[1] = 42; // numeric vector (temporal copy! could not survey)</span></span>
+<span id="cb39-3"><a href="notes-of-c-and-r.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">}&quot;</span>)</span>
+<span id="cb39-4"><a href="notes-of-c-and-r.html#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="notes-of-c-and-r.html#cb39-5" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>); <span class="fu">setSecond</span>(v); v <span class="co"># as expected</span></span>
+<span id="cb39-6"><a href="notes-of-c-and-r.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1 42  3</span></span>
+<span id="cb39-7"><a href="notes-of-c-and-r.html#cb39-7" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(1L, 2L, 3L); <span class="fu">setSecond</span>(v); v <span class="co"># different (vector of integers)</span></span>
+<span id="cb39-8"><a href="notes-of-c-and-r.html#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="notes-of-c-and-r.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb40-2"><a href="notes-of-c-and-r.html#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="notes-of-c-and-r.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb40-4"><a href="notes-of-c-and-r.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> getMax(Rcpp::NumericVector v){</span>
+<span id="cb40-5"><a href="notes-of-c-and-r.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>( max(v));</span>
+<span id="cb40-6"><a href="notes-of-c-and-r.html#cb40-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="notes-of-c-and-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getMax</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))</span>
+<span id="cb41-2"><a href="notes-of-c-and-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div>
 <p>For math operations, it should be used <code>RcppArmadillo</code>!</p>
 <p><strong>Packages</strong></p>
 <p><a href="https://www.youtube.com/watch?v=SgXVRHqh9l8">Check this</a></p>
@@ -710,7 +718,6 @@ Some names that are used in <code>R</code>:</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -729,6 +736,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -749,6 +757,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

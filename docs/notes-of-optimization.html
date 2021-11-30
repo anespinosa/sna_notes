@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Notes of Optimization | Notes for Social Network Science Projects using R</title>
   <meta name="description" content="2 Notes of Optimization | Notes for Social Network Science Projects using R" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Notes of Optimization | Notes for Social Network Science Projects using R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-09-21" />
+<meta name="date" content="2021-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="notes-of-r-and-python.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,13 +50,15 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +118,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 </head>
 
@@ -192,26 +196,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Univariate normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span> is</p>
 <p><span class="math inline">\(f(x|\mu, \sigma^2)=\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}\)</span></p>
 <p>and in <code>R</code> we can compute this value as</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="notes-of-optimization.html#cb4-1" aria-hidden="true"></a><span class="kw">dnorm</span>(<span class="dv">0</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>); <span class="kw">dnorm</span>(<span class="dv">0</span>)</span>
-<span id="cb4-2"><a href="notes-of-optimization.html#cb4-2" aria-hidden="true"></a><span class="co">#&gt; [1] 0.3989423</span></span>
-<span id="cb4-3"><a href="notes-of-optimization.html#cb4-3" aria-hidden="true"></a><span class="co">#&gt; [1] 0.3989423</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="notes-of-optimization.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>); <span class="fu">dnorm</span>(<span class="dv">0</span>)</span>
+<span id="cb4-2"><a href="notes-of-optimization.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3989423</span></span>
+<span id="cb4-3"><a href="notes-of-optimization.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3989423</span></span></code></pre></div>
 <p>Calculating the equation, we have</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="notes-of-optimization.html#cb5-1" aria-hidden="true"></a><span class="co"># Example 1</span></span>
-<span id="cb5-2"><a href="notes-of-optimization.html#cb5-2" aria-hidden="true"></a>UniNorm &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sigma=</span><span class="dv">1</span>){</span>
-<span id="cb5-3"><a href="notes-of-optimization.html#cb5-3" aria-hidden="true"></a>  <span class="co">#pi = 3.14159</span></span>
-<span id="cb5-4"><a href="notes-of-optimization.html#cb5-4" aria-hidden="true"></a> output &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>sigma))<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span><span class="op">*</span>(sigma)<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span>((x<span class="op">-</span>mean)<span class="op">^</span><span class="dv">2</span>)) </span>
-<span id="cb5-5"><a href="notes-of-optimization.html#cb5-5" aria-hidden="true"></a> <span class="kw">print</span>(output)</span>
-<span id="cb5-6"><a href="notes-of-optimization.html#cb5-6" aria-hidden="true"></a>}</span>
-<span id="cb5-7"><a href="notes-of-optimization.html#cb5-7" aria-hidden="true"></a><span class="kw">UniNorm</span>(<span class="dv">0</span>)</span>
-<span id="cb5-8"><a href="notes-of-optimization.html#cb5-8" aria-hidden="true"></a><span class="kw">dnorm</span>(<span class="dv">0</span>)</span>
-<span id="cb5-9"><a href="notes-of-optimization.html#cb5-9" aria-hidden="true"></a></span>
-<span id="cb5-10"><a href="notes-of-optimization.html#cb5-10" aria-hidden="true"></a><span class="co"># Example 2</span></span>
-<span id="cb5-11"><a href="notes-of-optimization.html#cb5-11" aria-hidden="true"></a><span class="kw">UniNorm</span>(<span class="dv">1</span>)</span>
-<span id="cb5-12"><a href="notes-of-optimization.html#cb5-12" aria-hidden="true"></a><span class="kw">dnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb5-13"><a href="notes-of-optimization.html#cb5-13" aria-hidden="true"></a><span class="co">#&gt; [1] 0.3989423</span></span>
-<span id="cb5-14"><a href="notes-of-optimization.html#cb5-14" aria-hidden="true"></a><span class="co">#&gt; [1] 0.3989423</span></span>
-<span id="cb5-15"><a href="notes-of-optimization.html#cb5-15" aria-hidden="true"></a><span class="co">#&gt; [1] 0.2419707</span></span>
-<span id="cb5-16"><a href="notes-of-optimization.html#cb5-16" aria-hidden="true"></a><span class="co">#&gt; [1] 0.2419707</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="notes-of-optimization.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 1</span></span>
+<span id="cb5-2"><a href="notes-of-optimization.html#cb5-2" aria-hidden="true" tabindex="-1"></a>UniNorm <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sigma=</span><span class="dv">1</span>){</span>
+<span id="cb5-3"><a href="notes-of-optimization.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#pi = 3.14159</span></span>
+<span id="cb5-4"><a href="notes-of-optimization.html#cb5-4" aria-hidden="true" tabindex="-1"></a> output <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>sigma))<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span><span class="sc">*</span>(sigma)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span>((x<span class="sc">-</span>mean)<span class="sc">^</span><span class="dv">2</span>)) </span>
+<span id="cb5-5"><a href="notes-of-optimization.html#cb5-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">print</span>(output)</span>
+<span id="cb5-6"><a href="notes-of-optimization.html#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-7"><a href="notes-of-optimization.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">UniNorm</span>(<span class="dv">0</span>)</span>
+<span id="cb5-8"><a href="notes-of-optimization.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">0</span>)</span>
+<span id="cb5-9"><a href="notes-of-optimization.html#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="notes-of-optimization.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 2</span></span>
+<span id="cb5-11"><a href="notes-of-optimization.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">UniNorm</span>(<span class="dv">1</span>)</span>
+<span id="cb5-12"><a href="notes-of-optimization.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb5-13"><a href="notes-of-optimization.html#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3989423</span></span>
+<span id="cb5-14"><a href="notes-of-optimization.html#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3989423</span></span>
+<span id="cb5-15"><a href="notes-of-optimization.html#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.2419707</span></span>
+<span id="cb5-16"><a href="notes-of-optimization.html#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.2419707</span></span></code></pre></div>
 <p>In practice, the exact number is not used, and the <span class="math inline">\(log\)</span> is used instead. However, in some cases we do need the value in the original scale. Calculating <em>densities</em> with <span class="math inline">\(log\)</span> is much more stable because when the exponential function is used the number become very small for the machine to represent (<em>underflow</em>), and if the ratio is used we could have also big numbers (<em>overflow</em>). The <span class="math inline">\(log\)</span> (and then the <span class="math inline">\(exp\)</span>) resolve some of these issues.</p>
 </div>
 <div id="linear-regression" class="section level2" number="2.3">
@@ -224,18 +228,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \hat{\beta}=(X&#39;X)^{-1}X&#39;y
 \]</span></p>
 <p>Which could be estimated in <code>R</code> using <code>solve</code> to extract the inverse of the cross product matrix.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="notes-of-optimization.html#cb6-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb6-2"><a href="notes-of-optimization.html#cb6-2" aria-hidden="true"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">5000</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
-<span id="cb6-3"><a href="notes-of-optimization.html#cb6-3" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5000</span>)</span>
-<span id="cb6-4"><a href="notes-of-optimization.html#cb6-4" aria-hidden="true"></a>betahat &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y</span>
-<span id="cb6-5"><a href="notes-of-optimization.html#cb6-5" aria-hidden="true"></a><span class="kw">head</span>(betahat)</span>
-<span id="cb6-6"><a href="notes-of-optimization.html#cb6-6" aria-hidden="true"></a><span class="co">#&gt;              [,1]</span></span>
-<span id="cb6-7"><a href="notes-of-optimization.html#cb6-7" aria-hidden="true"></a><span class="co">#&gt; [1,]  0.013075906</span></span>
-<span id="cb6-8"><a href="notes-of-optimization.html#cb6-8" aria-hidden="true"></a><span class="co">#&gt; [2,] -0.002368796</span></span>
-<span id="cb6-9"><a href="notes-of-optimization.html#cb6-9" aria-hidden="true"></a><span class="co">#&gt; [3,] -0.007509733</span></span>
-<span id="cb6-10"><a href="notes-of-optimization.html#cb6-10" aria-hidden="true"></a><span class="co">#&gt; [4,]  0.004884836</span></span>
-<span id="cb6-11"><a href="notes-of-optimization.html#cb6-11" aria-hidden="true"></a><span class="co">#&gt; [5,]  0.011336186</span></span>
-<span id="cb6-12"><a href="notes-of-optimization.html#cb6-12" aria-hidden="true"></a><span class="co">#&gt; [6,]  0.007056535</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="notes-of-optimization.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb6-2"><a href="notes-of-optimization.html#cb6-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">5000</span> <span class="sc">*</span> <span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
+<span id="cb6-3"><a href="notes-of-optimization.html#cb6-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5000</span>)</span>
+<span id="cb6-4"><a href="notes-of-optimization.html#cb6-4" aria-hidden="true" tabindex="-1"></a>betahat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb6-5"><a href="notes-of-optimization.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(betahat)</span>
+<span id="cb6-6"><a href="notes-of-optimization.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              [,1]</span></span>
+<span id="cb6-7"><a href="notes-of-optimization.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]  0.013075906</span></span>
+<span id="cb6-8"><a href="notes-of-optimization.html#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] -0.002368796</span></span>
+<span id="cb6-9"><a href="notes-of-optimization.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] -0.007509733</span></span>
+<span id="cb6-10"><a href="notes-of-optimization.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,]  0.004884836</span></span>
+<span id="cb6-11"><a href="notes-of-optimization.html#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  0.011336186</span></span>
+<span id="cb6-12"><a href="notes-of-optimization.html#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,]  0.007056535</span></span></code></pre></div>
 <p>Computationally, this is very expensive!</p>
 <div class="alert alert-info">
 <p>Quick look of <em>inverse matrixes</em> to understand the following equation:
@@ -363,26 +367,26 @@ ad-bc
 \]</span></p>
 <p>If the resulting value of <span class="math inline">\(ad-bc=0\)</span>, then the matrix is not invertible (is singular or degenerate)</p>
 <p>In <code>R</code> all this calculation is just a simple function. For example,</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="notes-of-optimization.html#cb7-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb7-2"><a href="notes-of-optimization.html#cb7-2" aria-hidden="true"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>), <span class="dv">100</span>, <span class="dv">100</span>)</span>
-<span id="cb7-3"><a href="notes-of-optimization.html#cb7-3" aria-hidden="true"></a>inv_X &lt;-<span class="st"> </span><span class="kw">solve</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="notes-of-optimization.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb7-2"><a href="notes-of-optimization.html#cb7-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="dv">100</span>), <span class="dv">100</span>, <span class="dv">100</span>)</span>
+<span id="cb7-3"><a href="notes-of-optimization.html#cb7-3" aria-hidden="true" tabindex="-1"></a>inv_X <span class="ot">&lt;-</span> <span class="fu">solve</span>(X)</span></code></pre></div>
 </div>
 <p>A better option that is less computationally demanding is re-arranging the terms in the following way:</p>
 <p><span class="math display">\[
 X&#39;X\beta = X&#39;y
 \]</span></p>
 <p>Which, gives the same result</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="notes-of-optimization.html#cb8-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb8-2"><a href="notes-of-optimization.html#cb8-2" aria-hidden="true"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">5000</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
-<span id="cb8-3"><a href="notes-of-optimization.html#cb8-3" aria-hidden="true"></a>betahat &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X), <span class="kw">crossprod</span>(X, y))</span>
-<span id="cb8-4"><a href="notes-of-optimization.html#cb8-4" aria-hidden="true"></a><span class="kw">head</span>(betahat)</span>
-<span id="cb8-5"><a href="notes-of-optimization.html#cb8-5" aria-hidden="true"></a><span class="co">#&gt;              [,1]</span></span>
-<span id="cb8-6"><a href="notes-of-optimization.html#cb8-6" aria-hidden="true"></a><span class="co">#&gt; [1,]  0.013075906</span></span>
-<span id="cb8-7"><a href="notes-of-optimization.html#cb8-7" aria-hidden="true"></a><span class="co">#&gt; [2,] -0.002368796</span></span>
-<span id="cb8-8"><a href="notes-of-optimization.html#cb8-8" aria-hidden="true"></a><span class="co">#&gt; [3,] -0.007509733</span></span>
-<span id="cb8-9"><a href="notes-of-optimization.html#cb8-9" aria-hidden="true"></a><span class="co">#&gt; [4,]  0.004884836</span></span>
-<span id="cb8-10"><a href="notes-of-optimization.html#cb8-10" aria-hidden="true"></a><span class="co">#&gt; [5,]  0.011336186</span></span>
-<span id="cb8-11"><a href="notes-of-optimization.html#cb8-11" aria-hidden="true"></a><span class="co">#&gt; [6,]  0.007056535</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="notes-of-optimization.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb8-2"><a href="notes-of-optimization.html#cb8-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">5000</span> <span class="sc">*</span> <span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
+<span id="cb8-3"><a href="notes-of-optimization.html#cb8-3" aria-hidden="true" tabindex="-1"></a>betahat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">crossprod</span>(X), <span class="fu">crossprod</span>(X, y))</span>
+<span id="cb8-4"><a href="notes-of-optimization.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(betahat)</span>
+<span id="cb8-5"><a href="notes-of-optimization.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              [,1]</span></span>
+<span id="cb8-6"><a href="notes-of-optimization.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]  0.013075906</span></span>
+<span id="cb8-7"><a href="notes-of-optimization.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] -0.002368796</span></span>
+<span id="cb8-8"><a href="notes-of-optimization.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] -0.007509733</span></span>
+<span id="cb8-9"><a href="notes-of-optimization.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,]  0.004884836</span></span>
+<span id="cb8-10"><a href="notes-of-optimization.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  0.011336186</span></span>
+<span id="cb8-11"><a href="notes-of-optimization.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,]  0.007056535</span></span></code></pre></div>
 <div id="gaussian-elimination" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Gaussian elimination</h3>
 <p>The difference between computing the inverse of <span class="math inline">\(X&#39;X\)</span>, and using a <em>Gaussian elimination</em> to compute <span class="math inline">\(\hat{\beta}\)</span> is that the solution is numerically more stable and faster. Also, if there are high colinearity amongst the predictors, then the results would be unstable if the inverse in <span class="math inline">\(X&#39;X\)</span> is used.</p>
@@ -408,59 +412,59 @@ A =
   \begin{pmatrix} x \\ y \end{pmatrix}
 \]</span></p>
 <p><a href="https://stackoverflow.com/questions/16044377/how-to-do-gaussian-elimination-in-r-do-not-use-solve">here</a></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="notes-of-optimization.html#cb9-1" aria-hidden="true"></a><span class="co"># Data</span></span>
-<span id="cb9-2"><a href="notes-of-optimization.html#cb9-2" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="op">-</span><span class="fl">2.5</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">4</span>,<span class="dv">6</span>),<span class="dt">byrow=</span>T,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>)</span>
-<span id="cb9-3"><a href="notes-of-optimization.html#cb9-3" aria-hidden="true"></a>b &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">10</span>),<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">1</span>)</span>
-<span id="cb9-4"><a href="notes-of-optimization.html#cb9-4" aria-hidden="true"></a>p &lt;-<span class="st"> </span><span class="kw">nrow</span>(A)</span>
-<span id="cb9-5"><a href="notes-of-optimization.html#cb9-5" aria-hidden="true"></a>(U.pls &lt;-<span class="st"> </span><span class="kw">cbind</span>(A,b))</span>
-<span id="cb9-6"><a href="notes-of-optimization.html#cb9-6" aria-hidden="true"></a></span>
-<span id="cb9-7"><a href="notes-of-optimization.html#cb9-7" aria-hidden="true"></a><span class="co"># Gaussian Elimination</span></span>
-<span id="cb9-8"><a href="notes-of-optimization.html#cb9-8" aria-hidden="true"></a>U.pls[<span class="dv">1</span>,] &lt;-<span class="st"> </span>U.pls[<span class="dv">1</span>,]<span class="op">/</span>U.pls[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb9-9"><a href="notes-of-optimization.html#cb9-9" aria-hidden="true"></a>i &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb9-10"><a href="notes-of-optimization.html#cb9-10" aria-hidden="true"></a><span class="cf">while</span> (i <span class="op">&lt;</span><span class="st"> </span>p<span class="op">+</span><span class="dv">1</span>) {</span>
-<span id="cb9-11"><a href="notes-of-optimization.html#cb9-11" aria-hidden="true"></a> j &lt;-<span class="st"> </span>i</span>
-<span id="cb9-12"><a href="notes-of-optimization.html#cb9-12" aria-hidden="true"></a> <span class="cf">while</span> (j <span class="op">&lt;</span><span class="st"> </span>p<span class="op">+</span><span class="dv">1</span>) {</span>
-<span id="cb9-13"><a href="notes-of-optimization.html#cb9-13" aria-hidden="true"></a>  U.pls[j, ] &lt;-<span class="st"> </span>U.pls[j, ] <span class="op">-</span><span class="st"> </span>U.pls[i<span class="dv">-1</span>, ] <span class="op">*</span><span class="st"> </span>U.pls[j, i<span class="dv">-1</span>]</span>
-<span id="cb9-14"><a href="notes-of-optimization.html#cb9-14" aria-hidden="true"></a>  j &lt;-<span class="st"> </span>j<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb9-15"><a href="notes-of-optimization.html#cb9-15" aria-hidden="true"></a> }</span>
-<span id="cb9-16"><a href="notes-of-optimization.html#cb9-16" aria-hidden="true"></a> <span class="cf">while</span> (U.pls[i,i] <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb9-17"><a href="notes-of-optimization.html#cb9-17" aria-hidden="true"></a>  U.pls &lt;-<span class="st"> </span><span class="kw">rbind</span>(U.pls[<span class="op">-</span>i,],U.pls[i,])</span>
-<span id="cb9-18"><a href="notes-of-optimization.html#cb9-18" aria-hidden="true"></a> }</span>
-<span id="cb9-19"><a href="notes-of-optimization.html#cb9-19" aria-hidden="true"></a> U.pls[i,] &lt;-<span class="st"> </span>U.pls[i,]<span class="op">/</span>U.pls[i,i]</span>
-<span id="cb9-20"><a href="notes-of-optimization.html#cb9-20" aria-hidden="true"></a> i &lt;-<span class="st"> </span>i<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb9-21"><a href="notes-of-optimization.html#cb9-21" aria-hidden="true"></a>}</span>
-<span id="cb9-22"><a href="notes-of-optimization.html#cb9-22" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> p<span class="op">:</span><span class="dv">2</span>){</span>
-<span id="cb9-23"><a href="notes-of-optimization.html#cb9-23" aria-hidden="true"></a> <span class="cf">for</span> (j <span class="cf">in</span> i<span class="op">:</span><span class="dv">2-1</span>) {</span>
-<span id="cb9-24"><a href="notes-of-optimization.html#cb9-24" aria-hidden="true"></a>  U.pls[j, ] &lt;-<span class="st"> </span>U.pls[j, ] <span class="op">-</span><span class="st"> </span>U.pls[i, ] <span class="op">*</span><span class="st"> </span>U.pls[j, i]</span>
-<span id="cb9-25"><a href="notes-of-optimization.html#cb9-25" aria-hidden="true"></a> }</span>
-<span id="cb9-26"><a href="notes-of-optimization.html#cb9-26" aria-hidden="true"></a>}</span>
-<span id="cb9-27"><a href="notes-of-optimization.html#cb9-27" aria-hidden="true"></a>U.pls</span>
-<span id="cb9-28"><a href="notes-of-optimization.html#cb9-28" aria-hidden="true"></a></span>
-<span id="cb9-29"><a href="notes-of-optimization.html#cb9-29" aria-hidden="true"></a><span class="co"># Check:</span></span>
-<span id="cb9-30"><a href="notes-of-optimization.html#cb9-30" aria-hidden="true"></a><span class="kw">library</span>(pracma)</span>
-<span id="cb9-31"><a href="notes-of-optimization.html#cb9-31" aria-hidden="true"></a><span class="kw">rref</span>(<span class="kw">cbind</span>(A, b))</span>
-<span id="cb9-32"><a href="notes-of-optimization.html#cb9-32" aria-hidden="true"></a><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span id="cb9-33"><a href="notes-of-optimization.html#cb9-33" aria-hidden="true"></a><span class="co">#&gt; [1,]    2 -5.0    4   -3</span></span>
-<span id="cb9-34"><a href="notes-of-optimization.html#cb9-34" aria-hidden="true"></a><span class="co">#&gt; [2,]    1 -2.5    1    5</span></span>
-<span id="cb9-35"><a href="notes-of-optimization.html#cb9-35" aria-hidden="true"></a><span class="co">#&gt; [3,]    1 -4.0    6   10</span></span>
-<span id="cb9-36"><a href="notes-of-optimization.html#cb9-36" aria-hidden="true"></a><span class="co">#&gt;      [,1] [,2] [,3]  [,4]</span></span>
-<span id="cb9-37"><a href="notes-of-optimization.html#cb9-37" aria-hidden="true"></a><span class="co">#&gt; [1,]    1    0    0 -51.0</span></span>
-<span id="cb9-38"><a href="notes-of-optimization.html#cb9-38" aria-hidden="true"></a><span class="co">#&gt; [2,]    0    1    0 -25.0</span></span>
-<span id="cb9-39"><a href="notes-of-optimization.html#cb9-39" aria-hidden="true"></a><span class="co">#&gt; [3,]    0    0    1  -6.5</span></span>
-<span id="cb9-40"><a href="notes-of-optimization.html#cb9-40" aria-hidden="true"></a><span class="co">#&gt;      [,1] [,2] [,3]  [,4]</span></span>
-<span id="cb9-41"><a href="notes-of-optimization.html#cb9-41" aria-hidden="true"></a><span class="co">#&gt; [1,]    1    0    0 -51.0</span></span>
-<span id="cb9-42"><a href="notes-of-optimization.html#cb9-42" aria-hidden="true"></a><span class="co">#&gt; [2,]    0    1    0 -25.0</span></span>
-<span id="cb9-43"><a href="notes-of-optimization.html#cb9-43" aria-hidden="true"></a><span class="co">#&gt; [3,]    0    0    1  -6.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="notes-of-optimization.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb9-2"><a href="notes-of-optimization.html#cb9-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="fl">2.5</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>),<span class="at">byrow=</span>T,<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb9-3"><a href="notes-of-optimization.html#cb9-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">10</span>),<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb9-4"><a href="notes-of-optimization.html#cb9-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">nrow</span>(A)</span>
+<span id="cb9-5"><a href="notes-of-optimization.html#cb9-5" aria-hidden="true" tabindex="-1"></a>(U.pls <span class="ot">&lt;-</span> <span class="fu">cbind</span>(A,b))</span>
+<span id="cb9-6"><a href="notes-of-optimization.html#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="notes-of-optimization.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gaussian Elimination</span></span>
+<span id="cb9-8"><a href="notes-of-optimization.html#cb9-8" aria-hidden="true" tabindex="-1"></a>U.pls[<span class="dv">1</span>,] <span class="ot">&lt;-</span> U.pls[<span class="dv">1</span>,]<span class="sc">/</span>U.pls[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb9-9"><a href="notes-of-optimization.html#cb9-9" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb9-10"><a href="notes-of-optimization.html#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> p<span class="sc">+</span><span class="dv">1</span>) {</span>
+<span id="cb9-11"><a href="notes-of-optimization.html#cb9-11" aria-hidden="true" tabindex="-1"></a> j <span class="ot">&lt;-</span> i</span>
+<span id="cb9-12"><a href="notes-of-optimization.html#cb9-12" aria-hidden="true" tabindex="-1"></a> <span class="cf">while</span> (j <span class="sc">&lt;</span> p<span class="sc">+</span><span class="dv">1</span>) {</span>
+<span id="cb9-13"><a href="notes-of-optimization.html#cb9-13" aria-hidden="true" tabindex="-1"></a>  U.pls[j, ] <span class="ot">&lt;-</span> U.pls[j, ] <span class="sc">-</span> U.pls[i<span class="dv">-1</span>, ] <span class="sc">*</span> U.pls[j, i<span class="dv">-1</span>]</span>
+<span id="cb9-14"><a href="notes-of-optimization.html#cb9-14" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb9-15"><a href="notes-of-optimization.html#cb9-15" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb9-16"><a href="notes-of-optimization.html#cb9-16" aria-hidden="true" tabindex="-1"></a> <span class="cf">while</span> (U.pls[i,i] <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb9-17"><a href="notes-of-optimization.html#cb9-17" aria-hidden="true" tabindex="-1"></a>  U.pls <span class="ot">&lt;-</span> <span class="fu">rbind</span>(U.pls[<span class="sc">-</span>i,],U.pls[i,])</span>
+<span id="cb9-18"><a href="notes-of-optimization.html#cb9-18" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb9-19"><a href="notes-of-optimization.html#cb9-19" aria-hidden="true" tabindex="-1"></a> U.pls[i,] <span class="ot">&lt;-</span> U.pls[i,]<span class="sc">/</span>U.pls[i,i]</span>
+<span id="cb9-20"><a href="notes-of-optimization.html#cb9-20" aria-hidden="true" tabindex="-1"></a> i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb9-21"><a href="notes-of-optimization.html#cb9-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-22"><a href="notes-of-optimization.html#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> p<span class="sc">:</span><span class="dv">2</span>){</span>
+<span id="cb9-23"><a href="notes-of-optimization.html#cb9-23" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> (j <span class="cf">in</span> i<span class="sc">:</span><span class="dv">2-1</span>) {</span>
+<span id="cb9-24"><a href="notes-of-optimization.html#cb9-24" aria-hidden="true" tabindex="-1"></a>  U.pls[j, ] <span class="ot">&lt;-</span> U.pls[j, ] <span class="sc">-</span> U.pls[i, ] <span class="sc">*</span> U.pls[j, i]</span>
+<span id="cb9-25"><a href="notes-of-optimization.html#cb9-25" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb9-26"><a href="notes-of-optimization.html#cb9-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-27"><a href="notes-of-optimization.html#cb9-27" aria-hidden="true" tabindex="-1"></a>U.pls</span>
+<span id="cb9-28"><a href="notes-of-optimization.html#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="notes-of-optimization.html#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Check:</span></span>
+<span id="cb9-30"><a href="notes-of-optimization.html#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pracma)</span>
+<span id="cb9-31"><a href="notes-of-optimization.html#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">rref</span>(<span class="fu">cbind</span>(A, b))</span>
+<span id="cb9-32"><a href="notes-of-optimization.html#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb9-33"><a href="notes-of-optimization.html#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]    2 -5.0    4   -3</span></span>
+<span id="cb9-34"><a href="notes-of-optimization.html#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    1 -2.5    1    5</span></span>
+<span id="cb9-35"><a href="notes-of-optimization.html#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,]    1 -4.0    6   10</span></span>
+<span id="cb9-36"><a href="notes-of-optimization.html#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]  [,4]</span></span>
+<span id="cb9-37"><a href="notes-of-optimization.html#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]    1    0    0 -51.0</span></span>
+<span id="cb9-38"><a href="notes-of-optimization.html#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    0    1    0 -25.0</span></span>
+<span id="cb9-39"><a href="notes-of-optimization.html#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,]    0    0    1  -6.5</span></span>
+<span id="cb9-40"><a href="notes-of-optimization.html#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]  [,4]</span></span>
+<span id="cb9-41"><a href="notes-of-optimization.html#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]    1    0    0 -51.0</span></span>
+<span id="cb9-42"><a href="notes-of-optimization.html#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    0    1    0 -25.0</span></span>
+<span id="cb9-43"><a href="notes-of-optimization.html#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,]    0    0    1  -6.5</span></span></code></pre></div>
 </div>
 <p>Comparing both strategies, we could check that the <strong>Gaussian elimination</strong> in comparisson with the other strategy is less time consuming</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="notes-of-optimization.html#cb10-1" aria-hidden="true"></a><span class="kw">library</span>(microbenchmark)</span>
-<span id="cb10-2"><a href="notes-of-optimization.html#cb10-2" aria-hidden="true"></a><span class="kw">library</span>(magrittr)</span>
-<span id="cb10-3"><a href="notes-of-optimization.html#cb10-3" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb10-4"><a href="notes-of-optimization.html#cb10-4" aria-hidden="true"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">5000</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
-<span id="cb10-5"><a href="notes-of-optimization.html#cb10-5" aria-hidden="true"></a><span class="kw">microbenchmark</span>(</span>
-<span id="cb10-6"><a href="notes-of-optimization.html#cb10-6" aria-hidden="true"></a>  <span class="dt">inverse =</span> <span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y,</span>
-<span id="cb10-7"><a href="notes-of-optimization.html#cb10-7" aria-hidden="true"></a>  <span class="dt">gaussian =</span> <span class="kw">solve</span>(<span class="kw">crossprod</span>(X), <span class="kw">crossprod</span>(X, y))</span>
-<span id="cb10-8"><a href="notes-of-optimization.html#cb10-8" aria-hidden="true"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>(<span class="dt">unit =</span> <span class="st">&quot;ms&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">format =</span> <span class="st">&quot;markdown&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="notes-of-optimization.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb10-2"><a href="notes-of-optimization.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb10-3"><a href="notes-of-optimization.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb10-4"><a href="notes-of-optimization.html#cb10-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">5000</span> <span class="sc">*</span> <span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
+<span id="cb10-5"><a href="notes-of-optimization.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb10-6"><a href="notes-of-optimization.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">inverse =</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y,</span>
+<span id="cb10-7"><a href="notes-of-optimization.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">gaussian =</span> <span class="fu">solve</span>(<span class="fu">crossprod</span>(X), <span class="fu">crossprod</span>(X, y))</span>
+<span id="cb10-8"><a href="notes-of-optimization.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">summary</span>(<span class="at">unit =</span> <span class="st">&quot;ms&quot;</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">&quot;markdown&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -472,37 +476,40 @@ A =
 <th align="right">uq</th>
 <th align="right">max</th>
 <th align="right">neval</th>
+<th align="left">cld</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">inverse</td>
-<td align="right">83.47911</td>
-<td align="right">88.63401</td>
-<td align="right">102.04665</td>
-<td align="right">93.81362</td>
-<td align="right">109.97496</td>
-<td align="right">351.63180</td>
+<td align="right">59.01579</td>
+<td align="right">60.59819</td>
+<td align="right">63.88924</td>
+<td align="right">62.93800</td>
+<td align="right">64.27753</td>
+<td align="right">151.10089</td>
 <td align="right">100</td>
+<td align="left">b</td>
 </tr>
 <tr class="even">
 <td align="left">gaussian</td>
-<td align="right">26.62552</td>
-<td align="right">27.14956</td>
-<td align="right">29.12537</td>
-<td align="right">27.52608</td>
-<td align="right">29.76229</td>
-<td align="right">50.79462</td>
+<td align="right">25.41466</td>
+<td align="right">25.72950</td>
+<td align="right">29.08326</td>
+<td align="right">26.07571</td>
+<td align="right">26.35354</td>
+<td align="right">93.37024</td>
 <td align="right">100</td>
+<td align="left">a</td>
 </tr>
 </tbody>
 </table>
 <p>On the other hand, the Gaussian elimination would breaks down when there is collinearity in the <span class="math inline">\(X\)</span> matrix. Meaning that the column <span class="math inline">\(X\)</span> would be very similar, but not identical, to the first column of <span class="math inline">\(X\)</span>. For example,</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="notes-of-optimization.html#cb11-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">127893</span>)</span>
-<span id="cb11-2"><a href="notes-of-optimization.html#cb11-2" aria-hidden="true"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">5000</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
-<span id="cb11-3"><a href="notes-of-optimization.html#cb11-3" aria-hidden="true"></a>W &lt;-<span class="st"> </span><span class="kw">cbind</span>(X, X[, <span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5000</span>, <span class="dt">sd =</span> <span class="fl">0.0000000001</span>))</span>
-<span id="cb11-4"><a href="notes-of-optimization.html#cb11-4" aria-hidden="true"></a><span class="kw">solve</span>(<span class="kw">crossprod</span>(W), <span class="kw">crossprod</span>(W, y)) </span>
-<span id="cb11-5"><a href="notes-of-optimization.html#cb11-5" aria-hidden="true"></a><span class="co">#&gt; Error in solve.default(crossprod(W), crossprod(W, y)): system is computationally singular: reciprocal condition number = 1.47235e-16</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="notes-of-optimization.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">127893</span>)</span>
+<span id="cb11-2"><a href="notes-of-optimization.html#cb11-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">5000</span> <span class="sc">*</span> <span class="dv">100</span>), <span class="dv">5000</span>, <span class="dv">100</span>)</span>
+<span id="cb11-3"><a href="notes-of-optimization.html#cb11-3" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X, X[, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">5000</span>, <span class="at">sd =</span> <span class="fl">0.0000000001</span>))</span>
+<span id="cb11-4"><a href="notes-of-optimization.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="fu">crossprod</span>(W), <span class="fu">crossprod</span>(W, y)) </span>
+<span id="cb11-5"><a href="notes-of-optimization.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in solve.default(crossprod(W), crossprod(W, y)): system is computationally singular: reciprocal condition number = 1.47235e-16</span></span></code></pre></div>
 <p>In this case, the cross product matrix <span class="math inline">\(W&#39;W\)</span> is singular (determinant is <span class="math inline">\(0\)</span>)</p>
 </div>
 <div id="qr-decomposition" class="section level3" number="2.3.2">
@@ -549,26 +556,26 @@ R\beta = Q&#39;y
 \]</span></p>
 <p>Considering that <span class="math inline">\(Q&#39;Q=I\)</span>, now we have a simpler equation that does not longer require to compute the cross product. Also, due the QR decomposition <span class="math inline">\(R\)</span> is upper triangular and, therefore, we can solve <span class="math inline">\(\beta\)</span> via Gaussian elimination. Some of the benefits are that the cross product <span class="math inline">\(X&#39;X\)</span> was numerically unstable if it is not properly centered or scaled.</p>
 <p>To compute the singular matrix <span class="math inline">\(W\)</span> of the example, the QR decomposition continous without error. Notices that the ouput have <span class="math inline">\(100\)</span> and not <span class="math inline">\(101\)</span> ranks, this is because the colinear column.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="notes-of-optimization.html#cb12-1" aria-hidden="true"></a>Qw &lt;-<span class="st"> </span><span class="kw">qr</span>(W)</span>
-<span id="cb12-2"><a href="notes-of-optimization.html#cb12-2" aria-hidden="true"></a><span class="kw">str</span>(Qw)</span>
-<span id="cb12-3"><a href="notes-of-optimization.html#cb12-3" aria-hidden="true"></a><span class="co">#&gt; List of 4</span></span>
-<span id="cb12-4"><a href="notes-of-optimization.html#cb12-4" aria-hidden="true"></a><span class="co">#&gt;  $ qr   : num [1:5000, 1:101] -7.04e+01 -1.15e-02 -8.27e-05 6.89e-03 -1.13e-02 ...</span></span>
-<span id="cb12-5"><a href="notes-of-optimization.html#cb12-5" aria-hidden="true"></a><span class="co">#&gt;  $ rank : int 100</span></span>
-<span id="cb12-6"><a href="notes-of-optimization.html#cb12-6" aria-hidden="true"></a><span class="co">#&gt;  $ qraux: num [1:101] 1.03 1.01 1.03 1.01 1.02 ...</span></span>
-<span id="cb12-7"><a href="notes-of-optimization.html#cb12-7" aria-hidden="true"></a><span class="co">#&gt;  $ pivot: int [1:101] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
-<span id="cb12-8"><a href="notes-of-optimization.html#cb12-8" aria-hidden="true"></a><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;qr&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="notes-of-optimization.html#cb12-1" aria-hidden="true" tabindex="-1"></a>Qw <span class="ot">&lt;-</span> <span class="fu">qr</span>(W)</span>
+<span id="cb12-2"><a href="notes-of-optimization.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Qw)</span>
+<span id="cb12-3"><a href="notes-of-optimization.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 4</span></span>
+<span id="cb12-4"><a href="notes-of-optimization.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ qr   : num [1:5000, 1:101] -7.04e+01 -1.15e-02 -8.27e-05 6.89e-03 -1.13e-02 ...</span></span>
+<span id="cb12-5"><a href="notes-of-optimization.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ rank : int 100</span></span>
+<span id="cb12-6"><a href="notes-of-optimization.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ qraux: num [1:101] 1.03 1.01 1.03 1.01 1.02 ...</span></span>
+<span id="cb12-7"><a href="notes-of-optimization.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ pivot: int [1:101] 1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span id="cb12-8"><a href="notes-of-optimization.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;qr&quot;</span></span></code></pre></div>
 <p>After understanding the QR decomposition for the matrix, we can now solve the regression equation to estimate <span class="math inline">\(\hat{\beta}\)</span> using <code>R</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="notes-of-optimization.html#cb13-1" aria-hidden="true"></a>betahat &lt;-<span class="st"> </span><span class="kw">qr.coef</span>(Qw, y)</span>
-<span id="cb13-2"><a href="notes-of-optimization.html#cb13-2" aria-hidden="true"></a><span class="kw">tail</span>(betahat, <span class="dv">1</span>)</span>
-<span id="cb13-3"><a href="notes-of-optimization.html#cb13-3" aria-hidden="true"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="notes-of-optimization.html#cb13-1" aria-hidden="true" tabindex="-1"></a>betahat <span class="ot">&lt;-</span> <span class="fu">qr.coef</span>(Qw, y)</span>
+<span id="cb13-2"><a href="notes-of-optimization.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(betahat, <span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="notes-of-optimization.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 <p>Notices that the last element in the position <span class="math inline">\(101\)</span> is <code>NA</code> due the colliniarity. Meaning that the coefficient could not be calculated.</p>
 <p>This approach helps with colliniarity, is better and more stable. However, is slower:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="notes-of-optimization.html#cb14-1" aria-hidden="true"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb14-2"><a href="notes-of-optimization.html#cb14-2" aria-hidden="true"></a><span class="kw">library</span>(microbenchmark)</span>
-<span id="cb14-3"><a href="notes-of-optimization.html#cb14-3" aria-hidden="true"></a>m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y,</span>
-<span id="cb14-4"><a href="notes-of-optimization.html#cb14-4" aria-hidden="true"></a>                    <span class="kw">solve</span>(<span class="kw">crossprod</span>(X), <span class="kw">crossprod</span>(X, y)),</span>
-<span id="cb14-5"><a href="notes-of-optimization.html#cb14-5" aria-hidden="true"></a>                    <span class="kw">qr.coef</span>(<span class="kw">qr</span>(X), y))</span>
-<span id="cb14-6"><a href="notes-of-optimization.html#cb14-6" aria-hidden="true"></a><span class="kw">autoplot</span>(m)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="notes-of-optimization.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-2"><a href="notes-of-optimization.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb14-3"><a href="notes-of-optimization.html#cb14-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y,</span>
+<span id="cb14-4"><a href="notes-of-optimization.html#cb14-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">solve</span>(<span class="fu">crossprod</span>(X), <span class="fu">crossprod</span>(X, y)),</span>
+<span id="cb14-5"><a href="notes-of-optimization.html#cb14-5" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">qr.coef</span>(<span class="fu">qr</span>(X), y))</span>
+<span id="cb14-6"><a href="notes-of-optimization.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(m)</span></code></pre></div>
 <p><img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" /></p>
 </div>
 </div>
@@ -621,7 +628,7 @@ p(x_{1})p(x_{2})=\frac{1}{Z_{1}Z_{2}}exp\{-\frac{1}{2}\}(x-\mu)^{T}\Sigma^{-1}(x
 z=x-\mu
 \]</span></p>
 <p>Similarly to the regression example above is the inversion of the of the <em>p</em>-dimensional covariance matrix <span class="math inline">\(\Sigma\)</span>. Taking <span class="math inline">\(z\)</span> as a <span class="math inline">\(p \times 1\)</span> column vector, then in <code>R</code> this could be expressed as</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="notes-of-optimization.html#cb15-1" aria-hidden="true"></a><span class="kw">t</span>(z) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma) <span class="op">%*%</span><span class="st"> </span>z</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="notes-of-optimization.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(z) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> z</span></code></pre></div>
 <div id="choleskey-decomposition" class="section level3" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Choleskey decomposition</h3>
 <p>Rather than using the literal equation, a similar approach is using the <strong>Choleskey decomposition</strong> of <span class="math inline">\(\Sigma\)</span>.</p>
@@ -653,33 +660,36 @@ R&#39;v=z
 \]</span>
 Then, computing <span class="math inline">\(v\)</span>, we can compute <span class="math inline">\(v&#39;v\)</span>, which is simply the cross-product of two <em>p</em>-dimensional vectors.</p>
 <p>One of the benefits of using Choleskey decomposition is that gives a way of computing the log-determinant of <span class="math inline">\(\Sigma\)</span>. Where the log-determinant of <span class="math inline">\(\Sigma\)</span> is simply <span class="math inline">\(2\)</span> times the sum of the log of the diagional elements of <span class="math inline">\(R\)</span>. Implementing this in a function</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="notes-of-optimization.html#cb16-1" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">93287</span>)</span>
-<span id="cb16-2"><a href="notes-of-optimization.html#cb16-2" aria-hidden="true"></a>z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">200</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>), <span class="dv">200</span>, <span class="dv">100</span>)</span>
-<span id="cb16-3"><a href="notes-of-optimization.html#cb16-3" aria-hidden="true"></a>S &lt;-<span class="st"> </span><span class="kw">cov</span>(z)</span>
-<span id="cb16-4"><a href="notes-of-optimization.html#cb16-4" aria-hidden="true"></a>quad.naive &lt;-<span class="st"> </span><span class="cf">function</span>(z, S) {</span>
-<span id="cb16-5"><a href="notes-of-optimization.html#cb16-5" aria-hidden="true"></a>        Sinv &lt;-<span class="st"> </span><span class="kw">solve</span>(S)</span>
-<span id="cb16-6"><a href="notes-of-optimization.html#cb16-6" aria-hidden="true"></a>        <span class="kw">rowSums</span>((z <span class="op">%*%</span><span class="st"> </span>Sinv) <span class="op">*</span><span class="st"> </span>z)</span>
-<span id="cb16-7"><a href="notes-of-optimization.html#cb16-7" aria-hidden="true"></a>}</span>
-<span id="cb16-8"><a href="notes-of-optimization.html#cb16-8" aria-hidden="true"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb16-9"><a href="notes-of-optimization.html#cb16-9" aria-hidden="true"></a><span class="kw">quad.naive</span>(z, S) <span class="op">%&gt;%</span><span class="st"> </span>summary</span>
-<span id="cb16-10"><a href="notes-of-optimization.html#cb16-10" aria-hidden="true"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb16-11"><a href="notes-of-optimization.html#cb16-11" aria-hidden="true"></a><span class="co">#&gt;   76.78   93.31   99.78  100.34  107.33  129.04</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="notes-of-optimization.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">93287</span>)</span>
+<span id="cb16-2"><a href="notes-of-optimization.html#cb16-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">200</span> <span class="sc">*</span> <span class="dv">100</span>), <span class="dv">200</span>, <span class="dv">100</span>)</span>
+<span id="cb16-3"><a href="notes-of-optimization.html#cb16-3" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">cov</span>(z)</span>
+<span id="cb16-4"><a href="notes-of-optimization.html#cb16-4" aria-hidden="true" tabindex="-1"></a>quad.naive <span class="ot">&lt;-</span> <span class="cf">function</span>(z, S) {</span>
+<span id="cb16-5"><a href="notes-of-optimization.html#cb16-5" aria-hidden="true" tabindex="-1"></a>        Sinv <span class="ot">&lt;-</span> <span class="fu">solve</span>(S)</span>
+<span id="cb16-6"><a href="notes-of-optimization.html#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rowSums</span>((z <span class="sc">%*%</span> Sinv) <span class="sc">*</span> z)</span>
+<span id="cb16-7"><a href="notes-of-optimization.html#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-8"><a href="notes-of-optimization.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb16-9"><a href="notes-of-optimization.html#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">quad.naive</span>(z, S) <span class="sc">%&gt;%</span> summary</span>
+<span id="cb16-10"><a href="notes-of-optimization.html#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb16-11"><a href="notes-of-optimization.html#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   76.78   93.31   99.78  100.34  107.33  129.04</span></span></code></pre></div>
 <p>Now, a version that use the Choleskey decomposition</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="notes-of-optimization.html#cb17-1" aria-hidden="true"></a>quad.chol &lt;-<span class="st"> </span><span class="cf">function</span>(z, S) {</span>
-<span id="cb17-2"><a href="notes-of-optimization.html#cb17-2" aria-hidden="true"></a>        R &lt;-<span class="st"> </span><span class="kw">chol</span>(S)</span>
-<span id="cb17-3"><a href="notes-of-optimization.html#cb17-3" aria-hidden="true"></a>        v &lt;-<span class="st"> </span><span class="kw">backsolve</span>(R, <span class="kw">t</span>(z), <span class="dt">transpose =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb17-4"><a href="notes-of-optimization.html#cb17-4" aria-hidden="true"></a>        <span class="kw">colSums</span>(v <span class="op">*</span><span class="st"> </span>v)</span>
-<span id="cb17-5"><a href="notes-of-optimization.html#cb17-5" aria-hidden="true"></a>}</span>
-<span id="cb17-6"><a href="notes-of-optimization.html#cb17-6" aria-hidden="true"></a><span class="kw">quad.chol</span>(z, S) <span class="op">%&gt;%</span><span class="st"> </span>summary</span>
-<span id="cb17-7"><a href="notes-of-optimization.html#cb17-7" aria-hidden="true"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb17-8"><a href="notes-of-optimization.html#cb17-8" aria-hidden="true"></a><span class="co">#&gt;   76.78   93.31   99.78  100.34  107.33  129.04</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="notes-of-optimization.html#cb17-1" aria-hidden="true" tabindex="-1"></a>quad.chol <span class="ot">&lt;-</span> <span class="cf">function</span>(z, S) {</span>
+<span id="cb17-2"><a href="notes-of-optimization.html#cb17-2" aria-hidden="true" tabindex="-1"></a>        R <span class="ot">&lt;-</span> <span class="fu">chol</span>(S)</span>
+<span id="cb17-3"><a href="notes-of-optimization.html#cb17-3" aria-hidden="true" tabindex="-1"></a>        v <span class="ot">&lt;-</span> <span class="fu">backsolve</span>(R, <span class="fu">t</span>(z), <span class="at">transpose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-4"><a href="notes-of-optimization.html#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">colSums</span>(v <span class="sc">*</span> v)</span>
+<span id="cb17-5"><a href="notes-of-optimization.html#cb17-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-6"><a href="notes-of-optimization.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">quad.chol</span>(z, S) <span class="sc">%&gt;%</span> summary</span>
+<span id="cb17-7"><a href="notes-of-optimization.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb17-8"><a href="notes-of-optimization.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   76.78   93.31   99.78  100.34  107.33  129.04</span></span></code></pre></div>
 <p>Comparing both approaches</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="notes-of-optimization.html#cb18-1" aria-hidden="true"></a><span class="kw">library</span>(microbenchmark)</span>
-<span id="cb18-2"><a href="notes-of-optimization.html#cb18-2" aria-hidden="true"></a><span class="kw">microbenchmark</span>(<span class="kw">quad.naive</span>(z, S), <span class="kw">quad.chol</span>(z, S))</span>
-<span id="cb18-3"><a href="notes-of-optimization.html#cb18-3" aria-hidden="true"></a><span class="co">#&gt; Unit: milliseconds</span></span>
-<span id="cb18-4"><a href="notes-of-optimization.html#cb18-4" aria-hidden="true"></a><span class="co">#&gt;              expr      min       lq     mean   median       uq      max neval</span></span>
-<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true"></a><span class="co">#&gt;  quad.naive(z, S) 2.733328 4.681762 8.088323 5.451645 7.108739 59.28013   100</span></span>
-<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true"></a><span class="co">#&gt;   quad.chol(z, S) 1.486466 2.288674 4.113774 2.636599 3.409265 59.24238   100</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="notes-of-optimization.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb18-2"><a href="notes-of-optimization.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="fu">quad.naive</span>(z, S), <span class="fu">quad.chol</span>(z, S))</span>
+<span id="cb18-3"><a href="notes-of-optimization.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
+<span id="cb18-4"><a href="notes-of-optimization.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              expr      min       lq     mean   median       uq      max neval</span></span>
+<span id="cb18-5"><a href="notes-of-optimization.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  quad.naive(z, S) 1.897180 1.973343 2.194633 2.062382 2.097110 8.460338   100</span></span>
+<span id="cb18-6"><a href="notes-of-optimization.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   quad.chol(z, S) 1.083052 1.114335 1.199666 1.153949 1.170768 4.709742   100</span></span>
+<span id="cb18-7"><a href="notes-of-optimization.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  cld</span></span>
+<span id="cb18-8"><a href="notes-of-optimization.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    b</span></span>
+<span id="cb18-9"><a href="notes-of-optimization.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   a</span></span></code></pre></div>
 <p>The Choelsky decomposition is faster. Also, because <strong>we know</strong> that the covariance matrix in a multivariate Normal is symmetric and positive define we can use the Choleskey decomposition. The naive version does not have that information, therefore, inverte the matrix and takes more time to estimate!</p>
 
 <!-- sna_r_python.md is generated from sna_r_python.Rmd. Please edit that file -->
@@ -696,7 +706,6 @@ Then, computing <span class="math inline">\(v\)</span>, we can compute <span cla
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -715,6 +724,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -735,6 +745,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
